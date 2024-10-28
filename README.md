@@ -1,5 +1,7 @@
 # vesthub-php
 ### To run the project on phpstorm:
+* Be ensure that you have downloaded PHP and add it as CLI interpreter
+* Follow the steps to download PHP: https://www.geeksforgeeks.org/how-to-install-php-in-windows-10/
 * Click Edit Configurations at the right-top 
 * Click + button at the left-top and create PHP Built-in Web Server, name it whatever you want for instance "Vesthub"
 * Document root should be C:\Users\Monster\Desktop\Safak\Vesthub\vesthub-php\Frontend\Pages 
