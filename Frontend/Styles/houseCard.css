@@ -1,0 +1,59 @@
+.home-card {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin: 10px;
+    width: 300px; /* Adjust width as needed */
+    height: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s; /* For hover effect */
+    background-color: #fff; /* White background for contrast */
+    position: relative; /* Ensure proper stacking context */
+    z-index: 1; /* Ensure this is above other elements */
+}
+
+.home-card:hover {
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+.home-card img {
+    display: block; /* Make the image a block element */
+    margin: 6px 6px 6px; /* Add top, right and left margin */
+    width: calc(100% - 12px);; /* Allow width to adjust according to total of right and left margins */
+    height: auto; /* Fixed height for the image */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 14px;
+}
+
+.home-details {
+    padding: 15px; /* Padding for text container */
+    position: relative; /* Ensure this is above background */
+    z-index: 2; /* Ensure text is above any background layers */
+}
+
+.home-details h3 {
+    margin: 0; /* Remove default margin */
+    font-size: 18px;
+    color: #333; /* Darker color for better visibility */
+}
+
+.home-details h5 {
+    margin: 5px 0; /* Add some space between h5 and surrounding elements */
+    font-size: 16px; /* Optional: Adjust font size if needed */
+    color: #777; /* Lighter color for price to differentiate */
+}
+
+.home-details p {
+    margin: 0;
+    font-size: 14px;
+    color: #555; /* Dark gray color for address */
+}
+
+/* Additional styles for contrast */
+.home-details h3,
+.home-details p {
+    text-align: left; /* Align text to the left for better readability */
+}
+
+.home-details p {
+    line-height: 1.5; /* Increase line height for readability */
+}
