@@ -1,20 +1,8 @@
 <?php
+require_once "connect.php";
 // databaseController.php
 if (!defined('DB_LOADED')) {
     define('DB_LOADED', true);
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "vesthub";
-
-    // Create a connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     function getAllHomes($conn) {
         $sql = "SELECT * FROM houses";

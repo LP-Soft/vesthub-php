@@ -11,4 +11,6 @@
 * Run the project ("Vesthub") at the right top on the server localhost:8080
 * Enter http://localhost:8000 and it will direct you to http://localhost:8000/Frontend/Pages/aboutPage.php
 * Default page is aboutPage.php for now
- 
+
+### To run mysqli() on Windows:
+* Ask Şafak, Şevval or Ali :)

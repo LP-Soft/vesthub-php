@@ -1,0 +1,17 @@
+<?php
+
+//TODO: Bunu herkeste aynı yapmamız gerekiyor!!!! Veya kendine göre degistirecek herkes
+$servername = "localhost";
+$username = "root";
+$password = "Safak123";
+$dbname = "vesthub";
+
+// Create a connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+?>
