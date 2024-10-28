@@ -22,7 +22,7 @@
 
     <!-- Navigation Links -->
     <div class="nav-links">
-        <a href="#">About</a>
+        <a href="#" onClick="">About</a>
         <!-- Kullanıcı giriş yapmamışsa -->
         <button class="btn signin-btn">Sign in</button>
         <button class="btn signup-btn">Sign up</button>
