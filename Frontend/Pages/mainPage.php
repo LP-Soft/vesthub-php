@@ -9,7 +9,7 @@ $result = getAllHomes($conn);
 $counter=0;
 if ($result && $result->num_rows > 0) {
     while ($home = $result->fetch_assoc()) {
-        include '../Components/homeCard.php';
+        include '../Components/houseCard.php';
         $counter++;
     }
 } else {
