@@ -9,7 +9,16 @@ include '../../Database/databaseController.php';
     <div class="home-details">
         <h3><?php echo htmlspecialchars($home['title']); ?></h3>
         <h5><?php echo htmlspecialchars($home['price']); ?> TL </h5>
-        <p><?php echo htmlspecialchars($home['fullAddress']); ?></p>
+        <!-- Her seferinde fullAddress'i empty stringten başlatıp bilgileri concatlayarak fullAddress elde ediyor -->
+        <p><?php $fullAddress =  "";
+            $fullAddress .= htmlspecialchars($home['street']);
+            $fullAddress .= ',';
+            $fullAddress .= htmlspecialchars($home['neighborhood']);
+            $fullAddress .= ',';
+            $fullAddress .= htmlspecialchars($home['district']);
+            $fullAddress .= '/';
+            $fullAddress .= htmlspecialchars($home['city']);
+            echo $fullAddress?></p>
     </div>
 </div>
 
