@@ -18,6 +18,8 @@ html, body {
     background-color: #e9ebea;
     flex-direction: column;
     width: 100%;
+    position: fixed;
+    bottom: 0;
 }
 
 .footer-logo {
