@@ -8,7 +8,7 @@ $isLoggedIn = isset($_SESSION['user']); // Kullanıcı giriş yapmış mı kontr
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LPSoft Project Team</title>
+    <title>About Page</title>
     <link rel="stylesheet" href="../Styles/aboutPage.css">
     <link rel="stylesheet" href="../Styles/styles.css">
 </head>

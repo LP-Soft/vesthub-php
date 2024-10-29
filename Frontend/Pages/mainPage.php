@@ -22,6 +22,6 @@ echo "  <div class='content'>
 include '../Components/footer.php';
 ?>
 <head>
-    <title>Vesthub Main Page</title>
+    <title>Main Page</title>
     <link rel="stylesheet" href="../Styles/mainPage.css">
 </head>
