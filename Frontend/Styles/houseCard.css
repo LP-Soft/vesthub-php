@@ -58,3 +58,12 @@
 .home-details p {
     line-height: 1.5; /* Increase line height for readability */
 }
+
+button{
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-right: 10px;
+
+}

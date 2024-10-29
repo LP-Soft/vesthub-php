@@ -1,6 +1,7 @@
 <?php
 require '../Components/header.php';
 include '../../Backend/mainPageService.php';
+include '../Components/houseCard.php';
 
 ?>
 <head>
@@ -17,8 +18,8 @@ include '../../Backend/mainPageService.php';
             $result = getLastFiveHouses();
             // Loop through the result set and include homecard.php
             if ($result && $result->num_rows > 0) {
-                while ($home = $result->fetch_assoc()) {
-                    include '../Components/houseCard.php';
+                while ($house = $result->fetch_assoc()) {
+                    displayHouseCard($house, 0);
                 }
             } else {
                 echo "No homes available.";
