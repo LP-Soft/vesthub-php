@@ -35,6 +35,20 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
+    function changeStatus_toApprove($conn, $HouseID) {
+        $sql = "UPDATE houses SET status = 'approved' WHERE houseID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $HouseID);
+        $stmt->execute();
+    }
+
+    function changeStatus_toCancel($conn, $HouseID) {
+        $sql = "UPDATE houses SET status = 'cancelled' WHERE houseID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $HouseID);
+        $stmt->execute();
+    }
+
     function closeConnection($conn) {
         $conn->close();
     }

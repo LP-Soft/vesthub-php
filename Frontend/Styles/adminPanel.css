@@ -1,52 +1,16 @@
-/* Main container */
-.Content {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 /* House Content Layout */
 .HouseContent {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-wrap: wrap; /* Allows wrapping to the next row */
+    gap: 20px; /* Space between items */
     padding: 10px;
     overflow-y: auto;
+    justify-content: center; /* Center items in the row */
 }
 
-.HouseContent > .HouseContent-border {
+/* Ensures each card takes up 20% of the row */
+.HouseContent > .home-card {
     flex: 1 1 calc(20% - 20px); /* Five items per row */
-    max-width: calc(20% - 20px);
-    box-sizing: border-box;
-}
-
-/* Card Styling */
-.HouseContent-border {
-    border: 1px solid #ccc;
-    border-radius: 10px; /* Slightly smaller corners */
-    padding: 10px;       
-    margin: 5px;         
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    background-color: #fff;
-}
-
-/* Image Styling */
-.HouseContent img {
-    width: 100%; /* Ensures image fits card width */
-    max-width: 100%; /* Restricts image size */
-    height: auto; 
-    border-radius: 8px; /* Matches card corner */
-}
-
-/* Title Styling */
-.h1Title {
-    font-size: 1rem; /* Smaller font size */
-    font-weight: bold;
-    margin: 5px 0; /* Adjusted spacing */
-}
-
-/* Page Scrolling */
-html, body {
-    overflow-y: auto;
+    max-width: calc(20% - 20px); /* Prevents stretching beyond 20% */
+    box-sizing: border-box; /* Includes padding/border in width */
 }
