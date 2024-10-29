@@ -1,0 +1,40 @@
+/* adminPanel.css */
+
+.Content {
+    padding: 20px;
+    max-width: 1200px; /* Center content with max width */
+    margin: 0 auto;
+}
+
+.HouseContent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.HouseContent > div {
+    flex: 1 1 calc(20% - 20px); /* Five items per row */
+    max-width: calc(20% - 20px);
+    box-sizing: border-box;
+}
+
+/* To make the whole page scrollable if content is larger than the viewport */
+html, body {
+    overflow-y: auto;
+}
+
+.HouseContent img {
+    width: 100%; /* Make the image fit the container */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 150px; /* Set a maximum width for smaller images */
+    border-radius: 10px; /* Optional: Adds rounded corners */
+}
+
+.h1Title{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+

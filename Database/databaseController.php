@@ -25,6 +25,11 @@ if (!defined('DB_LOADED')) {
         return $stmt->get_result();
     }
 
+    function get_pendingHouses($conn) {
+        $sql = "SELECT * FROM houses WHERE status = 'pending'";
+        return $conn->query($sql);
+    }
+
     function closeConnection($conn) {
         $conn->close();
     }
