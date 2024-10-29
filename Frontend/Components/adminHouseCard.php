@@ -2,7 +2,7 @@
 include '../../Database/databaseController.php';
 ?>
 <link rel="stylesheet" href="../Styles/adminPanel.css">
-<div>
+<div class="HouseContent-border">
     <img src="../../house-images/dummy.png" alt="House Image">
     <div class="adminPanel.css">
         <p class="h1Title"><?= $house['title'] ?><p/>
