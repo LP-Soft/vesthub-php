@@ -1,5 +1,17 @@
 .content {
     flex: 1;  /* İçerik esnek olur ve kalan boş alanı doldurur */
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #e9ebea;
+}
+
+.content .house-cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.content .last-houses-text{
+    font-size: 24px;
+    font-weight: bold;
 }

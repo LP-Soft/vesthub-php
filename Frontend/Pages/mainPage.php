@@ -1,12 +1,7 @@
 <?php
-
-include '../../Database/databaseController.php';
-include '../Components/header.php';
-include '../../Backend/mainPageService.php';
-
-echo 'Current directory: ' . getcwd();
-?>
-
+require '../Components/header.php';
+include __DIR__ .'/../../Backend/mainPageService.php';
+include __DIR__ . '/../../Database/databaseController.php';?>
 <head>
     <title>Main Page</title>
     <link rel="stylesheet" href="../Styles/mainPage.css">
@@ -14,7 +9,7 @@ echo 'Current directory: ' . getcwd();
 
 <body>
     <div class="content">
-        <p>Last 5 Houses</p>
+        <p class="last-houses-text">Last 5 Added Houses</p>
         <div class="house-cards">
             <?php
             // Fetch all homes
@@ -29,8 +24,9 @@ echo 'Current directory: ' . getcwd();
             }
             ?>
         </div>
-        <?php
-            include '../Components/footer.php';
-            closeConnection($conn);
-        ?>
+
 </body>
+<?php
+include '../Components/footer.php';
+//closeConnection($conn);
+?>
