@@ -1,7 +1,8 @@
 <?php
 require '../Components/header.php';
-include __DIR__ .'/../../Backend/mainPageService.php';
-include __DIR__ . '/../../Database/databaseController.php';?>
+include '../../Backend/mainPageService.php';
+
+?>
 <head>
     <title>Main Page</title>
     <link rel="stylesheet" href="../Styles/mainPage.css">

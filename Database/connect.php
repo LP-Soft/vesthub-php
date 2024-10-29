@@ -3,7 +3,7 @@
 //TODO: Bunu herkeste aynı yapmamız gerekiyor!!!! Veya kendine göre degistirecek herkes
 $servername = "localhost";
 $username = "root";
-$password = "4831195";
+$password = "";
 $dbname = "vesthub";
 
 // Create a connection
