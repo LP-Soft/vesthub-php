@@ -16,10 +16,10 @@ html, body {
     justify-content: center;
     align-items: center;
     background-color: #e9ebea;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    position: fixed;
     bottom: 0;
+    margin-bottom: 10px;
 }
 
 .footer-logo {

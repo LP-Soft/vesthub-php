@@ -5,18 +5,20 @@
     background-color: #e9ebea;
     padding: 20px;
 }
+.content .last-houses {
+    flex: 1; /* İçerik esnek olur ve kalan boş alanı doldurur */
+}
 
 .content .house-cards {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center; /* Kartları sola hizalar */
+    justify-content: flex-start; /* Kartları sola hizalar */
     gap: 20px;
+    padding: 6px;
     overflow-x: auto; /* Sadece house-cards için kaydırma ekler */
-    padding: 20px;
     width: 100%; /* Kartlar tam genişlikte görünür */
     max-width: 100%; /* Ekran genişliğini aşmaz */
-    box-sizing: border-box; /* Padding ile genişliği aşmayı engeller */
 }
 
 .content .last-houses-text{
