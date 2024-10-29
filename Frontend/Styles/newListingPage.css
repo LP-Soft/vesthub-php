@@ -1,0 +1,167 @@
+/* CSS rules are kept repetitive so that you can get CSS rules for each button easily :) */
+.container {
+    display: flex;
+}
+
+/* Full-height left column */
+.left {
+    align-content: center;
+    justify-items: center;
+    width: 30%; /* Adjust as needed */
+    padding: 30px;
+}
+
+.form-section {
+    width: 70%;
+    display: flex; /* Make this a flex container */
+    height: 100vh;
+    justify-content: space-between;
+}
+
+/* Middle section */
+.middle {
+    align-content: center;
+    justify-items: center;
+    padding: 20px;
+    width: 50%;
+}
+
+/* Right section */
+.right {
+    align-content: center;
+    justify-items: center;
+    width: 50%;
+    padding: 20px;
+}
+
+.input {
+    padding: 10px;
+}
+
+.createListing {
+    width: 215px;
+    height: 55px;
+    border-radius: 20px;
+    background-color: #B7C094;
+    border: #B7C094;
+    color: #000000;
+    margin-left: 80px;
+    margin-top: 30px;
+}
+.toggle-button-cover {
+    display: table-cell;
+    position: relative;
+    width: 200px;
+    height: 50px;
+    box-sizing: border-box;
+}
+
+.knobs,
+.layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.button {
+    position: relative;
+    top: 50%;
+    width: 74px;
+    height: 36px;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+    border-radius: 100px;
+}
+
+.button.b2 {
+    border-radius: 10px;
+    height: 39px; /* Keep the height */
+    width: 163px; /* Keep the width */
+    position: relative; /* Add this */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knobs {
+    z-index: 2;
+    align-items: center;
+}
+
+.layer {
+    width: 100%;
+    background-color: #333333;
+    opacity: 40%;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+/* Button 17 */
+#button-17 .knobs:before,
+#button-17 .knobs span {
+    content: "SALE";
+    position: absolute;
+    margin-left: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    width: 74px;
+    height: 15px;
+    color: #fff; /*text color */
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    border-radius: 10px;
+    display: flex; /* Use flex to center text */
+    justify-content: center; /* Center text horizontally */
+    align-items: center; /* Center text vertically */
+}
+
+#button-17 .knobs:before {
+    transition: 0.3s ease all, left 0.5s;
+    z-index: 2;
+}
+
+#button-17 .knobs span {
+    background-color: #D17C57;
+    border-radius: 10px;
+    transition: 0.3s ease all, left 0.3s;
+    z-index: 1;
+}
+
+/* Update the checked state to ensure it's also centered */
+#button-17 .checkbox:checked + .knobs:before {
+    content: "RENT";
+    left: 73px;
+}
+
+#button-17 .checkbox:checked + .knobs span {
+    left: 73px;
+    background-color: #333333;
+    opacity: 30%;
+}
+
+#button-17 .checkbox:checked ~ .layer {
+    background-color: #333333;
+    opacity: 40%;
+}
+
+
