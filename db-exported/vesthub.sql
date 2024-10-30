@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `vesthub` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `vesthub`;
--- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.38, for macos14 (arm64)
 --
 -- Host: localhost    Database: vesthub
 -- ------------------------------------------------------
--- Server version	8.0.35
+-- Server version	9.0.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -50,8 +50,8 @@ DROP TABLE IF EXISTS `houses`;
 CREATE TABLE `houses` (
   `houseID` int NOT NULL,
   `ownerID` int NOT NULL,
-  `title` varchar(45) NOT NULL,
-  `description` varchar(500) NOT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
   `city` varchar(45) NOT NULL,
   `district` varchar(45) DEFAULT NULL,
   `neighborhood` varchar(45) DEFAULT NULL,
@@ -89,6 +89,7 @@ CREATE TABLE `houses` (
 
 LOCK TABLES `houses` WRITE;
 /*!40000 ALTER TABLE `houses` DISABLE KEYS */;
+INSERT INTO `houses` VALUES (1,2,'BAHÇELİ LÜKS VİLLA','\nBahçeli lüks doğayla iç içe\n\nKaçmaz fırsat','İstanbul','Beykoz','Kirazlı Yayla Caddesi','dummy',12500000,3,4,'5+1',250,41.12577998769162,29.11613381429442,1,2,3,0,0,1,1,1,1,0,1,0,1,'Available','Villa'),(2,3,'ŞEHİR MERKEZİNE YAKIN LÜKS APARTMAN','Modern tasarımlı, merkezi konumda, her türlü ihtiyacı karşılayacak bir daire.','İstanbul','Beşiktaş','Karaoğlan Sokak','dummy',8000000,2,3,'3+1',120,41.0455,29.006,1,5,10,1,1,0,0,1,1,0,1,1,0,'Available','Apartment'),(3,4,'DENİZ MANZARALI YAZLIK','Muhteşem deniz manzarası ve geniş bahçesi ile yazlık hayaliniz burada!','Muğla','Bodrum','Gümüşlük','dummy',3000000,2,2,'2+1',90,37.064451,27.311444,1,1,2,1,1,0,1,0,0,1,0,1,1,'Available','Villa'),(4,5,'GÜVENLİ SİTE İÇİNDE YENİ DAİRE','Yeni yapım, güvenlikli site içinde, sosyal alanları olan daire.','Ankara','Çankaya','Akköprü','dummy',5000000,1,2,'2+1',85,39.9334,32.8597,1,3,8,1,1,1,0,1,0,1,1,1,1,'Available','Apartment'),(5,6,'ŞEHİR DIŞINDA DOĞAYLA İÇ İÇE','Doğal güzellikleri ile dolu, şehir gürültüsünden uzakta bir villa.','İzmir','Urla','Zeytinler','dummy',4000000,3,4,'5+1',220,38.318013,26.856645,1,1,2,0,0,0,1,1,0,0,1,1,0,'Available','Villa'),(6,7,'KÖY YAŞAMI İÇİN GÜZEL BİR EV','Kendi bahçesi olan, köy yaşamının huzurunu sunan bir ev.','Bursa','Mudanya','Teyzeler','dummy',2000000,1,3,'4+1',150,40.4089,28.8443,1,0,1,0,0,0,0,0,1,0,1,0,0,'Available','Villa'),(7,2,'ÜNİVERSİTE YANI ÖĞRENCİYE UYGUN','Öğrenciye uygun\n\nÜniversiteye yürüme mesafesinde ','Antalya','Kepez','3718. Sokak','dummy',12500,1,1,'1+0',45,36.90301754166873,30.646146867077626,0,3,8,1,0,0,0,0,1,0,1,1,0,'Available','Studio'),(8,2,'ELÇİ EMLAK\'TAN SATILIK AYRI MUTFAKLI İSKANLI ARA KAT 2+1 DAİRE','SATILIK\n\n“HEM YATIRIMLIK HEM OTURUMLUK”','Antalya','Finike','619. Sokak','dummy',3150000,2,2,'3+2',150,36.29200263719032,30.140458005249016,1,1,6,0,0,0,0,0,1,1,1,0,1,'Available','Apartment'),(9,2,'Memur evlerinde 3+1 kiralık daire','3.kat,140 m,güney batı cephe,3+1,pazara,okula,hastaneye,çarşıya,otobüs ve tramvay duraklarına yakın','Antalya','Muratpaşa','210. Sokak','dummy',15000,1,1,'3+1',14,36.8963747,30.6897242,0,3,5,1,1,0,0,0,1,1,1,0,0,'Available','Apartment'),(10,7,'İSTİNYEPARK TA KİRALIK 6+1 BAHÇE DUBLEKSİ','İstinye Park\n\n   residence\n\n\n\nİSTİNYE PARK EVLERİNDE SATILIK 1.FAZDA 6+1 BAHÇE DUBLEKS DAİRE\n\n','İstanbul','Sarıyer','Budak Sokak','dummy',400000,4,5,'6+1',355,41.11465483422137,29.030290707409677,0,0,5,1,1,1,1,1,1,1,1,0,1,'Available','Villa');
 /*!40000 ALTER TABLE `houses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,4 +136,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-29  0:04:58
+-- Dump completed on 2024-10-30 16:27:29
