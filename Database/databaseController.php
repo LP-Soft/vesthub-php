@@ -9,6 +9,40 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
+    function getCitiesFromDb($conn){
+        $sql = "SELECT DISTINCT city FROM houses";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    function getDistrictsFromDb($conn, $city){
+        $sql = "SELECT DISTINCT district FROM houses WHERE city = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $city);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    function getCityDistrictPairsFromDb($conn){
+        $sql = "SELECT city, district FROM houses";
+        return $conn->query($sql);
+    }
+
+    function getDistrictNeighborhoodPairsFromDb($conn){
+        $sql = "SELECT district, neighborhood FROM houses";
+        return $conn->query($sql);
+    }
+
+    function getNeighborhoodsFromDb($conn, $city){
+        $sql = "SELECT DISTINCT neighborhood FROM houses WHERE district = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $city);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result;
+    }
+
     function getAllHomes($conn) {
         $sql = "SELECT * FROM houses";
         return $conn->query($sql);
