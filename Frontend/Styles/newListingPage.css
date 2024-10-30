@@ -114,8 +114,8 @@
 }
 
 /* Button 17 */
-#button-17 .knobs:before,
-#button-17 .knobs span {
+#isSale .knobs:before,
+#isSale .knobs span {
     content: "SALE";
     position: absolute;
     margin-left: 4px;
@@ -135,12 +135,12 @@
     align-items: center; /* Center text vertically */
 }
 
-#button-17 .knobs:before {
+#isSale .knobs:before {
     transition: 0.3s ease all, left 0.5s;
     z-index: 2;
 }
 
-#button-17 .knobs span {
+#isSale .knobs span {
     background-color: #D17C57;
     border-radius: 10px;
     transition: 0.3s ease all, left 0.3s;
@@ -148,18 +148,18 @@
 }
 
 /* Update the checked state to ensure it's also centered */
-#button-17 .checkbox:checked + .knobs:before {
+#isSale .checkbox:checked + .knobs:before {
     content: "RENT";
     left: 73px;
 }
 
-#button-17 .checkbox:checked + .knobs span {
+#isSale .checkbox:checked + .knobs span {
     left: 73px;
     background-color: #333333;
     opacity: 30%;
 }
 
-#button-17 .checkbox:checked ~ .layer {
+#isSale .checkbox:checked ~ .layer {
     background-color: #333333;
     opacity: 40%;
 }

@@ -25,7 +25,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
             <div id="filePreview"></div> <!-- Close: #filePreview -->
         </div> <!-- Close: .upload-container -->
     </div> <!-- Close: .left -->
-        <form id="createListingForm" method="POST" class="form-section"> <!-- Open: form -->
+        <form id="createListingForm" method="POST" action="../../Backend/newListingService.php" class="form-section"> <!-- Open: form -->
             <div class="middle"> <!-- Open: .middle -->
                 <div class="input">
                     <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required>
@@ -34,7 +34,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
                     <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required>
                 </div>
                 <div class="input">
-                    <select name="roomCount" id="roomCount" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
+                    <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                         <option value="" selected hidden>Number of rooms</option>
                         <?php foreach ($roomCount as $room) { ?>
                             <option value="<?= $room ?>"><?= $room ?></option>
@@ -55,8 +55,8 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
 
             <div class="right"> <!-- Open: .right -->
                 <div class="toggle-button-cover">
-                    <div class="button b2" id="button-17">
-                        <input type="checkbox" class="checkbox" />
+                    <div class="button b2" id="isSale">
+                        <input type="checkbox" name="isSale" id="isSale" class="checkbox" value=""/>
                         <div class="knobs">
                             <span></span>
                         </div>
@@ -88,7 +88,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
                         <?php $counter = 0 ?>
                         <?php foreach ($keyFeatures as $feature) { ?>
                                 <?php $counter++ ?>
-                                <input type="checkbox" name="<?= $feature ?>" id="<?= $feature ?>" value="<?= $feature ?>">
+                                <input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>">
                                 <label for="<?= $feature ?>"><?= $feature ?> </label>
                                 <?php if ($counter%2 == 0) { echo "<br>"; }?>
 
