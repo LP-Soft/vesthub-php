@@ -19,13 +19,15 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
 
 <?php include('../Components/header.php'); ?>
 <div class="container"> <!-- Open: .container -->
-    <div class="left"> <!-- Open: .left -->
-        <div class="upload-container"> <!-- Open: .upload-container -->
-            <input type="file" id="uploadFile" accept=".jpg,.jpeg,.png" multiple>
-            <div id="filePreview"></div> <!-- Close: #filePreview -->
-        </div> <!-- Close: .upload-container -->
-    </div> <!-- Close: .left -->
-        <form id="createListingForm" method="POST" action="../../Backend/newListingService.php" class="form-section"> <!-- Open: form -->
+        <form id="createListingForm" method="POST" action="../../Backend/newListingService.php" class="form-section" enctype="multipart/form-data"> <!-- Open: form -->
+            <div class="left"> <!-- Open: .left -->
+                <div class="upload-container"> <!-- Open: .upload-container -->
+                    <label for="files">Select files to upload</label><br>
+                    <input type="file" name="files[]" multiple><br>
+
+                    <div id="filePreview"></div> <!-- Close: #filePreview -->
+                </div> <!-- Close: .upload-container -->
+            </div> <!-- Close: .left -->
             <div class="middle"> <!-- Open: .middle -->
                 <div class="input">
                     <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required>

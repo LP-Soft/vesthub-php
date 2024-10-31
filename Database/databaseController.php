@@ -70,7 +70,6 @@ if (!defined('DB_LOADED')) {
     }
 
     function createHouseListing($house, $conn) {
-         var_dump($house);
         // Prepare the SQL statement with correct syntax
         $sql = "INSERT INTO houses (
         ownerID, title, description, numOfRooms, numOfBathroom, numOfBedroom, price, city, district, neighborhood, street, 
@@ -79,9 +78,6 @@ if (!defined('DB_LOADED')) {
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
-        if ($stmt === false) {
-            die("Error preparing statement: " . $conn->error); // Exit if there's an error
-        }
 
         // Define additional parameters
         $ownerID = 1; // or retrieve this dynamically
@@ -121,12 +117,32 @@ if (!defined('DB_LOADED')) {
             $house['insulation'],
             $house['status'],
             $house['houseType']
-        )) {
-            die("Error binding parameters: " . $stmt->error); // Exit if there's an error
-        }
-
-        $stmt->close();
+        ));
+    // Execute the statement and check if it's successful
+    if ($stmt->execute()) {
+        return true;  // Success
+    } else {
+        return false; // Failure
     }
+    }
+
+    function getLastHouseID($conn) {
+        // Correct SQL query
+        $sql = "SELECT MAX(houseID) AS lastHouseID FROM houses";
+
+        // Prepare and execute the query
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // Fetch the result
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        // Return the maximum houseID
+        return $row['lastHouseID'];
+    }
+
+
 
     function closeConnection($conn) {
         $conn->close();

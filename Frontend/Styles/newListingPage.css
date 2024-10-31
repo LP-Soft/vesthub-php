@@ -13,7 +13,7 @@
 }
 
 .form-section {
-    width: 70%;
+    width: 100%;
     display: flex; /* Make this a flex container */
     justify-content: space-between;
 }
