@@ -1,4 +1,5 @@
 <?php
+include "../Components/imageBox.php";
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace',
@@ -14,6 +15,54 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
     <title>New Listing Page</title>
     <link rel="stylesheet" href="../Styles/newListingPage.css">
     <link rel="stylesheet" href="../Styles/styles.css">
+    <link rel="stylesheet" href="../Styles/imageBox.css">
+
+    <script>
+        function previewFiles(event) {
+            const fileInput = event.target; // Get the input element
+            const filePreview = document.getElementById('filePreview');
+
+            // Loop through the newly selected files
+            for (let i = 0; i < fileInput.files.length; i++) {
+                const file = fileInput.files[i];
+
+                // Only process image files
+                if (file.type.startsWith('image/')) {
+                    const imgSrc = URL.createObjectURL(file); // Create a temporary URL for the image
+
+                    // Create a new image card using the PHP function
+                    const imageCard = document.createElement('div');
+                    imageCard.className = 'image-card';
+
+                    // Create the image element
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.className = 'image-preview';
+
+                    // Add the image and close button to the image card
+                    imageCard.appendChild(img);
+
+                    const closeButton = document.createElement('span');
+                    closeButton.textContent = '×'; // X symbol
+                    closeButton.className = 'close-button';
+                    closeButton.onclick = function() {
+                        removeImage(closeButton); // Remove the image on click
+                    };
+
+                    // Append the close button to the image card
+                    imageCard.appendChild(closeButton);
+
+                    // Add the image card to the preview container
+                    filePreview.appendChild(imageCard);
+                }
+            }
+        }
+
+        function removeImage(button) {
+            const imageCard = button.parentElement; // Get the image card (parent of the button)
+            imageCard.remove(); // Remove the image card from the preview
+        }
+    </script>
 </head>
 <body>
 
@@ -23,7 +72,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
             <div class="left"> <!-- Open: .left -->
                 <div class="upload-container"> <!-- Open: .upload-container -->
                     <label for="files">Select files to upload</label><br>
-                    <input type="file" name="files[]" multiple><br>
+                    <input type="file" name="files[]" multiple onchange="previewFiles(event)"><br>
 
                     <div id="filePreview"></div> <!-- Close: #filePreview -->
                 </div> <!-- Close: .upload-container -->
