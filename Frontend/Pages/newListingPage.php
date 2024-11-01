@@ -1,6 +1,8 @@
 <?php
 require_once "../Components/imageBox.php";
 include "../../Backend/newListingService.php";
+require_once '../../Classes/houseInfo.php';
+use Classes\houseInfo;
 
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
@@ -8,7 +10,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
     'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Initialize HouseInfo object
+    // Initialize houseInfo object
     $houseInfo = new HouseInfo($_POST);
 
     // Initialize feature variables with default values of 0
