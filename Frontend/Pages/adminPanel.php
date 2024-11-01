@@ -20,6 +20,7 @@ if (isset($_GET['reject'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,9 +43,6 @@ if (isset($_GET['reject'])) {
         } else {
             echo "<p>No pending houses found.</p>";
         }
-    ?>
-    </div>
+        ?>        
 </div>
-<?php include('../Components/footer.php'); ?> <!-- Footer included -->
-</body>
-</html>
+<?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->

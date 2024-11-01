@@ -1,3 +1,10 @@
+/* Main container */
+.Content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 /* House Content Layout */
 .HouseContent {
     display: flex;

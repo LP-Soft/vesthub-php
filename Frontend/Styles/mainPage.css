@@ -9,6 +9,69 @@
     flex: 1; /* İçerik esnek olur ve kalan boş alanı doldurur */
 }
 
+.content .search-area {
+    display: flex;
+    flex:1;
+    position: relative;
+}
+
+.content .search-area .logo {
+    width: 100%;
+    height: 40vh;
+    object-fit: cover;
+    border-radius: 20px;
+    filter: brightness(70%);
+}
+
+.content .search-area .search-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+}
+
+.content .search-area .search-box .search-button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #B7C094;
+    color: #000000;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+}
+
+.content .search-area .search-box .search-inputs {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+
+.content .search-area .search-box .welcome{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.content .search-area .search-box .welcome .welcome-text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.content .search-area .search-box .welcome .welcome-slogan {
+    font-size: 16px;
+}
+
 .content .house-cards {
     display: flex;
     flex-direction: row;
