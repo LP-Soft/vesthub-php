@@ -156,8 +156,7 @@ if (!defined('DB_LOADED')) {
         return $row['lastHouseID'];
     }
 
-
-
+    
     function closeConnection($conn) {
         $conn->close();
     }
