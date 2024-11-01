@@ -1,98 +1,11 @@
 <?php
-include "../Components/imageBox.php";
+require_once "../Components/imageBox.php";
 include "../../Backend/newListingService.php";
 
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace',
     'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];
-
-class HouseInfo {
-    public $title;
-    public $description;
-    public $numOfRooms;
-    public $price;
-    public $city;
-    public $district;
-    public $neighborhood;
-    public $street;
-    public $houseType;
-    public $floor;
-    public $totalFloor;
-    public $area;
-    public $fiberInternet = 0;
-    public $airConditioner = 0;
-    public $floorHeating = 0;
-    public $fireplace = 0;
-    public $terrace = 0;
-    public $satellite = 0;
-    public $parquet = 0;
-    public $steelDoor = 0;
-    public $furnished = 0;
-    public $insulation = 0;
-    public $isSale = 1;
-    public $status = 'Pending';
-
-    public function __construct($postData) {
-        // Initialize basic details from POST data
-        $this->title = $postData['title'];
-        $this->description = $postData['description'];
-        $this->numOfRooms = (int)$postData['numOfRooms'];
-        $this->price = (int)$postData['price'];
-        $this->city = $postData['city'];
-        $this->district = $postData['district'];
-        $this->neighborhood = $postData['neighborhood'];
-        $this->street = $postData['street'];
-        $this->houseType = $postData['houseType'];
-        $this->floor = (int)$postData['floor'];
-        $this->totalFloor = (int)$postData['totalFloor'];
-        $this->area = (int)$postData['area'];
-
-        // Initialize key features
-        if (isset($postData['keyFeatures'])) {
-            foreach ($postData['keyFeatures'] as $selectedFeature) {
-                switch ($selectedFeature) {
-                    case 'Fiber Internet':
-                        $this->fiberInternet = 1;
-                        break;
-                    case 'Air Conditioner':
-                        $this->airConditioner = 1;
-                        break;
-                    case 'Floor Heating':
-                        $this->floorHeating = 1;
-                        break;
-                    case 'Fireplace':
-                        $this->fireplace = 1;
-                        break;
-                    case 'Terrace':
-                        $this->terrace = 1;
-                        break;
-                    case 'Satellite':
-                        $this->satellite = 1;
-                        break;
-                    case 'Parquet':
-                        $this->parquet = 1;
-                        break;
-                    case 'Steel Door':
-                        $this->steelDoor = 1;
-                        break;
-                    case 'Furnished':
-                        $this->furnished = 1;
-                        break;
-                    case 'Insulation':
-                        $this->insulation = 1;
-                        break;
-                }
-            }
-        }
-
-        // Check if the property is for sale or rent
-        if (isset($postData['isSale'])) {
-            $this->isSale = 0; // Set to 0 for rent
-        }
-    }
-}
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Initialize HouseInfo object
@@ -149,8 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     break;
             }
         }
-    } else {
-        echo "No features selected.";
     }
 
     if (isset($_POST['isSale'])) {
@@ -171,12 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $houseInfo->totalFloor = (int)$_POST['totalFloor'];
     $houseInfo->area = (int)$_POST['area'];
 
-    denemeee($houseInfo);
-
+    // Handle file uploads
+    createListing($houseInfo);
 }
-
-
-
 ?>
 
 <!-- Sale/Rent button: https://codepen.io/alvarotrigo/pen/oNoJePo -->
@@ -252,27 +160,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div> <!-- Close: .left -->
             <div class="middle"> <!-- Open: .middle -->
                 <div class="input">
-                    <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required>
+                    <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>">
                 </div>
                 <div class="input">
-                    <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required>
+                    <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required value="<?= isset($_POST['description']) ? htmlspecialchars($_POST['description']) : '' ?>">
                 </div>
                 <div class="input">
                     <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                         <option value="" selected hidden>Number of rooms</option>
                         <?php foreach ($roomCount as $room) { ?>
-                            <option value="<?= $room ?>"><?= $room ?></option>
+                            <option value="<?= $room ?>" <?= (isset($_POST['numOfRooms']) && $_POST['numOfRooms'] === $room) ? 'selected' : '' ?>><?= $room ?></option>
                         <?php } ?>
                     </select>
-                    <input id="price" name="price" type="number" placeholder="Price" style="width: 220px; height: 40px; border-radius: 10px" required>
+                    <input id="price" name="price" type="number" placeholder="Price" style="width: 220px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '' ?>">
                 </div>
                 <div class="input">
-                    <input id="city" name="city" type="text" placeholder="City" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" required>
-                    <input id="district" name="district" type="text" placeholder="District" style="width: 220px; height: 40px; border-radius: 10px" required>
+                    <input id="city" name="city" type="text" placeholder="City" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" required value="<?= isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '' ?>">
+                    <input id="district" name="district" type="text" placeholder="District" style="width: 220px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['district']) ? htmlspecialchars($_POST['district']) : '' ?>">
                 </div>
                 <div class="input">
-                    <input id="neighborhood" name="neighborhood" type="text" placeholder="Neighborhood" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" required>
-                    <input id="street" name="street" type="text" placeholder="Street" style="width: 220px; height: 40px; border-radius: 10px" required>
+                    <input id="neighborhood" name="neighborhood" type="text" placeholder="Neighborhood" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" required value="<?= isset($_POST['neighborhood']) ? htmlspecialchars($_POST['neighborhood']) : '' ?>">
+                    <input id="street" name="street" type="text" placeholder="Street" style="width: 220px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['street']) ? htmlspecialchars($_POST['street']) : '' ?>">
                 </div>
 
             </div> <!-- Close: .middle -->
@@ -280,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="right"> <!-- Open: .right -->
                 <div class="toggle-button-cover">
                     <div class="button b2" id="isSale">
-                        <input type="checkbox" name="isSale" id="isSale" class="checkbox" value=""/>
+                        <input type="checkbox" name="isSale" id="isSale" class="checkbox" value="1" <?= isset($_POST['isSale']) ? 'checked' : '' ?>/>
                         <div class="knobs">
                             <span></span>
                         </div>
@@ -292,18 +200,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <select id="houseType" name="houseType" style="width: 280px; height: 40px; border-radius: 10px">
                         <option value="" selected hidden>House type</option>
                         <?php foreach ($houseType as $type) { ?>
-                            <option value="<?= $type ?>"><?= $type ?></option>
-                        <?php } ?>
+                            <option value="<?= $type ?>" <?= isset($_POST['houseType']) && $_POST['houseType'] === $type ? 'selected' : '' ?>><?= $type ?></option>                        <?php } ?>
                     </select>
                 </div>
 
                 <div class="input">
-                    <input id="floor" name="floor" type="number" placeholder="Floor" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required min="-2">
-                    <input id="totalFloor" name="totalFloor" type="number" placeholder="Total Floor" style="width: 140px; height: 40px; border-radius: 10px" required min="0">
+                    <input id="floor" name="floor" type="number" placeholder="Floor" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required min="-2" value="<?= isset($_POST['floor']) ? htmlspecialchars($_POST['floor']) : '' ?>">
+                    <input id="totalFloor" name="totalFloor" type="number" placeholder="Total Floor" style="width: 140px; height: 40px; border-radius: 10px" required min="0" value="<?= isset($_POST['totalFloor']) ? htmlspecialchars($_POST['totalFloor']) : '' ?>">
                 </div>
 
                 <div class="input">
-                    <input id="area" name="area" type="number" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="0">
+                    <input id="area" name="area" type="number" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="0" value="<?= isset($_POST['area']) ? htmlspecialchars($_POST['area']) : '' ?>">
                 </div>
 
                 <div class="input"> <!-- Open: .key-features -->
@@ -312,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php $counter = 0 ?>
                         <?php foreach ($keyFeatures as $feature) { ?>
                                 <?php $counter++ ?>
-                                <input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>">
+                                <input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>" <?= (isset($_POST['keyFeatures']) && in_array($feature, $_POST['keyFeatures'])) ? 'checked' : '' ?>>
                                 <label for="<?= $feature ?>"><?= $feature ?> </label>
                                 <?php if ($counter%2 == 0) { echo "<br>"; }?>
 

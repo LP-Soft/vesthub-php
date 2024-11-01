@@ -69,21 +69,21 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function changeStatus_toApprove($conn, $HouseID) {
+    function changeStatus_toApprove($conn, $houseInfoID) {
         $sql = "UPDATE houses SET status = 'approved' WHERE houseID = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $HouseID);
+        $stmt->bind_param("i", $houseInfoID);
         $stmt->execute();
     }
 
-    function changeStatus_toCancel($conn, $HouseID) {
+    function changeStatus_toCancel($conn, $houseInfoID) {
         $sql = "UPDATE houses SET status = 'cancelled' WHERE houseID = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $HouseID);
+        $stmt->bind_param("i", $houseInfoID);
         $stmt->execute();
     }
 
-    function createHouseListing($house, $conn) {
+    function createHouseListingToDb($houseInfo, $conn) {
         // Prepare the SQL statement with correct syntax
         $sql = "INSERT INTO houses (
         ownerID, title, description, numOfRooms, numOfBathroom, numOfBedroom, price, city, district, neighborhood, street, 
@@ -103,34 +103,34 @@ if (!defined('DB_LOADED')) {
         if (!$stmt->bind_param(
             'isssiiissssiiiddiiiiiiiiiiiss', // Data types: i for int, s for string, d for double
             $ownerID,
-            $house['title'],
-            $house['description'],
-            $house['numOfRooms'],
+            $houseInfo->title,
+            $houseInfo->description,
+            $houseInfo->numOfRooms,
             $numOfBathroom,
             $numOfBedroom,
-            $house['price'],
-            $house['city'],
-            $house['district'],
-            $house['neighborhood'],
-            $house['street'],
-            $house['floor'],
-            $house['totalFloor'],
-            $house['area'],
+            $houseInfo->price,
+            $houseInfo->city,
+            $houseInfo->district,
+            $houseInfo->neighborhood,
+            $houseInfo->street,
+            $houseInfo->floor,
+            $houseInfo->totalFloor,
+            $houseInfo->area,
             $lat,
             $lng,
-            $house['isSale'],
-            $house['fiberInternet'],
-            $house['airConditioner'],
-            $house['floorHeating'],
-            $house['fireplace'],
-            $house['terrace'],
-            $house['satellite'],
-            $house['parquet'],
-            $house['steelDoor'],
-            $house['furnished'],
-            $house['insulation'],
-            $house['status'],
-            $house['houseType']
+            $houseInfo->isSale,
+            $houseInfo->fiberInternet,
+            $houseInfo->airConditioner,
+            $houseInfo->floorHeating,
+            $houseInfo->fireplace,
+            $houseInfo->terrace,
+            $houseInfo->satellite,
+            $houseInfo->parquet,
+            $houseInfo->steelDoor,
+            $houseInfo->furnished,
+            $houseInfo->insulation,
+            $houseInfo->status,
+            $houseInfo->houseType
         ));
     // Execute the statement and check if it's successful
     if ($stmt->execute()) {
@@ -140,7 +140,7 @@ if (!defined('DB_LOADED')) {
     }
     }
 
-    function getLastHouseID($conn) {
+    function getLastHouseIDFromDb($conn) {
         // Correct SQL query
         $sql = "SELECT MAX(houseID) AS lastHouseID FROM houses";
 
