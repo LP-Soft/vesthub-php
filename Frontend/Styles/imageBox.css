@@ -1,0 +1,38 @@
+/* Styling for the file preview container */
+#filePreview {
+    display: flex;                  /* Use flexbox for layout */
+    flex-wrap: wrap;               /* Allow items to wrap to the next line */
+    gap: 10px;                     /* Space between items */
+    max-width: 100%;               /* Limit the width */
+    margin-top: 10px;              /* Space above the preview */
+}
+
+/* Basic styling for the image card */
+.image-card {
+    position: relative;
+    width: 100px;                 /* Width of each image card */
+    height: 100px;                /* Height of each image card */
+    border: 2px solid #ddd;       /* Border for the image card */
+    border-radius: 10px;
+    overflow: hidden;             /* Hide overflow */
+}
+
+.image-card img {
+    width: 100%;                  /* Make image fill the card */
+    height: 100%;                 /* Make image fill the card */
+    object-fit: cover;            /* Keep aspect ratio */
+    z-index: 2;
+}
+
+.close-button {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    cursor: pointer;
+    background: #ff0000;         /* Red background for close button */
+    color: #fff;                 /* White text */
+    padding: 2px 5px;            /* Padding for close button */
+    border-radius: 50%;          /* Round shape */
+    font-size: 12px;             /* Font size */
+    z-index: 1;
+}

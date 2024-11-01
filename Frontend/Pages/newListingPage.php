@@ -1,4 +1,5 @@
 <?php
+include "../Components/imageBox.php";
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace',
@@ -14,18 +15,68 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
     <title>New Listing Page</title>
     <link rel="stylesheet" href="../Styles/newListingPage.css">
     <link rel="stylesheet" href="../Styles/styles.css">
+    <link rel="stylesheet" href="../Styles/imageBox.css">
+
+    <script>
+        function previewFiles(event) {
+            const fileInput = event.target; // Get the input element
+            const filePreview = document.getElementById('filePreview');
+
+            // Loop through the newly selected files
+            for (let i = 0; i < fileInput.files.length; i++) {
+                const file = fileInput.files[i];
+
+                // Only process image files
+                if (file.type.startsWith('image/')) {
+                    const imgSrc = URL.createObjectURL(file); // Create a temporary URL for the image
+
+                    // Create a new image card using the PHP function
+                    const imageCard = document.createElement('div');
+                    imageCard.className = 'image-card';
+
+                    // Create the image element
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    img.className = 'image-preview';
+
+                    // Add the image and close button to the image card
+                    imageCard.appendChild(img);
+
+                    const closeButton = document.createElement('span');
+                    closeButton.textContent = '×'; // X symbol
+                    closeButton.className = 'close-button';
+                    closeButton.onclick = function() {
+                        removeImage(closeButton); // Remove the image on click
+                    };
+
+                    // Append the close button to the image card
+                    imageCard.appendChild(closeButton);
+
+                    // Add the image card to the preview container
+                    filePreview.appendChild(imageCard);
+                }
+            }
+        }
+
+        function removeImage(button) {
+            const imageCard = button.parentElement; // Get the image card (parent of the button)
+            imageCard.remove(); // Remove the image card from the preview
+        }
+    </script>
 </head>
 <body>
 
 <?php include('../Components/header.php'); ?>
 <div class="container"> <!-- Open: .container -->
-    <div class="left"> <!-- Open: .left -->
-        <div class="upload-container"> <!-- Open: .upload-container -->
-            <input type="file" id="uploadFile" accept=".jpg,.jpeg,.png" multiple>
-            <div id="filePreview"></div> <!-- Close: #filePreview -->
-        </div> <!-- Close: .upload-container -->
-    </div> <!-- Close: .left -->
-        <form id="createListingForm" method="POST" class="form-section"> <!-- Open: form -->
+        <form id="createListingForm" method="POST" action="../../Backend/newListingService.php" class="form-section" enctype="multipart/form-data"> <!-- Open: form -->
+            <div class="left"> <!-- Open: .left -->
+                <div class="upload-container"> <!-- Open: .upload-container -->
+                    <label for="files">Select files to upload</label><br>
+                    <input type="file" name="files[]" multiple onchange="previewFiles(event)"><br>
+
+                    <div id="filePreview"></div> <!-- Close: #filePreview -->
+                </div> <!-- Close: .upload-container -->
+            </div> <!-- Close: .left -->
             <div class="middle"> <!-- Open: .middle -->
                 <div class="input">
                     <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required>
@@ -34,7 +85,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
                     <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required>
                 </div>
                 <div class="input">
-                    <select name="roomCount" id="roomCount" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
+                    <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                         <option value="" selected hidden>Number of rooms</option>
                         <?php foreach ($roomCount as $room) { ?>
                             <option value="<?= $room ?>"><?= $room ?></option>
@@ -55,8 +106,8 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
 
             <div class="right"> <!-- Open: .right -->
                 <div class="toggle-button-cover">
-                    <div class="button b2" id="button-17">
-                        <input type="checkbox" class="checkbox" />
+                    <div class="button b2" id="isSale">
+                        <input type="checkbox" name="isSale" id="isSale" class="checkbox" value=""/>
                         <div class="knobs">
                             <span></span>
                         </div>
@@ -88,7 +139,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
                         <?php $counter = 0 ?>
                         <?php foreach ($keyFeatures as $feature) { ?>
                                 <?php $counter++ ?>
-                                <input type="checkbox" name="<?= $feature ?>" id="<?= $feature ?>" value="<?= $feature ?>">
+                                <input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>">
                                 <label for="<?= $feature ?>"><?= $feature ?> </label>
                                 <?php if ($counter%2 == 0) { echo "<br>"; }?>
 
