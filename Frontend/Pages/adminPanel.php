@@ -38,7 +38,9 @@ if (isset($_GET['reject'])) {
         $pendingHouses = PendigHouse();
         if ($pendingHouses) {
             while ($house = $pendingHouses->fetch_assoc()) {
+                echo "<div class='home-card'>";
                 displayHouseCard($house, 1);
+                echo "</div>";
             }
         } else {
             echo "<p>No pending houses found.</p>";
