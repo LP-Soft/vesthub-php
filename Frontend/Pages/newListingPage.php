@@ -1,9 +1,182 @@
 <?php
 include "../Components/imageBox.php";
+include "../../Backend/newListingService.php";
+
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace',
     'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];
+
+class HouseInfo {
+    public $title;
+    public $description;
+    public $numOfRooms;
+    public $price;
+    public $city;
+    public $district;
+    public $neighborhood;
+    public $street;
+    public $houseType;
+    public $floor;
+    public $totalFloor;
+    public $area;
+    public $fiberInternet = 0;
+    public $airConditioner = 0;
+    public $floorHeating = 0;
+    public $fireplace = 0;
+    public $terrace = 0;
+    public $satellite = 0;
+    public $parquet = 0;
+    public $steelDoor = 0;
+    public $furnished = 0;
+    public $insulation = 0;
+    public $isSale = 1;
+    public $status = 'Pending';
+
+    public function __construct($postData) {
+        // Initialize basic details from POST data
+        $this->title = $postData['title'];
+        $this->description = $postData['description'];
+        $this->numOfRooms = (int)$postData['numOfRooms'];
+        $this->price = (int)$postData['price'];
+        $this->city = $postData['city'];
+        $this->district = $postData['district'];
+        $this->neighborhood = $postData['neighborhood'];
+        $this->street = $postData['street'];
+        $this->houseType = $postData['houseType'];
+        $this->floor = (int)$postData['floor'];
+        $this->totalFloor = (int)$postData['totalFloor'];
+        $this->area = (int)$postData['area'];
+
+        // Initialize key features
+        if (isset($postData['keyFeatures'])) {
+            foreach ($postData['keyFeatures'] as $selectedFeature) {
+                switch ($selectedFeature) {
+                    case 'Fiber Internet':
+                        $this->fiberInternet = 1;
+                        break;
+                    case 'Air Conditioner':
+                        $this->airConditioner = 1;
+                        break;
+                    case 'Floor Heating':
+                        $this->floorHeating = 1;
+                        break;
+                    case 'Fireplace':
+                        $this->fireplace = 1;
+                        break;
+                    case 'Terrace':
+                        $this->terrace = 1;
+                        break;
+                    case 'Satellite':
+                        $this->satellite = 1;
+                        break;
+                    case 'Parquet':
+                        $this->parquet = 1;
+                        break;
+                    case 'Steel Door':
+                        $this->steelDoor = 1;
+                        break;
+                    case 'Furnished':
+                        $this->furnished = 1;
+                        break;
+                    case 'Insulation':
+                        $this->insulation = 1;
+                        break;
+                }
+            }
+        }
+
+        // Check if the property is for sale or rent
+        if (isset($postData['isSale'])) {
+            $this->isSale = 0; // Set to 0 for rent
+        }
+    }
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Initialize HouseInfo object
+    $houseInfo = new HouseInfo($_POST);
+
+    // Initialize feature variables with default values of 0
+    $houseInfo->fiberInternet = 0;
+    $houseInfo->airConditioner = 0;
+    $houseInfo->floorHeating = 0;
+    $houseInfo->fireplace = 0;
+    $houseInfo->terrace = 0;
+    $houseInfo->satellite = 0;
+    $houseInfo->parquet = 0;
+    $houseInfo->steelDoor = 0;
+    $houseInfo->furnished = 0;
+    $houseInfo->insulation = 0;
+    $houseInfo->isSale = 1;
+    $houseInfo->status = 'Pending';
+
+    // Check if any key features were selected
+    if (isset($_POST['keyFeatures'])) {
+        // Iterate through the selected features and set their variables to 1
+        foreach ($_POST['keyFeatures'] as $selectedFeature) {
+            switch ($selectedFeature) {
+                case 'Fiber Internet':
+                    $houseInfo->fiberInternet = 1;
+                    break;
+                case 'Air Conditioner':
+                    $houseInfo->airConditioner = 1;
+                    break;
+                case 'Floor Heating':
+                    $houseInfo->floorHeating = 1;
+                    break;
+                case 'Fireplace':
+                    $houseInfo->fireplace = 1;
+                    break;
+                case 'Terrace':
+                    $houseInfo->terrace = 1;
+                    break;
+                case 'Satellite':
+                    $houseInfo->satellite = 1;
+                    break;
+                case 'Parquet':
+                    $houseInfo->parquet = 1;
+                    break;
+                case 'Steel Door':
+                    $houseInfo->steelDoor = 1;
+                    break;
+                case 'Furnished':
+                    $houseInfo->furnished = 1;
+                    break;
+                case 'Insulation':
+                    $houseInfo->insulation = 1;
+                    break;
+            }
+        }
+    } else {
+        echo "No features selected.";
+    }
+
+    if (isset($_POST['isSale'])) {
+        $houseInfo->isSale = 0; // Property is for rent
+    }
+
+    // Set the basic house information
+    $houseInfo->title = $_POST['title'];
+    $houseInfo->description = $_POST['description'];
+    $houseInfo->numOfRooms = $_POST['numOfRooms'];
+    $houseInfo->price = (int)$_POST['price'];
+    $houseInfo->city = $_POST['city'];
+    $houseInfo->district = $_POST['district'];
+    $houseInfo->neighborhood = $_POST['neighborhood'];
+    $houseInfo->street = $_POST['street'];
+    $houseInfo->houseType = $_POST['houseType'];
+    $houseInfo->floor = (int)$_POST['floor'];
+    $houseInfo->totalFloor = (int)$_POST['totalFloor'];
+    $houseInfo->area = (int)$_POST['area'];
+
+    denemeee($houseInfo);
+
+}
+
+
+
 ?>
 
 <!-- Sale/Rent button: https://codepen.io/alvarotrigo/pen/oNoJePo -->
@@ -68,7 +241,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
 
 <?php include('../Components/header.php'); ?>
 <div class="container"> <!-- Open: .container -->
-        <form id="createListingForm" method="POST" action="../../Backend/newListingService.php" class="form-section" enctype="multipart/form-data"> <!-- Open: form -->
+        <form id="createListingForm" method="POST" action="newListingPage.php" class="form-section" enctype="multipart/form-data"> <!-- Open: form -->
             <div class="left"> <!-- Open: .left -->
                 <div class="upload-container"> <!-- Open: .upload-container -->
                     <label for="files">Select files to upload</label><br>
