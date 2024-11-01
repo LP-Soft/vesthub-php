@@ -21,7 +21,7 @@ include '../Components/houseCard.php';
                     <p class="welcome-slogan">The best place to find your dream home</p>
                 </div>
                 <div class="search-bar">
-                    <form action="searchPage.php" method="get">
+                    <form action="searchResultsPage.php" method="get">
                         <div class="search-inputs">
                             <select name="city" id="city" onchange="updateDistricts()">
                                 <option value="">City</option>
