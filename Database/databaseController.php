@@ -160,5 +160,10 @@ if (!defined('DB_LOADED')) {
     function closeConnection($conn) {
         $conn->close();
     }
+
+    function getHousesByOwnerFromDb($conn, $ownerID){
+        $sql = "SELECT * FROM houses WHERE ownerID = " . $ownerID;
+        return $conn->query($sql);
+    }
 }
 ?>

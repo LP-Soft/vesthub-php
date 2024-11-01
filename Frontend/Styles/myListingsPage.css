@@ -1,0 +1,63 @@
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #e9ebea;
+    padding: 20px;
+}
+
+.content .my-listings {
+    flex: 1;
+}
+
+.content .last-houses-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.content .house-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 6px;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Make cards scrollable on smaller screens instead of stacking */
+@media (max-width: 1200px) {
+    .content .house-cards {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        overflow-x: auto;
+    }
+
+    /* Set a fixed width for cards when in scrollable mode */
+    .content .house-cards > * {
+        min-width: 280px;
+        max-width: 280px;
+    }
+}
+
+/* Add some styling for the scrollbar */
+.content .house-cards::-webkit-scrollbar {
+    height: 8px;
+}
+
+.content .house-cards::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.content .house-cards::-webkit-scrollbar-thumb {
+    background: #B7C094;
+    border-radius: 4px;
+}
+
+.content .house-cards::-webkit-scrollbar-thumb:hover {
+    background: #9aa67d;
+}
