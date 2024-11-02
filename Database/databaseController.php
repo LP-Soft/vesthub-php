@@ -34,10 +34,10 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function getNeighborhoodsFromDb($conn, $city){
+    function getNeighborhoodsFromDb($conn, $district){
         $sql = "SELECT DISTINCT neighborhood FROM houses WHERE district = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $city);
+        $stmt->bind_param("s", $district);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result;
