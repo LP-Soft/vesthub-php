@@ -1,9 +1,9 @@
 <?php
 require_once '../Components/header.php';
-require_once '../../Backend/myListingsService.php';
+require_once '../../Backend/favoritesService.php';
 require_once '../Components/houseCard.php';
 
-//Su anlik user giris yapmadigi icin ownderID static 2 olarak belirlendi.
+//Su anlik user giris yapmadigi icin userID static 2 olarak belirlendi.
 ?>
 
 <!DOCTYPE html>
@@ -11,24 +11,25 @@ require_once '../Components/houseCard.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Listings Page</title>
-    <link rel="stylesheet" href="../Styles/myListingsPage.css">
+    <title>Favorites Page</title>
+    <link rel="stylesheet" href="../Styles/favoritesPage.css">
 </head>
 <body>
 <div class="content">
-    <div class="my-listings">
-        <h1 class="my-listings-text">My Listings</h1>
+    <div class="favorites">
+        <h1 class="favorites-text">Favorites</h1>
         <div class="house-cards">
             <?php
-            // Fetch all homes
-            $result = getHousesByOwner(2);
-            // Loop through the result set and include homecard.php
+            // Fetch favorite homes
+            $result = getFavoriteHouses(2);
+
+            // Loop through the result set and display house cards
             if ($result && $result->num_rows > 0) {
                 while ($house = $result->fetch_assoc()) {
                     displayHouseCard($house, 0);
                 }
             } else {
-                echo "No homes available.";
+                echo "No favorite homes available.";
             }
             ?>
         </div>

@@ -6,11 +6,11 @@
     padding: 20px;
 }
 
-.content .my-listings {
+.content .favorites {
     flex: 1;
 }
 
-.content .my-listings-text {
+.content .favorites-text {
     font-size: 28px;  /* Increased from 24px to 32px */
     font-weight: bold;
     margin-bottom: 20px;
