@@ -1,8 +1,8 @@
 <?php
 include "../../Database/databaseController.php";
 
-function getFavoriteHouses($userID)
+function getFavoriteHousesByOwner($userID)
 {
-    return getFavoriteHousesFromDb($GLOBALS['conn'], $userID);
+    return getFavoriteHousesByOwnerFromDb($GLOBALS['conn'], $userID);
 }
 ?>

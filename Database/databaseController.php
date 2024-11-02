@@ -166,7 +166,7 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function getFavoriteHousesFromDb($conn, $userID)
+    function getFavoriteHousesByOwnerFromDb($conn, $userID)
     {
         $sql = "SELECT h.* FROM houses h 
             INNER JOIN favorites f ON h.houseID = f.houseID 

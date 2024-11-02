@@ -21,7 +21,7 @@ require_once '../Components/houseCard.php';
         <div class="house-cards">
             <?php
             // Fetch favorite homes
-            $result = getFavoriteHouses(2);
+            $result = getFavoriteHousesByOwner(2);
 
             // Loop through the result set and display house cards
             if ($result && $result->num_rows > 0) {
