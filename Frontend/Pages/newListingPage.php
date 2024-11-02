@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="left"> <!-- Open: .left -->
                 <div class="upload-container"> <!-- Open: .upload-container -->
                     <label for="files">Select files to upload</label><br>
-                    <input type="file" name="files[]" multiple onchange="previewFiles(event)"><br>
+                    <input type="file" accept="image/*" name="files[]" multiple onchange="previewFiles(event)"><br>
 
                     <div id="filePreview"></div> <!-- Close: #filePreview -->
                 </div> <!-- Close: .upload-container -->
