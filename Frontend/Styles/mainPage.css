@@ -15,7 +15,7 @@
     position: relative;
 }
 
-.content .search-area .logo {
+.content .search-area .background {
     width: 100%;
     height: 40vh;
     object-fit: cover;
@@ -26,15 +26,35 @@
 .content .search-area .search-box {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 20px;
     margin: 20px;
+    height: 20vh;
+    width: 30vw;
     right: 0;
     background-color: rgba(255, 255, 255, 0.6);
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: absolute;
+}
+
+.content .search-area .search-box .search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+
+
+.content .search-area .search-box .search-bar .search-inputs .search-select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .content .search-area .search-box .search-button {
@@ -53,7 +73,16 @@
 .content .search-area .search-box .search-inputs {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    min-width: max-content;
     gap: 10px;
+}
+
+.content .search-area .search-box .search-bar .display-sale-rent-switch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
     width: 100%;
 }
 
@@ -66,10 +95,14 @@
 .content .search-area .search-box .welcome .welcome-text {
     font-size: 24px;
     font-weight: bold;
+    height: fit-content;
+    margin: 2px; /* Boşluğu azaltmak için */
 }
 
 .content .search-area .search-box .welcome .welcome-slogan {
     font-size: 16px;
+    height: fit-content;
+    margin: 2px; /* Boşluğu azaltmak için */
 }
 
 .content .house-cards {

@@ -1,0 +1,202 @@
+/* .toggle-button-cover {
+    display: table-cell;
+    position: relative;
+    width: 163px;
+    height: 39px;
+    box-sizing: border-box;
+}
+
+.knobs,
+.layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.knobs {
+    z-index: 2;
+    align-items: center;
+}
+
+.layer {
+    width: 100%;
+    background-color: #333333;
+    border-radius: 10px;
+    opacity: 40%;
+    transition: 0.3s ease all;
+    z-index: 1;
+}
+
+
+#isSale .knobs:before,
+#isSale .knobs span {
+    content: "SALE";
+    position: absolute;
+    margin-left: 4px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    width: 74px;
+    height: 15px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#isSale .knobs:before {
+    transition: 0.3s ease all, left 0.5s;
+    z-index: 2;
+}
+
+#isSale .knobs span {
+    background-color: #D17C57;
+    border-radius: 10px;
+    transition: 0.3s ease all, left 0.3s;
+    z-index: 1;
+}
+
+#isSale .checkbox:checked + .knobs:before {
+    content: "RENT";
+    left: 73px;
+}
+
+#isSale .checkbox:checked + .knobs span {
+    left: 73px;
+    background-color: #333333;
+    opacity: 30%;
+}
+
+#isSale .checkbox:checked ~ .layer {
+    background-color: #333333;
+    opacity: 40%;
+}
+
+.button {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkbox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+*/
+
+
+
+
+
+
+/*
+
+<?php
+function displaySaleRentSwitch() {
+    ?>
+    <link rel="stylesheet" href="../Styles/saleRentSwitch.css">
+    <div class="toggle-button-cover">
+        <div class="button" id="isSale">
+            <input type="checkbox" name="isSale" id="isSale" class="checkbox" value="1" <?= isset($_POST['isSale']) ? 'checked' : '' ?> />
+            <div class="knobs">
+                <span></span>
+            </div>
+            <div class="layer"></div>
+        </div>
+    </div>
+<?php
+}
+?> 
+
+*/
+
+
+.toggle-button-cover {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    width: 163px;
+    height: 39px;
+}
+
+.radio-container {
+    position: relative;
+    width: 48%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-container input[type="radio"] {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.radio-label {
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    padding: 9px 4px;
+    width: 74px;
+    height: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s ease all;
+    position: relative;
+    z-index: 2;
+}
+
+/* Sale button styling */
+.radio-container:first-child input[type="radio"]:checked + .radio-label {
+    background-color: #D17C57;
+}
+
+/* Rent button styling */
+.radio-container:last-child input[type="radio"]:checked + .radio-label {
+    background-color: #D17C57;
+}
+
+/* Unchecked state */
+.radio-container input[type="radio"]:not(:checked) + .radio-label {
+    opacity: 0;
+}
+
+/* Background layer */
+.toggle-button-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333333;
+    opacity: 0.4;
+    border-radius: 10px;
+    z-index: 1;
+}

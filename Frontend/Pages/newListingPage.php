@@ -2,6 +2,7 @@
 require_once "../Components/imageBox.php";
 include "../../Backend/newListingService.php";
 require_once '../../Classes/houseInfo.php';
+include '../Components/saleRentSwitch.php';
 use Classes\houseInfo;
 
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
@@ -67,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['isSale'])) {
-        $houseInfo->isSale = 0; // Property is for rent
+        $houseInfo->isSale = (int)$_POST['isSale']; // 0 Property is for rent
     }
 
     // Set the basic house information
@@ -188,16 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div> <!-- Close: .middle -->
 
             <div class="right"> <!-- Open: .right -->
-                <div class="toggle-button-cover">
-                    <div class="button b2" id="isSale">
-                        <input type="checkbox" name="isSale" id="isSale" class="checkbox" value="1" <?= isset($_POST['isSale']) ? 'checked' : '' ?>/>
-                        <div class="knobs">
-                            <span></span>
-                        </div>
-                        <div class="layer"></div>
-                    </div>
-                </div>
-
+                <?php displaySaleRentSwitch();?>
                 <div class="input">
                     <select id="houseType" name="houseType" style="width: 280px; height: 40px; border-radius: 10px">
                         <option value="" selected hidden>House type</option>
