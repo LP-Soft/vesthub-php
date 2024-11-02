@@ -1,9 +1,10 @@
 <?php
 
-//TODO: Bunu herkeste aynı yapmamız gerekiyor!!!! Veya kendine göre degistirecek herkes
+// CREATE USER 'lpsoft'@'localhost' IDENTIFIED BY 'LpSoft123';
+// sonra bu usera yetkileri verin
 $servername = "localhost";
-$username = "root";
-$password = "4831195";
+$username = "lpsoft";
+$password = "LpSoft123";
 $dbname = "vesthub";
 
 // Create a connection

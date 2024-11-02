@@ -22,7 +22,7 @@ include '../Components/saleRentSwitch.php';
                     <p class="welcome-slogan">The best place to find your dream home</p>
                 </div>
                 <div class="search-bar">
-                    <form action="searchResultsPage.php" method="get" onsubmit="checkFields()">
+                    <form class="form" action="searchResultsPage.php" method="get" onsubmit="checkFields()">
                         <div class="display-sale-rent-switch">
                             <?php
                             displaySaleRentSwitch();
