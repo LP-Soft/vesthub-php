@@ -14,3 +14,6 @@
 
 ### To run mysqli() on Windows:
 * Ask Şafak, Şevval or Ali :)
+
+
+GELDIM
