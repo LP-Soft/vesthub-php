@@ -102,6 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../Styles/imageBox.css">
 
     <script>
+        let selectedFiles = [];
+
         function previewFiles(event) {
             const fileInput = event.target; // Get the input element
             const filePreview = document.getElementById('filePreview');
@@ -112,6 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Only process image files
                 if (file.type.startsWith('image/')) {
+                    selectedFiles.push(file); // Add the file to the selectedFiles array
+
                     const imgSrc = URL.createObjectURL(file); // Create a temporary URL for the image
 
                     // Create a new image card using the PHP function
@@ -130,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     closeButton.textContent = '×'; // X symbol
                     closeButton.className = 'close-button';
                     closeButton.onclick = function() {
-                        removeImage(closeButton); // Remove the image on click
+                        removeImage(closeButton, file);
                     };
 
                     // Append the close button to the image card
@@ -142,9 +146,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        function removeImage(button) {
+        function removeImage(button, file) {
             const imageCard = button.parentElement; // Get the image card (parent of the button)
             imageCard.remove(); // Remove the image card from the preview
+
+            // Remove the file from the selectedFiles array
+            selectedFiles = selectedFiles.filter(f => f !== file);
+        }
+
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(document.getElementById('createListingForm'));
+
+            // Append the selected files to the form data
+            selectedFiles.forEach(file => {
+                formData.append('files[]', file);
+            });
+
+            // Submit the form data using fetch or XMLHttpRequest
+            fetch('newListingPage.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                // Handle the response
+                if (response.ok) {
+                    // Success
+                    console.log('Form submitted successfully');
+                } else {
+                    // Error
+                    console.error('Form submission failed');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
         }
     </script>
 </head>
@@ -152,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include('../Components/header.php'); ?>
 <div class="container"> <!-- Open: .container -->
-        <form id="createListingForm" method="POST" action="newListingPage.php" class="form-section" enctype="multipart/form-data"> <!-- Open: form -->
+        <form id="createListingForm" method="POST" action="newListingPage.php" class="form-section" enctype="multipart/form-data" onsubmit="submitForm(event)"> <!-- Open: form -->
             <div class="left"> <!-- Open: .left -->
                 <div class="upload-container"> <!-- Open: .upload-container -->
                     <label for="files">Select files to upload</label><br>
