@@ -4,6 +4,30 @@ require_once "connect.php";
 if (!defined('DB_LOADED')) {
     define('DB_LOADED', true);
 
+    function takeAllCities($conn){
+        $sql = "SELECT DISTINCT il_adi FROM iller ORDER BY il_adi";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    function takeAllDistricts($conn, $city){
+        $sql = "SELECT DISTINCT ilce_adi FROM ilceler WHERE il_adi = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $city);
+        $stmt->execute();
+        return $stmt->get_result();
+
+    }
+
+    function takeAllNeighborhoods($conn, $district){
+        $sql = "SELECT DISTINCT mahalle_adi FROM mahalleler WHERE ilce_adi = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $district);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
     function getLastFiveHousesFromDb($conn){
         $sql = "SELECT * FROM houses ORDER BY houseID DESC LIMIT 5";
         return $conn->query($sql);
@@ -37,7 +61,7 @@ if (!defined('DB_LOADED')) {
     function getNeighborhoodsFromDb($conn, $district){
         $sql = "SELECT DISTINCT neighborhood FROM houses WHERE district = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $district);
+        $stmt->bind_param('s', $district);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result;

@@ -2,7 +2,7 @@
 require_once "../Components/imageBox.php";
 include "../../Backend/newListingService.php";
 require_once '../../Classes/houseInfo.php';
-include '../Components/saleRentSwitch.php';
+include '../Components/SaleRentSwitch.php';
 use Classes\houseInfo;
 
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
