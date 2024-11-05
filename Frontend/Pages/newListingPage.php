@@ -198,27 +198,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div> <!-- Close: .left -->
             <div class="middle"> <!-- Open: .middle -->
                 <div class="input">
-                    <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>">
+                    <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required>
                 </div>
                 <div class="input">
-                    <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required value="<?= isset($_POST['description']) ? htmlspecialchars($_POST['description']) : '' ?>">
+                    <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required>
                 </div>
                 <div class="input">
                     <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                         <option value="" selected hidden>Number of rooms</option>
                         <?php foreach ($roomCount as $room) { ?>
-                            <option value="<?= $room ?>" <?= (isset($_POST['numOfRooms']) && $_POST['numOfRooms'] === $room) ? 'selected' : '' ?>><?= $room ?></option>
+                            <option value="<?= $room ?>" ><?= $room ?></option>
                         <?php } ?>
                     </select>
-                    <input id="price" name="price" type="number" placeholder="Price" style="width: 220px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '' ?>">
+                    <input id="price" name="price" type="number" placeholder="Price" style="width: 220px; height: 40px; border-radius: 10px" required min="0">
                 </div>
                 <div class="input">
-                    <input id="city" name="city" type="text" placeholder="City" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" required value="<?= isset($_POST['city']) ? htmlspecialchars($_POST['city']) : '' ?>">
-                    <input id="district" name="district" type="text" placeholder="District" style="width: 220px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['district']) ? htmlspecialchars($_POST['district']) : '' ?>">
+                    <select id="city" name="city" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateDistricts()" required>
+                        <option value="">City</option>
+                    </select>
+                    <select id="district" name="district" style="width: 220px; height: 40px; border-radius: 10px" onchange="updateNeighborhoods()" required>
+                        <option value="">District</option>
+                    </select>
                 </div>
                 <div class="input">
-                    <input id="neighborhood" name="neighborhood" type="text" placeholder="Neighborhood" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" required value="<?= isset($_POST['neighborhood']) ? htmlspecialchars($_POST['neighborhood']) : '' ?>">
-                    <input id="street" name="street" type="text" placeholder="Street" style="width: 220px; height: 40px; border-radius: 10px" required value="<?= isset($_POST['street']) ? htmlspecialchars($_POST['street']) : '' ?>">
+                    <select id="neighborhood" name="neighborhood" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateStreets()" required>
+                        <option value="">Neighborhood</option>
+                    </select>
+                    <select id="street" name="street" style="width: 220px; height: 40px; border-radius: 10px" required>
+                        <option value="">Street</option>
+                    </select>
+
                 </div>
 
             </div> <!-- Close: .middle -->
@@ -229,17 +238,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <select id="houseType" name="houseType" style="width: 280px; height: 40px; border-radius: 10px">
                         <option value="" selected hidden>House type</option>
                         <?php foreach ($houseType as $type) { ?>
-                            <option value="<?= $type ?>" <?= isset($_POST['houseType']) && $_POST['houseType'] === $type ? 'selected' : '' ?>><?= $type ?></option>                        <?php } ?>
+                            <option value="<?= $type ?>"> <?= $type ?> </option>
+                        <?php } ?>
                     </select>
                 </div>
 
                 <div class="input">
-                    <input id="floor" name="floor" type="number" placeholder="Floor" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required min="-2" value="<?= isset($_POST['floor']) ? htmlspecialchars($_POST['floor']) : '' ?>">
-                    <input id="totalFloor" name="totalFloor" type="number" placeholder="Total Floor" style="width: 140px; height: 40px; border-radius: 10px" required min="0" value="<?= isset($_POST['totalFloor']) ? htmlspecialchars($_POST['totalFloor']) : '' ?>">
+                    <input id="floor" name="floor" type="number" placeholder="Floor" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required min="-2">
+                    <input id="totalFloor" name="totalFloor" type="number" placeholder="Total Floor" style="width: 140px; height: 40px; border-radius: 10px" required min="1">
                 </div>
 
                 <div class="input">
-                    <input id="area" name="area" type="number" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="0" value="<?= isset($_POST['area']) ? htmlspecialchars($_POST['area']) : '' ?>">
+                    <input id="area" name="area" type="number" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1">
                 </div>
 
                 <div class="input"> <!-- Open: .key-features -->
@@ -248,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php $counter = 0 ?>
                         <?php foreach ($keyFeatures as $feature) { ?>
                                 <?php $counter++ ?>
-                                <input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>" <?= (isset($_POST['keyFeatures']) && in_array($feature, $_POST['keyFeatures'])) ? 'checked' : '' ?>>
+                                <input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>">
                                 <label for="<?= $feature ?>"><?= $feature ?> </label>
                                 <?php if ($counter%2 == 0) { echo "<br>"; }?>
 
@@ -260,7 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div> <!-- Close: .right -->
         </form> <!-- Close: form -->
 </div> <!-- Close: .container -->
-
-<?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->
+<script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
 </html>
+<?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->
