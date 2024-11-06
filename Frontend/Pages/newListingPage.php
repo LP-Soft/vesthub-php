@@ -158,6 +158,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             event.preventDefault(); // Prevent the default form submission
 
             const formData = new FormData(document.getElementById('createListingForm'));
+            
+            //replace files with the selected files
+            formData.delete('files[]');
 
             // Append the selected files to the form data
             selectedFiles.forEach(file => {
