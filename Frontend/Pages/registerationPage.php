@@ -171,10 +171,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <form id="register-form" action="registerationPage.php" method="POST">
                 <div class="input-row">
-                    <input type="text" id="name" name="name" class="input-field" placeholder="Name" required>
-                    <input type="text" id="surname" name="surname" class="input-field" placeholder="Surname" required>
+                    <input type="text" maxlength="45" minlength="1" id="name" name="name" class="input-field" placeholder="Name" required>
+                    <input type="text" maxlength="45" minlength="1" id="surname" name="surname" class="input-field" placeholder="Surname" required>
                 </div>
-                <input type="email" id="email" name="email" class="input-field" placeholder="E-mail" required>
+                <input type="email" maxlength="45" minlength="1" id="email" name="email" class="input-field" placeholder="E-mail" required>
                 <input type="tel" maxlength="10" minlength="10" id="phone" name="phone" class="input-field" placeholder="Phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
                 <input type="password" minlength="8" id="password" name="password" class="input-field" placeholder="Password" required>
                 <input type="password" minlength="8" id="confirm_password" name="confirm_password" class="input-field" placeholder="Confirm Password" required pattern=".{8,}" title="Passwords must match" oninput="this.setCustomValidity(this.value != document.getElementById('password').value ? 'Passwords do not match' : '')">
