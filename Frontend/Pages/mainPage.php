@@ -3,7 +3,6 @@ require '../Components/header.php';
 include '../../Backend/mainPageService.php';
 include '../Components/houseCard.php';
 include '../Components/SaleRentSwitch.php';
-// session_start();
 
 if (isset($_POST['logout'])) {
     session_destroy();

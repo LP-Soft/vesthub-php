@@ -2,7 +2,6 @@
 include '../Components/header.php';
 include '../../Backend/verificationService.php';
 include '../../Backend/Utilities/sendMail.php';
-session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
