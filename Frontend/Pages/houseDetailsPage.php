@@ -1,6 +1,11 @@
 <?php
 require_once '../Components/header.php';
 require_once '../../Backend/houseDetailsService.php';
+require_once '../../Backend/Utilities/getUserInfo.php';
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Get the house ID from the URL parameter (or set to 1 for testing)
 $houseId = 1;  // Replace this with dynamic ID if needed (e.g., $_GET['id'])
@@ -17,7 +22,7 @@ $houseImages = getHouseImages($houseId);
 
 // Get house details from the backend (use the function defined in houseDetailsService.php)
 $house = getHouseDetails($houseId); // Fetch the house details as an object
-
+$user = getUserInfo(2); // Fetch the user details as an object
 ?>
 
 <!DOCTYPE html>

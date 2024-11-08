@@ -242,6 +242,12 @@ if (!defined('DB_LOADED')) {
         return true;
     }
 
+    /*Mehmet*/
+    function getUserInfoFromDb($conn, $userID) {
+        $sql = "SELECT * FROM users WHERE userID = " . $userID;
+        return $conn->query($sql);
+    }
+
     
 }
 ?>
