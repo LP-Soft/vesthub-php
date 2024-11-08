@@ -2,7 +2,7 @@
 include '../Components/header.php';
 include '../../Backend/loginService.php';
 
-session_start();
+//session_start();
 $error_message = ""; // Initialize an error message variable
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

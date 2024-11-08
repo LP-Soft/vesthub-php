@@ -1,8 +1,3 @@
-<?php
-session_start(); // Oturum işlemleri
-$isLoggedIn = isset($_SESSION['user']); // Kullanıcı giriş yapmış mı kontrolü
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
