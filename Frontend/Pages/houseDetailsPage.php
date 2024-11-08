@@ -8,7 +8,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Get the house ID from the URL parameter (or set to 1 for testing)
-$houseId = 1;  // Replace this with dynamic ID if needed (e.g., $_GET['id'])
+$houseId = 36;  // Replace this with dynamic ID if needed (e.g., $_GET['id'])
 
 // Function to get house images dynamically from the directory
 function getHouseImages($houseId) {
@@ -61,8 +61,8 @@ $user = getUserInfo(2); // Fetch the user details as an object
             <div class="location">
                 <span><?php echo htmlspecialchars($house->city); ?></span>
                 <span><?php echo htmlspecialchars($house->district); ?></span>
-                <span><?php echo htmlspecialchars($house->street); ?></span>
                 <span><?php echo htmlspecialchars($house->neighborhood); ?></span>
+                <span><?php echo htmlspecialchars($house->street); ?></span>
             </div>
 
             <div class="house-info">
@@ -80,25 +80,50 @@ $user = getUserInfo(2); // Fetch the user details as an object
                 </div>
                 <div class="info-item">
                     <span class="label">Floor:</span>
-                    <span class="value"><?php echo htmlspecialchars($house->floor); ?>, Total Floor: <?php echo htmlspecialchars($house->totalFloor); ?></span>
+                    <span class="value"><?php echo htmlspecialchars($house->floor); ?></span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Total Floor:</span>
+                    <span class="value"><?php echo htmlspecialchars($house->totalFloor); ?></span>
                 </div>
             </div>
 
             <div class="features">
                 <h2>Features</h2>
                 <div class="features-grid">
-                    <div class="feature"><?php echo $house->satellite ? '✓ Satellite' : '✘ Satellite'; ?></div>
-                    <div class="feature"><?php echo $house->airConditioner ? '✓ Air Conditioner' : '✘ Air Conditioner'; ?></div>
-                    <div class="feature"><?php echo $house->floorHeating ? '✓ Floor Heating' : '✘ Floor Heating'; ?></div>
-                    <div class="feature"><?php echo $house->fireplace ? '✓ Fireplace' : '✘ Fireplace'; ?></div>
-                    <div class="feature"><?php echo $house->terrace ? '✓ Terrace' : '✘ Terrace'; ?></div>
-                    <div class="feature"><?php echo $house->insulation ? '✓ Insulation' : '✘ Insulation'; ?></div>
-                    <div class="feature"><?php echo $house->parquet ? '✓ Parquet' : '✘ Parquet'; ?></div>
-                    <div class="feature"><?php echo $house->steelDoor ? '✓ Steel Door' : '✘ Steel Door'; ?></div>
-                    <div class="feature"><?php echo $house->furnished ? '✓ Furnished' : '✘ Furnished'; ?></div>
-                    <div class="feature"><?php echo $house->fiberInternet ? '✓ Fiber Internet' : '✘ Fiber Internet'; ?></div>
+                    <div class="feature <?php echo $house->satellite ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->satellite ? '✓ Satellite' : '✘ Satellite'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->airConditioner ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->airConditioner ? '✓ Air Conditioner' : '✘ Air Conditioner'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->floorHeating ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->floorHeating ? '✓ Floor Heating' : '✘ Floor Heating'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->fireplace ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->fireplace ? '✓ Fireplace' : '✘ Fireplace'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->terrace ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->terrace ? '✓ Terrace' : '✘ Terrace'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->insulation ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->insulation ? '✓ Insulation' : '✘ Insulation'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->parquet ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->parquet ? '✓ Parquet' : '✘ Parquet'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->steelDoor ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->steelDoor ? '✓ Steel Door' : '✘ Steel Door'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->furnished ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->furnished ? '✓ Furnished' : '✘ Furnished'; ?>
+                    </div>
+                    <div class="feature <?php echo $house->fiberInternet ? 'available' : 'not-available'; ?>">
+                        <?php echo $house->fiberInternet ? '✓ Fiber Internet' : '✘ Fiber Internet'; ?>
+                    </div>
                 </div>
             </div>
+
 
             <div class="description">
                 <h2>Description</h2>
@@ -108,10 +133,19 @@ $user = getUserInfo(2); // Fetch the user details as an object
 
         <!-- Right Column - Price and Contact -->
         <div class="contact-column">
-            <div class="price"><?php echo number_format($house->price, 0, '.', ','); ?>₺ <span class="for-sale-badge"><?php echo $house->isSale ? 'For Sale' : 'For Rent'; ?></span></div>
+            <div class="price-isSale">
+                <div class="price">
+                    <?php echo number_format($house->price, 0, '.', ','); ?>₺
+                </div>
+                <div class="isSale" style="background-color: <?php echo $house->isSale ? '#56ec45' : '#d17c57'; ?>">
+                    <span class="for-sale-badge <?php echo $house->isSale ? 'sale' : 'rent'; ?>">
+                        <?php echo $house->isSale ? 'For Sale' : 'For Rent'; ?>
+                    </span>
+                </div>
+            </div>
             <div class="contact-info">
-                <p>Contact: Ali Taş</p>
-                <p class="phone">📞 +90 555 55 55 55</p>
+                <span>Contact: Ali Taş</span>
+                <span class="phone">📞 +90 555 55 55 55</span>
             </div>
             <div class="map-container">
                 <iframe
