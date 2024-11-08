@@ -28,9 +28,9 @@ session_start();
             <?php
             if (isset($_SESSION['userID'])) {
             ?>
-                <button class="logout-button" onclick="window.location.href='loginPage.php'" onclick="
-                //TODO:Kullanıcıyı çıkış yapacak şekilde yönlendir
-                ">Logout</button>
+                <form action="mainPage.php" method="post">
+                    <button class="logout-button" type="submit" name="logout">Logout</button>
+                </form>
             <?php
             } else {
             ?>
