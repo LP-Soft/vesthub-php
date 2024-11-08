@@ -28,16 +28,17 @@ session_start();
             <?php
             if (isset($_SESSION['userID'])) {
             ?>
+                <a href="favoritesPage.php">Favorites</a>
                 <form action="mainPage.php" method="post">
                     <button class="logout-button" type="submit" name="logout">Logout</button>
                 </form>
             <?php
             } else {
             ?>
-            <button class="btn signin-btn" onclick="window.location.href='loginPage.php'"
-                href="loginPage.php">Sign in</button>
-            <button class="btn signup-btn" onclick="window.location.href='registerationPage.php'"
-                href="registerPage.php">Sign up</button>
+                <button class="btn signin-btn" onclick="window.location.href='loginPage.php'"
+                    href="loginPage.php">Sign in</button>
+                <button class="btn signup-btn" onclick="window.location.href='registerationPage.php'"
+                    href="registerPage.php">Sign up</button>
             <?php
             }
             ?>
