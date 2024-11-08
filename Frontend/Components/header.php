@@ -27,7 +27,7 @@
             <!-- Kullanıcı giriş yapmamışsa -->
             <button class="btn signin-btn" onclick="window.location.href='loginPage.php'"
                 href="loginPage.php">Sign in</button>
-            <button class="btn signup-btn" onclick="window.location.href='registerPage.php'"
+            <button class="btn signup-btn" onclick="window.location.href='registerationPage.php'"
                 href="registerPage.php">Sign up</button>
         </div>
     </div>

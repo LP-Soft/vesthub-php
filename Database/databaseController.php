@@ -211,5 +211,37 @@ if (!defined('DB_LOADED')) {
         $sql = "SELECT * FROM houses WHERE houseID = " . $houseID;
         return $conn->query($sql);
     }
+
+    /*Mehmet*/
+    function checkLoginCredentialsFromDb($conn, $email, $password)
+    {
+        $sql = "SELECT userID FROM users WHERE email = ? AND password = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    /*Mehmet*/
+    function checkAccountExistFromDb($conn, $email)
+    {
+        $sql = "SELECT userID FROM users WHERE email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
+    /*Mehmet*/
+    function insertAccountDb($conn, $name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
+    {
+        $sql = "INSERT INTO users (name, surname, email, phone, password, city, district, neighborhood) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssss", $name, $surname, $email, $phone, $password, $city, $district, $neighborhood);
+        $stmt->execute();
+        return true;
+    }
+
+    
 }
 ?>
