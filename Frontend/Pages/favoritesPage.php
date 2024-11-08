@@ -2,6 +2,7 @@
 require_once '../Components/header.php';
 require_once '../../Backend/favoritesService.php';
 require_once '../Components/houseCard.php';
+session_start();
 
 //Su anlik user giris yapmadigi icin userID static 2 olarak belirlendi.
 ?>
@@ -21,7 +22,8 @@ require_once '../Components/houseCard.php';
         <div class="house-cards">
             <?php
             // Fetch favorite homes
-            $result = getFavoriteHousesByOwner(2);
+            $ownerID = $_SESSION['userID'];
+            $result = getFavoriteHousesByOwner($ownerID);
 
             // Loop through the result set and display house cards
             if ($result && $result->num_rows > 0) {
