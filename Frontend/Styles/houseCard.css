@@ -10,6 +10,7 @@
     background-color: #fff; /* White background for contrast */
     position: relative; /* Ensure proper stacking context */
     z-index: 1; /* Ensure this is above other elements */
+    cursor: pointer;
 }
 
 .home-card:hover {

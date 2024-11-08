@@ -9,7 +9,7 @@ function displayHouseCard($house, $service) {
 
     // Output the HTML for the house card directly
     ?>
-    <div class="home-card">
+    <div class="home-card" onclick="window.location.href='houseDetailsPage.php?id=<?php echo $house['houseID']; ?>'">
         <link rel="stylesheet" href="../Styles/houseCard.css">
         <!-- <img src="photos/<?php echo $house['houseID']; ?>-1.png" alt="House Image"> -->
         <img src="../../house-images/dummy.png" alt="House Image">
