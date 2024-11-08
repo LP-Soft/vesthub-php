@@ -2,7 +2,6 @@
 require_once '../Components/header.php';
 require_once '../../Backend/myListingsService.php';
 require_once '../Components/houseCard.php';
-session_start();
 //Su anlik user giris yapmadigi icin ownderID static 2 olarak belirlendi.
 ?>
 
