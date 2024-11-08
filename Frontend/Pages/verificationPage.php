@@ -7,45 +7,43 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Generate a random verification code
-    $verification_code = generateVerificationCode(); 
+    $verification_code = generateVerificationCode();
 
-    // send the verification code to the user's email
+    // Send the verification code to the user's email
     sendEmail($_SESSION['email'], "Verification Code", "Your verification code is: $verification_code", "Please enter this code: $verification_code to verify your account.");
 
-    // store the verification code in session
+    // Set expiration time (e.g., 30 seconds from now)
+    $_SESSION['verification_code_expiration'] = time() + 30;
     $_SESSION['verification_code'] = $verification_code;
-    
 }
+
+// Calculate remaining time in PHP
+$remaining_time = isset($_SESSION['verification_code_expiration']) ? max($_SESSION['verification_code_expiration'] - time(), 0) : 0;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $verification_code = $_POST['verification-code'];
 
-
-    // check if the verification code is correct
-    // if correct, redirect to the main page
-    // if not, display an error message
-    if ($verification_code === $_SESSION['verification_code']) {
-        // save the user to the database
-        insertAccount($_SESSION['name'], $_SESSION['surname'], $_SESSION['email'], $_SESSION['phone'], $_SESSION['password'], $_SESSION['city'], $_SESSION['district'], $_SESSION['neighborhood']);
-        // delete the session variables
-        session_unset();
-        session_destroy();
-        echo "<script>
+    // Check if the verification code has expired
+    if ($remaining_time <= 0) {
+        $error_message = "Verification code expired. Please click the resend verification code button.";
+    } else {
+        // Check if the verification code is correct
+        if ($verification_code === $_SESSION['verification_code']) {
+            insertAccount($_SESSION['name'], $_SESSION['surname'], $_SESSION['email'], $_SESSION['phone'], $_SESSION['password'], $_SESSION['city'], $_SESSION['district'], $_SESSION['neighborhood']);
+            session_unset();
+            session_destroy();
+            echo "<script>
                     alert('Verification successful. Redirecting to Login page. Please login to continue.');
                     window.location.href = 'loginPage.php';
-                  </script>";
-        exit();
-    } else {
-        $error_message = "Invalid verification code";
+                </script>";
+            exit();
+        } else {
+            $error_message = "Invalid verification code";
+        }
     }
 }
-
-
-
-
 ?>
 
 <html lang="en">
@@ -54,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification Page</title>
     <style>
-
         #verification-container {
             width: 100%;
             height: 100vh;
@@ -80,6 +77,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 20px;
         }
 
+        .countdown-timer {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
         #verification-title {
             font-size: 24px;
             margin-bottom: 30px;
@@ -101,6 +104,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-sizing: border-box;
         }
 
+        #button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
         #sign-in-btn {
             background-color: #b8c5a6;
             color: #333;
@@ -110,12 +119,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 16px;
             cursor: pointer;
             width: 120px;
-            margin: 20px auto 0;
             transition: background-color 0.3s;
         }
 
         #sign-in-btn:hover {
             background-color: #a5b191;
+        }
+
+        #resend-btn {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100px;
+            transition: background-color 0.3s;
+        }
+
+        #resend-btn:hover {
+            background-color: #e0e0e0;
         }
 
         #error-message {
@@ -135,7 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="verification-box">
             <img id="logo" src="../Assets/vesthub_logo.png" alt="Vesthub Logo">
             <h1 id="verification-title">Enter the verification code sent to <?php echo $_SESSION['email'] ?> </h1>
-
+            
+            <div class="countdown-timer" id="countdown-timer">Code expires in 00:30</div>
+            
             <!-- Display the error message if there is one -->
             <?php if (!empty($error_message)): ?>
                 <div id="error-message"><?= $error_message ?></div>
@@ -143,25 +169,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <form id="verification-form" action="verificationPage.php" method="POST" onsubmit="return validateForm()">
                 <input type="text" class="input-field" name="verification-code" placeholder="Verification Code">
-                <button type="submit" id="sign-in-btn">Sign in</button>
+
+                <!-- Button container for Sign in and Resend Code -->
+                <div id="button-container">
+                    <button type="submit" id="sign-in-btn">Sign in</button>
+                    <button type="submit" id="resend-btn" formmethod="GET">Resend Code</button>
+                </div>
             </form>
         </div>
     </div>
 
     <script>
-        function validateForm() {
-            const verification_code = document.getElementById('verification-code').value;
+        const countdownTimer = document.getElementById('countdown-timer');
+        let countdownSeconds = <?= $remaining_time ?>;
 
-            if (verificationCode.length !== 6) {
-                alert('Verification code must be 6 characters long');
-                return false;
+        function updateCountdown() {
+            if (countdownSeconds > 0) {
+                countdownSeconds--;
+                countdownTimer.textContent = `Code expires in 00:${countdownSeconds.toString().padStart(2, '0')}`;
+            } else {
+                countdownTimer.textContent = "Code expired. Please click 'Resend Code'";
+                clearInterval(intervalId);
             }
+        }
 
-            return true;
+        // Start the countdown if there's remaining time
+        if (countdownSeconds > 0) {
+            const intervalId = setInterval(updateCountdown, 1000);
+        } else {
+            countdownTimer.textContent = "Code expired. Please click 'Resend Code'";
         }
     </script>
-
-
 
 <?php
 include '../Components/footer.php';
