@@ -169,15 +169,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <br>
             <?php endif; ?>
             
-            <form id="register-form" action="registerationPage.php" method="POST" onsubmit="return validateForm()">
+            <form id="register-form" action="registerationPage.php" method="POST">
                 <div class="input-row">
                     <input type="text" id="name" name="name" class="input-field" placeholder="Name" required>
                     <input type="text" id="surname" name="surname" class="input-field" placeholder="Surname" required>
                 </div>
                 <input type="email" id="email" name="email" class="input-field" placeholder="E-mail" required>
-                <input type="phone" id="phone" name="phone" class="input-field" placeholder="Phone" required>
-                <input type="password" id="password" name="password" class="input-field" placeholder="Password" required>
-                <input type="password" id="confirm_password" name="confirm_password" class="input-field" placeholder="Confirm Password" required>
+                <input type="tel" maxlength="10" minlength="10" id="phone" name="phone" class="input-field" placeholder="Phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
+                <input type="password" minlength="8" id="password" name="password" class="input-field" placeholder="Password" required>
+                <input type="password" minlength="8" id="confirm_password" name="confirm_password" class="input-field" placeholder="Confirm Password" required pattern=".{8,}" title="Passwords must match" oninput="this.setCustomValidity(this.value != document.getElementById('password').value ? 'Passwords do not match' : '')">
+
                 <div class="input-row">
                             <select class="search-select" name="city" id="city" onchange="updateDistricts()">
                                 <option value="">City</option>
@@ -202,44 +203,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="../../Backend/Scripts/addressFieldHandler.js">
         
         
-        function validateForm() {
-            // Get form elements
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm_password').value;
-            const phone = document.getElementById('phone').value;
-            
-            // Reset any previous error styling
-            document.getElementById('password').classList.remove('input-error');
-            document.getElementById('confirm_password').classList.remove('input-error');
-            document.getElementById('phone').classList.remove('input-error');
-            
-            let isValid = true;
-            
-            // Check password length
-            if (password.length < 8) {
-                alert('Password must be at least 8 characters long');
-                document.getElementById('password').classList.add('input-error');
-                isValid = false;
-            }
-            
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                alert('Passwords do not match');
-                document.getElementById('password').classList.add('input-error');
-                document.getElementById('confirm_password').classList.add('input-error');
-                isValid = false;
-            }
-            
-            // Check phone length (after removing any spaces or special characters)
-            const cleanPhone = phone.replace(/[^0-9]/g, '');
-            if (cleanPhone.length !== 10) {
-                alert('Phone number must be 10 digits');
-                document.getElementById('phone').classList.add('input-error');
-                isValid = false;
-            }
-            
-            return isValid;
-        }
     </script>
 </body>
 </html>

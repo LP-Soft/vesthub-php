@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="verification-container">
         <div id="verification-box">
             <img id="logo" src="../Assets/vesthub_logo.png" alt="Vesthub Logo">
-            <h1 id="verification-title">Enter the verification code sent to ******@gmail.com</h1>
+            <h1 id="verification-title">Enter the verification code sent to <?php echo $_SESSION['email'] ?> </h1>
 
             <!-- Display the error message if there is one -->
             <?php if (!empty($error_message)): ?>

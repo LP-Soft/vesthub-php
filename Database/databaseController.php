@@ -235,12 +235,14 @@ if (!defined('DB_LOADED')) {
     /*Mehmet*/
     function insertAccountDb($conn, $name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
     {
-        $sql = "INSERT INTO users (name, surname, email, phone, password, city, district, neighborhood) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $isActive = 1;
+        $sql = "INSERT INTO users (name, surname, email, phone, password, city, district, neighborhood, isActive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssss", $name, $surname, $email, $phone, $password, $city, $district, $neighborhood);
+        $stmt->bind_param("ssssssssi", $name, $surname, $email, $phone, $password, $city, $district, $neighborhood, $isActive);
         $stmt->execute();
         return true;
     }
+
 
     /*Mehmet*/
     function getUserInfoFromDb($conn, $userID) {
