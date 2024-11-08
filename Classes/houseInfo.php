@@ -28,6 +28,8 @@ class houseInfo {
     public $isSale = 1;
     public $status = 'Pending';
     public $id = 0; // not existing at the beginning
+    public $lat = 0.0;
+    public $lng = 0.0;
 
     public function __construct($postData) {
         // Initialize basic details from POST data
@@ -44,6 +46,8 @@ class houseInfo {
         $this->floor = (int)$postData['floor'];
         $this->totalFloor = (int)$postData['totalFloor'];
         $this->area = (int)$postData['area'];
+        $this->lat = (float)$postData['lat'];
+        $this->lng = (float)$postData['lng'];
 
         // Initialize key features
         if (isset($postData['keyFeatures'])) {

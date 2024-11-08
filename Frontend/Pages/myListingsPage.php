@@ -36,3 +36,8 @@ require_once '../Components/houseCard.php';
 </div>
 </body>
 </html>
+
+<?php
+//closeConnection($conn);
+include '../Components/footer.php';
+?>

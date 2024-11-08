@@ -205,5 +205,11 @@ if (!defined('DB_LOADED')) {
             WHERE f.userID = " . $userID;
         return $conn->query($sql);
     }
+
+    function getHouseDetailsFromDb($conn, $houseID)
+    {
+        $sql = "SELECT * FROM houses WHERE houseID = " . $houseID;
+        return $conn->query($sql);
+    }
 }
 ?>
