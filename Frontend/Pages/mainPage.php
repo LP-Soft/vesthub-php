@@ -3,9 +3,9 @@ require '../Components/header.php';
 include '../../Backend/mainPageService.php';
 include '../Components/houseCard.php';
 include '../Components/SaleRentSwitch.php';
-session_start();
+//session_start();
 
-echo "<script>console.log('Debug Objects: " . $_SESSION['userID'] . "' );</script>";
+//echo "<script>console.log('Debug Objects: " . $_SESSION['userID'] . "' );</script>";
 
 ?>
 <!DOCTYPE html>

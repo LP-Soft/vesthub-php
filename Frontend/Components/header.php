@@ -1,6 +1,6 @@
 <?php
 //TODO:Kullanıcının giriş yapıp yapmadığını kontrol edelim
-
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -25,10 +25,22 @@
         <div class="nav-links">
             <a href="aboutPage.php">About</a>
             <!-- Kullanıcı giriş yapmamışsa -->
+            <?php
+            if (isset($_SESSION['userID'])) {
+            ?>
+                <button class="logout-button" onclick="window.location.href='loginPage.php'" onclick="
+                //TODO:Kullanıcıyı çıkış yapacak şekilde yönlendir
+                ">Logout</button>
+            <?php
+            } else {
+            ?>
             <button class="btn signin-btn" onclick="window.location.href='loginPage.php'"
                 href="loginPage.php">Sign in</button>
             <button class="btn signup-btn" onclick="window.location.href='registerationPage.php'"
                 href="registerPage.php">Sign up</button>
+            <?php
+            }
+            ?>
         </div>
     </div>
 
