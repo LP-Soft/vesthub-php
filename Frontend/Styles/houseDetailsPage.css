@@ -297,9 +297,10 @@ body {
 
 .contact-column {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: end;
-    flex-direction: column;}
+    flex-direction: column;
+}
 
 /* align divs in it to the right */
 .price-isSale
@@ -330,6 +331,10 @@ body {
     font-size: 16px;
     margin: 10px;
     gap: 20px;
+}
+
+.contact-info p {
+    margin: 0;
 }
 
 

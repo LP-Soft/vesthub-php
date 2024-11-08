@@ -19,9 +19,8 @@ function displayHouseCard($house, $service) {
             <?php if($service == 0) { ?> <!-- user servisinden geliyorsa -->
                 <p><?php echo $fullAddress; ?></p>
             <?php } else { ?>
-                <button onclick="window.location.href='adminPanel.php?reject=<?php echo $house['houseID']; ?>'" style="background-color: #FF4245">Reject</button>
-                <button onclick="window.location.href='adminPanel.php?approve=<?php echo $house['houseID']; ?>'" style="background-color: #3ED736">Approve</button>
-
+                <button onclick="event.stopPropagation(); window.location.href='adminPanel.php?reject=<?php echo $house['houseID']; ?>'" style="background-color: #FF4245">Reject</button>
+                <button onclick="event.stopPropagation(); window.location.href='adminPanel.php?approve=<?php echo $house['houseID']; ?>'" style="background-color: #3ED736">Approve</button>
             <?php } ?>
         </div>
     </div>

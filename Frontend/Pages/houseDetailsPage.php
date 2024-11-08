@@ -8,7 +8,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Get the house ID from the URL parameter (or set to 1 for testing)
-$houseId = 36;  // Replace this with dynamic ID if needed (e.g., $_GET['id'])
+$houseId = $_GET['id'];  // Replace this with dynamic ID if needed (e.g., $_GET['id'])
 
 // Function to get house images dynamically from the directory
 function getHouseImages($houseId) {
@@ -143,19 +143,21 @@ $user = getUserInfo(2); // Fetch the user details as an object
                     </span>
                 </div>
             </div>
-            <div class="contact-info">
-                <span>Contact: Ali Taş</span>
-                <span class="phone">📞 +90 555 55 55 55</span>
-            </div>
-            <div class="map-container">
-                <iframe
-                        src="https://maps.google.com/maps?q=<?php echo $house->lat; ?>,<?php echo $house->lng; ?>&hl=en&z=14&amp;output=embed&markers=<?php echo $house->lat; ?>,<?php echo $house->lng; ?>"
-                        width="100%"
-                        height="300"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy">
-                </iframe>
+            <div>
+                <div class="contact-info">
+                    <p>Contact: Ali Taş</p>
+                    <a href="tel:+905555555555" class="phone">📞 +90 555 55 55 55</a>
+                </div>
+                <div class="map-container">
+                    <iframe
+                            src="https://maps.google.com/maps?q=<?php echo $house->lat; ?>,<?php echo $house->lng; ?>&hl=en&z=14&amp;output=embed&markers=<?php echo $house->lat; ?>,<?php echo $house->lng; ?>"
+                            width="100%"
+                            height="300"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy">
+                    </iframe>
+                </div>
             </div>
         </div>
     </div>

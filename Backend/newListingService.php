@@ -4,6 +4,8 @@
     require_once "../../Frontend/Pages/newListingPage.php";
     function createListing($houseInfo)
     {
+        // https://geocode.maps.co/search?q=CITY,DISTRICT,NEIGHBORHOOD,STREET&api_key=672e64f5dee6e743749773dwy569183
+        //result[0].lat ve result[0].lon çekilecek
         //var_dump($houseInfo);
         if (createHouseListingToDb($houseInfo, $GLOBALS['conn'])) {  // Call the function
             $houseInfo -> id = getLastHouseIDFromDb($GLOBALS['conn']);
