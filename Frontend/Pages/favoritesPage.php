@@ -22,15 +22,19 @@ session_start();
         <div class="house-cards">
             <?php
             // Fetch favorite homes
-            $ownerID = $_SESSION['userID'];
-            $result = getFavoriteHousesByOwner($ownerID);
 
-            // Loop through the result set and display house cards
-            if ($result && $result->num_rows > 0) {
-                while ($house = $result->fetch_assoc()) {
-                    displayHouseCard($house, 0);
+            if (isset($_SESSION['userID']))
+            {
+                $ownerID = $_SESSION['userID'];
+                $result = getFavoriteHousesByOwner($ownerID);
+                // Loop through the result set and display house cards
+                if ($result && $result->num_rows > 0) {
+                    while ($house = $result->fetch_assoc()) {
+                        displayHouseCard($house, 0);
+                    }
                 }
-            } else {
+            }
+            else {
                 echo "No favorite homes available.";
             }
             ?>

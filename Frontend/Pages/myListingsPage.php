@@ -21,14 +21,19 @@ session_start();
         <div class="house-cards">
             <?php
             // Fetch all homes
-            $ownerID = $_SESSION['userID'];
-            $result = getHousesByOwner($ownerID);
-            // Loop through the result set and include homecard.php
-            if ($result && $result->num_rows > 0) {
-                while ($house = $result->fetch_assoc()) {
-                    displayHouseCard($house, 0);
+
+            if (isset($_SESSION['userID']))
+            {
+                $ownerID = $_SESSION['userID'];
+                $result = getHousesByOwner($ownerID);
+                // Loop through the result set and include homecard.php
+                if ($result && $result->num_rows > 0) {
+                    while ($house = $result->fetch_assoc()) {
+                        displayHouseCard($house, 0);
+                    }
                 }
-            } else {
+            }
+            else {
                 echo "No homes available.";
             }
             ?>
