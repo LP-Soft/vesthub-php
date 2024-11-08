@@ -109,6 +109,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             box-sizing: border-box;
         }
 
+        .search-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
         #register-btn {
             background-color: #b8c5a6;
             color: #333;
@@ -171,9 +180,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" id="password" name="password" class="input-field" placeholder="Password" required>
                 <input type="password" id="confirm_password" name="confirm_password" class="input-field" placeholder="Confirm Password" required>
                 <div class="input-row">
-                    <input type="text" id="city" name="city" class="input-field" placeholder="City" required>
-                    <input type="text" id="district" name="district" class="input-field" placeholder="District" required>
-                    <input type="text" id="neighborhood" name="neighborhood" class="input-field" placeholder="Neighborhood" required>
+                            <select class="search-select" name="city" id="city" onchange="updateDistricts()">
+                                <option value="">City</option>
+                                <!--Burası javascript ile dolduruluyor-->
+                            </select>
+                            <select class="search-select" name="district" id="district" onchange="updateNeighborhoods()">
+                                <option value="">District</option>
+                                <!--Burası javascript ile dolduruluyor-->
+                            </select>
+                            <select class="search-select" name="neighborhood" id="neighborhood">
+                                <label for="neighborhood">Neighborhood</label>
+                                <option value="">Neighborhood</option>
+                                <!--Burası javascript ile dolduruluyor-->
+                            </select>
                 </div>
                 <button type="submit" id="register-btn">Register</button>
                 <a href="loginPage.php" id="login-link">Already have an account?</a>
@@ -181,7 +200,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <script>
+    <script src="../../Backend/Scripts/addressFieldHandler.js">
+        
+        
         function validateForm() {
             // Get form elements
             const password = document.getElementById('password').value;
