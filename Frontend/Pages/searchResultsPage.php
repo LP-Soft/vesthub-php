@@ -48,13 +48,6 @@ $searchResults = getFilteredHouses($filters);
          <label for="city">City:</label>
          <select name="city" id="city" onchange="updateDistricts()">
             <option value="">Select City</option>
-            <?php
-               $cities = getCity();
-               foreach ($cities as $city) {
-                  $selected = (isset($_GET['city']) && $_GET['city'] == $city) ? "selected" : "";
-                  echo "<option value='$city' $selected>$city</option>";
-               }
-            ?>
          </select>
          <label for="district">District:</label>
          <select name="district" id="district" onchange="updateNeighborhoods()">
@@ -104,51 +97,6 @@ $searchResults = getFilteredHouses($filters);
       </div>    
    </div>
 </div>
-<script>
-        // city-district[] ve district-neighborhood[] olarak verileri tutuyoruz
-        // örnek Antalya : ['Kepez', 'Finike', 'Muratpaşa']
-        // Kepez : ['3718. Sokak']
-
-        // php ile alınan verileri javascript tarafında kullanabilmek için json formatına çeviriyoruz
-        var cityDistrictPairs = <?php echo json_encode(getCityDistrictPairs()); ?>;
-        var districtNeighborhoodPairs = <?php echo json_encode(getDistrictNeighborhoodPairs()); ?>;
-        console.log(cityDistrictPairs);
-        console.log(districtNeighborhoodPairs);
-
-        function updateDistricts() {
-            const citySelect = document.getElementById("city");
-            const districtSelect = document.getElementById("district");
-            const selectedCity = citySelect.value;
-
-            // önce district seçeneklerini temizle
-            districtSelect.innerHTML = '<option value="">District</option>';
-
-            // Seçilen citye ait districtleri ekle
-            cityDistrictPairs[selectedCity].forEach((district) => {
-                let option = document.createElement("option"); // yeni bir option elementi oluştur  
-                option.value = district; // option elementinin value değerini ata
-                option.text = district; // option elementinin text değerini ata
-                districtSelect.appendChild(option); // districtSelect elementine option elementini ekle
-            });
-
-            // neighborhood seçeneklerini temizle
-            document.getElementById("neighborhood").innerHTML = '<option value="">Neighborhood</option>';
-        }
-
-        function updateNeighborhoods() {
-            const districtSelect = document.getElementById("district");
-            const neighborhoodSelect = document.getElementById("neighborhood");
-            const selectedDistrict = districtSelect.value;
-
-            neighborhoodSelect.innerHTML = '<option value="">Neighborhood</option>';
-
-            districtNeighborhoodPairs[selectedDistrict].forEach((neighborhood) => {
-                let option = document.createElement("option");
-                option.value = neighborhood;
-                option.text = neighborhood;
-                neighborhoodSelect.appendChild(option);
-            });
-        }
-    </script>
+<script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
 </html>
