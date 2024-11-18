@@ -5,14 +5,14 @@ if (!defined('DB_LOADED')) {
     define('DB_LOADED', true);
 
     function takeAllCities($conn){
-        $sql = "SELECT DISTINCT il_adi FROM iller ORDER BY il_adi";
+        $sql = "SELECT DISTINCT il_adi FROM addresses ORDER BY il_adi";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         return $stmt->get_result();
     }
 
     function takeAllDistricts($conn, $city){
-        $sql = "SELECT DISTINCT ilce_adi FROM ilceler WHERE il_adi = ? ORDER BY ilce_adi";
+        $sql = "SELECT DISTINCT ilce_adi FROM addresses WHERE il_adi = ? ORDER BY ilce_adi";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $city);
         $stmt->execute();
@@ -21,7 +21,7 @@ if (!defined('DB_LOADED')) {
     }
 
     function takeAllNeighborhoods($conn, $district){
-        $sql = "SELECT DISTINCT mahalle_adi FROM mahalleler WHERE ilce_adi = ? ORDER BY mahalle_adi";
+        $sql = "SELECT DISTINCT mahalle_adi FROM addresses WHERE ilce_adi = ? ORDER BY mahalle_adi";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $district);
         $stmt->execute();
@@ -29,7 +29,7 @@ if (!defined('DB_LOADED')) {
     }
 
     function takeAllStreets($conn, $neighborhood){
-        $sql = "SELECT DISTINCT sokak_adi FROM sokaklar WHERE mahalle_adi = ? ORDER BY sokak_adi";
+        $sql = "SELECT DISTINCT sokak_adi FROM addresses WHERE mahalle_adi = ? ORDER BY sokak_adi";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $neighborhood);
         $stmt->execute();

@@ -79,12 +79,8 @@ $user = getUserInfo(2); // Fetch the user details as an object
                     <span class="value"><?php echo htmlspecialchars($house->area); ?> m²</span>
                 </div>
                 <div class="info-item">
-                    <span class="label">Floor:</span>
-                    <span class="value"><?php echo htmlspecialchars($house->floor); ?></span>
-                </div>
-                <div class="info-item">
-                    <span class="label">Total Floor:</span>
-                    <span class="value"><?php echo htmlspecialchars($house->totalFloor); ?></span>
+                    <span class="label">Floor/Total Floor:</span>
+                    <span class="value"><?php echo htmlspecialchars($house->floor); ?>/<?php echo htmlspecialchars($house->totalFloor); ?></span>
                 </div>
             </div>
 
@@ -92,34 +88,44 @@ $user = getUserInfo(2); // Fetch the user details as an object
                 <h2>Features</h2>
                 <div class="features-grid">
                     <div class="feature <?php echo $house->satellite ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->satellite ? '✓ Satellite' : '✘ Satellite'; ?>
+                        <p class="<?php echo $house->satellite ? 'available' : 'not-available'; ?>"><?php echo $house->satellite ? '✓' : '✘'; ?></p>
+                        <p><?php echo ' Satellite'; ?></p>
                     </div>
                     <div class="feature <?php echo $house->airConditioner ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->airConditioner ? '✓ Air Conditioner' : '✘ Air Conditioner'; ?>
+                        <p class="<?php echo $house->airConditioner ? 'available' : 'not-available'; ?>"><?php echo $house->airConditioner ? '✓' : '✘'; ?></p>
+                        <?php echo $house->airConditioner ? ' Air Conditioner' : ' Air Conditioner'; ?>
                     </div>
                     <div class="feature <?php echo $house->floorHeating ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->floorHeating ? '✓ Floor Heating' : '✘ Floor Heating'; ?>
+                        <p class="<?php echo $house->floorHeating ? 'available' : 'not-available'; ?>"><?php echo $house->floorHeating ? '✓' : '✘'; ?></p>
+                        <?php echo $house->floorHeating ? ' Floor Heating' : ' Floor Heating'; ?>
                     </div>
                     <div class="feature <?php echo $house->fireplace ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->fireplace ? '✓ Fireplace' : '✘ Fireplace'; ?>
+                        <p class="<?php echo $house->fireplace ? 'available' : 'not-available'; ?>"><?php echo $house->fireplace ? '✓' : '✘'; ?></p>
+                        <?php echo $house->fireplace ? ' Fireplace' : ' Fireplace'; ?>
                     </div>
                     <div class="feature <?php echo $house->terrace ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->terrace ? '✓ Terrace' : '✘ Terrace'; ?>
+                        <p class="<?php echo $house->terrace ? 'available' : 'not-available'; ?>"><?php echo $house->terrace ? '✓' : '✘'; ?></p>
+                        <?php echo $house->terrace ? ' Terrace' : ' Terrace'; ?>
                     </div>
                     <div class="feature <?php echo $house->insulation ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->insulation ? '✓ Insulation' : '✘ Insulation'; ?>
+                        <p class="<?php echo $house->insulation ? 'available' : 'not-available'; ?>"><?php echo $house->insulation ? '✓' : '✘'; ?></p>
+                        <?php echo $house->insulation ? ' Insulation' : ' Insulation'; ?>
                     </div>
                     <div class="feature <?php echo $house->parquet ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->parquet ? '✓ Parquet' : '✘ Parquet'; ?>
+                        <p class="<?php echo $house->parquet ? 'available' : 'not-available'; ?>"><?php echo $house->parquet ? '✓' : '✘'; ?></p>
+                        <?php echo $house->parquet ? ' Parquet' : ' Parquet'; ?>
                     </div>
                     <div class="feature <?php echo $house->steelDoor ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->steelDoor ? '✓ Steel Door' : '✘ Steel Door'; ?>
+                        <p class="<?php echo $house->steelDoor ? 'available' : 'not-available'; ?>"><?php echo $house->steelDoor ? '✓' : '✘'; ?></p>
+                        <?php echo $house->steelDoor ? ' Steel Door' : ' Steel Door'; ?>
                     </div>
                     <div class="feature <?php echo $house->furnished ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->furnished ? '✓ Furnished' : '✘ Furnished'; ?>
+                        <p class="<?php echo $house->furnished ? 'available' : 'not-available'; ?>"><?php echo $house->furnished ? '✓' : '✘'; ?></p>
+                        <?php echo $house->furnished ? ' Furnished' : ' Furnished'; ?>
                     </div>
                     <div class="feature <?php echo $house->fiberInternet ? 'available' : 'not-available'; ?>">
-                        <?php echo $house->fiberInternet ? '✓ Fiber Internet' : '✘ Fiber Internet'; ?>
+                        <p class="<?php echo $house->fiberInternet ? 'available' : 'not-available'; ?>"><?php echo $house->fiberInternet ? '✓' : '✘'; ?></p>
+                        <?php echo $house->fiberInternet ? ' Fiber Internet' : ' Fiber Internet'; ?>
                     </div>
                 </div>
             </div>

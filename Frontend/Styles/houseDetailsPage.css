@@ -49,10 +49,10 @@ body {
     padding: 8px;
 }
 .available {
-    color: green !important;
+    background-color: rgba(224, 249, 230) !important;
 }
 .not-available {
-    color: red !important;
+    background-color: rgba(249, 227, 226) !important;
 }
 
 .image-navigation {
@@ -250,8 +250,8 @@ body {
 
 .features
 {
-    background-color: #D9D9D9;
-    padding: 4px 22px 14px;
+    /* background-color: #D9D9D9;
+    padding: 4px 22px 14px; */
     border-radius: 20px;
 
 }
@@ -272,6 +272,23 @@ body {
 .feature {
     font-size: 14px;
     color: #555;
+    background-color: rgba(249, 227, 226);
+    border-radius: 10px;
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+}
+.feature .available {
+    margin: 0;
+    color: green;
+}
+.feature p {
+    margin: 0;
+}
+
+.feature .not-available {
+    margin: 0;
+    color: red;
 }
 
 /* Description */
