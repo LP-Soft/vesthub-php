@@ -250,6 +250,19 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    
+    /*Ali*/
+    function updateUserInfoInDb($conn, $name, $surname, $phone, $email, $city, $district, $neighborhood, $userId)
+    {
+        $sql = "UPDATE users SET name='".$name."', surname='".$surname."', phone='".$phone."', email='".$email."', city='".$city."', district='".$district."', neighborhood='".$neighborhood."', isActive = 1"." WHERE userID=".$userId;
+        echo $sql;
+        return $conn->query($sql);
+    }
+
+    /*Ali*/
+    function updatePasswordInDb($conn, $password, $userId)
+    {
+        $sql = "UPDATE users SET password='".$password."' WHERE userID=".$userId;
+        return $conn->query($sql);
+    }
 }
 ?>
