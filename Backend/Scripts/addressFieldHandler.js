@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {fetch("../../Backend/Utilities/getCities.php")
+document.addEventListener('DOMContentLoaded', () => updateCities());
+
+function updateCities() {
+    fetch("../../Backend/Utilities/getCities.php")
     .then(response => response.json())
     .then(data => {
         const citySelect = document.getElementById("city");
@@ -10,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {fetch("../../Backend/Utilit
             citySelect.appendChild(option);
         });
     })
-    .catch(error => console.error('Error fetching cities:', error));
-});
+    .catch(error => console.error('Error fetching cities:', error));    
+}
 
 function updateDistricts() {
     const citySelect = document.getElementById("city");
@@ -34,8 +37,7 @@ function updateDistricts() {
     } else {
         districtSelect.innerHTML = '<option value="">District</option>';
     }
-    // delete all neighborhoods
-    document.getElementById("neighborhood").innerHTML = '<option value="">Neighborhood</option>';
+    document.getElementById("neighborhood").innerHTML = '<option value="" selected hidden>Neighborhood</option>';
 }
 
 function updateNeighborhoods() {

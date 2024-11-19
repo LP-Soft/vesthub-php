@@ -21,7 +21,6 @@ function getUserInfo($userID) {
             'isActive' => $row['isActive'],
             'district' => $row['district'],
             'neighborhood' => $row['neighborhood'],
-            'street' => $row['street']
         ]);
 
 
