@@ -11,7 +11,13 @@ if (!isset($_SESSION['userID'])) {
 }
 $userID = $_SESSION['userID'];
 $user = getUserInfo($userID);
-if (isset($_POST['name'])) {
+
+if (isset($_POST['delete-account'])) {
+    $userID = $_POST['userID'];
+    deleteUser($userID);
+    session_destroy();
+    header("Location: loginPage.php");
+} else if (isset($_POST['name'])) {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $phone = $_POST['phone'];
@@ -175,20 +181,24 @@ if (isset($_POST['name'])) {
                 </div>
                 <button class="user-update-button">Update</button>
             </form>
-            <form action="./userInfoPage.php" method="post">
+            <form class="update-password-inputs" action="./userInfoPage.php" method="post">
                 <div>
                     <p>Current Password</p>
                     <input type="password" class="password user-update-input" placeholder="Password" name="password">
                 </div>
                 <div>
                     <p>New Password</p>
-                    <input type="password" class="new-password user-update-input" placeholder="New Password" name="new-password">
+                    <input type="password" minlength="8" class="new-password user-update-input" placeholder="New Password" name="new-password">
                 </div>
                 <div>
                     <p>Confirm New Password</p>
-                    <input type="password" class="confirm-password user-update-input" placeholder="Confirm New Password" name="confirm-password">
+                    <input type="password" minlength="8" class="confirm-password user-update-input" placeholder="Confirm New Password" name="confirm-password">
                 </div>
                 <button class="update-password-button">Change Password</button>
+            </form>
+            <form class="delete-account-form" action="./userInfoPage.php" method="post">
+                <input type="hidden" name="userID" value="<?php echo $userID; ?>">
+                <button class="delete-account-button" name="delete-account">Delete Account</button>
             </form>
         </div>
     </div>

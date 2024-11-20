@@ -41,3 +41,51 @@ p{
 h1, h3{
     margin: 15px;
 }
+
+.content .user-info .user-update-inputs .user-update-button{
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    gap: 5px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color: #b0be9e;
+}
+
+.content .user-info .update-password-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content .user-info .update-password-inputs .update-password-button{
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    gap: 5px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color: #b0be9e;
+}
+
+.content .user-info .delete-account-form .delete-account-button{
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    gap: 5px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color: #d78f69;
+}

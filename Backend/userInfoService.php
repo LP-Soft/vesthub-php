@@ -11,3 +11,9 @@ function updatePassword($password, $userId)
     $conn = $GLOBALS['conn'];
     updatePasswordInDb($conn, $password, $userId);
 }
+
+function deleteUser($userID)
+{
+    $conn = $GLOBALS['conn'];
+    deleteUserFromDb($conn, $userID);
+}

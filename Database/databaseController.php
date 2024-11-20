@@ -225,7 +225,7 @@ if (!defined('DB_LOADED')) {
     /*Mehmet*/
     function checkLoginCredentialsFromDb($conn, $email, $password)
     {
-        $sql = "SELECT userID FROM users WHERE email = '" . $email . "' AND password = '" . $password . "'";
+        $sql = "SELECT userID FROM users WHERE email = '" . $email . "' AND password = '" . $password . "' AND isActive = 1";
         return $conn->query($sql);
     }
 
@@ -288,6 +288,12 @@ if (!defined('DB_LOADED')) {
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         return $row;
+    }
+
+    function deleteUserFromDb($conn, $userID)
+    {
+        $sql = "UPDATE users SET isActive = 0 WHERE userID = " . $userID;
+        return $conn->query($sql);
     }
 }
 ?>

@@ -25,6 +25,7 @@ html, body {
 .footer-logo {
     width: 160px;
     height: 45px;
+    cursor: pointer;
 }
 
 .copyright-text {
