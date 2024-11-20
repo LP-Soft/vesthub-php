@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => updateCities());
+const urlParams = new URLSearchParams(window.location.search);
+const editListingCity = urlParams.get('city');
+const editListingDistrict = urlParams.get('district');
+const editListingNeighborhood = urlParams.get('neighborhood');
+const editListingStreet = urlParams.get('street');
 
+console.log(editListingCity, ",", editListingDistrict , ",", editListingNeighborhood , ",", editListingStreet);
 function updateCities() {
     fetch("../../Backend/Utilities/getCities.php")
         .then(response => response.json())
@@ -12,8 +18,15 @@ function updateCities() {
                 option.text = city;
                 citySelect.appendChild(option);
             });
+
+            //editListingPage için
+            if(editListingCity!= null){
+                citySelect.value = editListingCity;  // Directly set the selected value
+                updateDistricts();
+            }
         })
         .catch(error => console.error('Error fetching cities:', error));
+
 }
 
 function updateDistricts() {
@@ -32,6 +45,10 @@ function updateDistricts() {
                     option.text = district;
                     districtSelect.appendChild(option);
                 });
+                if(editListingDistrict != null){
+                    districtSelect.value = editListingDistrict;
+                    updateNeighborhoods();
+                }
             })
             .catch(error => console.error('Error fetching districts:', error));
     } else {
@@ -61,6 +78,10 @@ function updateNeighborhoods() {
                     option.text = neighborhood;
                     neighborhoodSelect.appendChild(option);
                 });
+                if(editListingNeighborhood != null){
+                    neighborhoodSelect.value = editListingNeighborhood;
+                    updateStreets();
+                }
             })
             .catch(error => console.error('Error fetching neighborhoods:', error));
     } else {
@@ -91,6 +112,9 @@ function updateStreets(){
                     option.text = street;
                     streetSelect.appendChild(option);
                 });
+                if(editListingStreet != null){
+                    streetSelect.value = editListingStreet;
+                }
             })
             .catch(error => console.error('Error fetching neighborhoods:', error));
     } else {
