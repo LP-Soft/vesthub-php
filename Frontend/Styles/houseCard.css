@@ -2,15 +2,16 @@
     border: 1px solid #ccc;
     border-radius: 20px;
     min-width: 300px; /* Adjust width as needed */
-    min-height: 400px;
+    min-height: 350px;
     max-width: 300px;
-    max-height: 400px;
+    max-height: 350px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s; /* For hover effect */
     background-color: #fff; /* White background for contrast */
     position: relative; /* Ensure proper stacking context */
     z-index: 1; /* Ensure this is above other elements */
     cursor: pointer;
+    flex-direction: column;
 }
 
 .home-card:hover {
@@ -60,11 +61,28 @@
     line-height: 1.5; /* Increase line height for readability */
 }
 
-button{
+.adminButton{
     color: white;
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
     margin-right: 10px;
+    margin-bottom: 10px;
+    align-self: center; /* Align the button to the center */
+}
 
+.home-type-label {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saleRentButton{
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
 }
