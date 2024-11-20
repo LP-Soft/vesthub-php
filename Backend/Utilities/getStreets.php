@@ -3,24 +3,28 @@ include '../../Database/databaseController.php';
 
 header('Content-Type: application/json');
 
-if (isset($_GET['neighborhood'])) {
+if (isset($_GET['neighborhood']) && isset($_GET['district']) && isset($_GET['city'])) {
     $neighborhood = $_GET['neighborhood'];
-    echo getStreetsJson($neighborhood);
+    $district = $_GET['district'];
+    $city = $_GET['city'];
+
+    error_log("Neighborhood: $neighborhood, District: $district, City: $city");
+    echo getStreetsJson($neighborhood, $district, $city);
 } else {
     echo json_encode([]);
 }
 
-function getStreets($neighborhood) {
-    return takeAllStreets($GLOBALS['conn'], $neighborhood);
+function getStreets($neighborhood, $district, $city) {
+    return takeAllStreets($GLOBALS['conn'], $neighborhood, $district, $city);
 }
 
-function getStreetsJson($neighborhood) {
-    $streets = getStreets($neighborhood);
-    $neighborhoodsArray = [];
+function getStreetsJson($neighborhood, $district, $city) {
+    $streets = getStreets($neighborhood, $district, $city);
+    $streetsArray = [];
 
     foreach($streets as $street){
         $streetsArray[] = $street['sokak_adi'];
     }
-
+    //echo "final: ".json_encode($streetsArray);
     return json_encode($streetsArray);
 }

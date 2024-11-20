@@ -30,6 +30,7 @@ class houseInfo {
     public $id = 0; // not existing at the beginning
     public $lat = 0.0;
     public $lng = 0.0;
+    public $ownerID = 0;
 
     public function __construct($postData) {
         // Initialize basic details from POST data
@@ -46,8 +47,8 @@ class houseInfo {
         $this->floor = (int)$postData['floor'];
         $this->totalFloor = (int)$postData['totalFloor'];
         $this->area = (int)$postData['area'];
-        $this->lat = (float)$postData['lat'];
-        $this->lng = (float)$postData['lng'];
+        //$this->lat = (float)$postData['lat'];
+        //$this->lng = (float)$postData['lng'];
 
         // Initialize key features
         if (isset($postData['keyFeatures'])) {
@@ -90,6 +91,11 @@ class houseInfo {
         // Check if the property is for sale or rent
         if (isset($postData['isSale'])) {
             $this->isSale = 0; // Set to 0 for rent
+        }
+
+        if (isset($_SESSION['userID']))
+        {
+            $this->ownerID = $_SESSION['userID'];
         }
     }
 }

@@ -2,18 +2,18 @@ document.addEventListener('DOMContentLoaded', () => updateCities());
 
 function updateCities() {
     fetch("../../Backend/Utilities/getCities.php")
-    .then(response => response.json())
-    .then(data => {
-        const citySelect = document.getElementById("city");
-        citySelect.innerHTML = '<option value="" selected hidden>City</option>';
-        data.forEach(city => {
-            let option = document.createElement("option");
-            option.value = city;
-            option.text = city;
-            citySelect.appendChild(option);
-        });
-    })
-    .catch(error => console.error('Error fetching cities:', error));    
+        .then(response => response.json())
+        .then(data => {
+            const citySelect = document.getElementById("city");
+            citySelect.innerHTML = '<option value="" selected hidden>City</option>';
+            data.forEach(city => {
+                let option = document.createElement("option");
+                option.value = city;
+                option.text = city;
+                citySelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching cities:', error));
 }
 
 function updateDistricts() {
@@ -37,16 +37,21 @@ function updateDistricts() {
     } else {
         districtSelect.innerHTML = '<option value="">District</option>';
     }
+    // delete all neighborhoods
     document.getElementById("neighborhood").innerHTML = '<option value="" selected hidden>Neighborhood</option>';
+    document.getElementById("street").innerHTML = '<option value="" selected hidden>Street</option>';
+
 }
 
 function updateNeighborhoods() {
+    const citySelect = document.getElementById("city");
     const districtSelect = document.getElementById("district");
     const neighborhoodSelect = document.getElementById("neighborhood");
     const selectedDistrict = districtSelect.value;
+    const selectedCity = citySelect.value;
 
     if (selectedDistrict) {
-        fetch(`../../Backend/Utilities/getNeighborhoods.php?district=${selectedDistrict}`)
+        fetch(`../../Backend/Utilities/getNeighborhoods.php?district=${selectedDistrict}&city=${selectedCity}`)
             .then(response => response.json())
             .then(data => {
                 neighborhoodSelect.innerHTML = '<option value="" selected hidden>Neighborhood</option>';
@@ -61,15 +66,22 @@ function updateNeighborhoods() {
     } else {
         neighborhoodSelect.innerHTML = '<option value="">Neighborhood</option>';
     }
+
+    document.getElementById("street").innerHTML = '<option value="" selected hidden>Street</option>';
 }
 
 function updateStreets(){
+    const citySelect = document.getElementById("city");
+    const districtSelect = document.getElementById("district");
     const neighborhoodSelect = document.getElementById("neighborhood");
     const streetSelect = document.getElementById("street");
     const selectedNeighborhood = neighborhoodSelect.value;
+    const selectedDistrict = districtSelect.value;
+    const selectedCity = citySelect.value;
+
 
     if (selectedNeighborhood) {
-        fetch(`../../Backend/Utilities/getStreets.php?neighborhood=${selectedNeighborhood}`)
+        fetch(`../../Backend/Utilities/getStreets.php?neighborhood=${selectedNeighborhood}&district=${selectedDistrict}&city=${selectedCity}`)
             .then(response => response.json())
             .then(data => {
                 streetSelect.innerHTML = '<option value="" selected hidden>Street</option>';

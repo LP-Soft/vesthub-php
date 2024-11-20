@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once "connect.php";
 // databaseController.php
 if (!defined('DB_LOADED')) {
@@ -6,34 +9,22 @@ if (!defined('DB_LOADED')) {
 
     function takeAllCities($conn){
         $sql = "SELECT DISTINCT il_adi FROM addresses ORDER BY il_adi";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->get_result();
+        return $conn->query($sql);
     }
 
     function takeAllDistricts($conn, $city){
-        $sql = "SELECT DISTINCT ilce_adi FROM addresses WHERE il_adi = ? ORDER BY ilce_adi";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $city);
-        $stmt->execute();
-        return $stmt->get_result();
-
+        $sql = "SELECT DISTINCT ilce_adi FROM addresses WHERE il_adi = '". $city . "' ORDER BY ilce_adi";
+        return $conn->query($sql);
     }
 
-    function takeAllNeighborhoods($conn, $district){
-        $sql = "SELECT DISTINCT mahalle_adi FROM addresses WHERE ilce_adi = ? ORDER BY mahalle_adi";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $district);
-        $stmt->execute();
-        return $stmt->get_result();
+    function takeAllNeighborhoods($conn, $district, $city){
+        $sql = "SELECT DISTINCT mahalle_adi FROM addresses WHERE ilce_adi = '". $district ."'AND il_adi = '". $city . "' ORDER BY mahalle_adi";
+        return $conn->query($sql);
     }
 
-    function takeAllStreets($conn, $neighborhood){
-        $sql = "SELECT DISTINCT sokak_adi FROM addresses WHERE mahalle_adi = ? ORDER BY sokak_adi";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $neighborhood);
-        $stmt->execute();
-        return $stmt->get_result();
+    function takeAllStreets($conn, $neighborhood, $district, $city){
+        $sql = "SELECT DISTINCT sokak_adi FROM addresses WHERE mahalle_adi = '". $neighborhood . "' AND ilce_adi = '". $district . "' AND il_adi = '". $city . "' ORDER BY sokak_adi";
+        return $conn->query($sql);
     }
 
     function getLastFiveHousesFromDb($conn){
@@ -43,9 +34,7 @@ if (!defined('DB_LOADED')) {
 
     function getCitiesFromDb($conn){
         $sql = "SELECT DISTINCT city FROM houses";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->get_result();
+        return $conn->query($sql);
     }
 
     function getDistrictsFromDb($conn, $city){
@@ -81,19 +70,13 @@ if (!defined('DB_LOADED')) {
     }
 
     function getHomeById($conn, $id) {
-        $sql = "SELECT * FROM homes WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        return $stmt->get_result();
+        $sql = "SELECT * FROM homes WHERE id = " . $id;
+        return $conn->query($sql);
     }
 
     function getHomesByType($conn, $type) {
-        $sql = "SELECT * FROM houses WHERE type = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $type);
-        $stmt->execute();
-        return $stmt->get_result();
+        $sql = "SELECT * FROM houses WHERE type = ". $type;
+        return $conn->query($sql);
     }
 
     function get_pendingHouses($conn) {
@@ -102,17 +85,13 @@ if (!defined('DB_LOADED')) {
     }
 
     function changeStatus_toApprove($conn, $houseInfoID) {
-        $sql = "UPDATE houses SET status = 'approved' WHERE houseID = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $houseInfoID);
-        $stmt->execute();
+        $sql = "UPDATE houses SET status = 'approved' WHERE houseID = ". $houseInfoID;
+        $conn->query($sql);
     }
 
     function changeStatus_toCancel($conn, $houseInfoID) {
-        $sql = "UPDATE houses SET status = 'cancelled' WHERE houseID = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $houseInfoID);
-        $stmt->execute();
+        $sql = "UPDATE houses SET status = 'cancelled' WHERE houseID = ". $houseInfoID;
+        $conn->query($sql);
     }
 
     function createHouseListingToDb($houseInfo, $conn) {
@@ -121,71 +100,53 @@ if (!defined('DB_LOADED')) {
         ownerID, title, description, numOfRooms, numOfBathroom, numOfBedroom, price, city, district, neighborhood, street, 
         floor, totalFloor, area, lat, lng, isSale, 
         fiberInternet, airConditioner, floorHeating, fireplace, terrace, satellite, parquet, steelDoor, furnished, insulation, status, houseType
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    ) VALUES (". $houseInfo->ownerID . ",
+            '" . $houseInfo->title . "',
+            '" . $houseInfo->description . "',
+            '" . $houseInfo->numOfRooms . "',
+            1, -- numOfBathroom
+            1, -- numOfBedroom
+            " . $houseInfo->price . ",
+            '" . $houseInfo->city . "',
+            '" . $houseInfo->district . "',
+            '" . $houseInfo->neighborhood . "',
+            '" . $houseInfo->street . "',
+            " . $houseInfo->floor . ",
+            " . $houseInfo->totalFloor . ",
+            " . $houseInfo->area . ",
+            " . $houseInfo->lat . ",
+            " . $houseInfo->lng . ", 
+            " . $houseInfo->isSale . ",
+            " . $houseInfo->fiberInternet . ",
+            " . $houseInfo->airConditioner . ",
+            " . $houseInfo->floorHeating . ",
+            " . $houseInfo->fireplace . ",
+            " . $houseInfo->terrace . ",
+            " . $houseInfo->satellite . ",
+            " . $houseInfo->parquet . ",
+            " . $houseInfo->steelDoor . ",
+            " . $houseInfo->furnished . ",
+            " . $houseInfo->insulation . ",
+            '" . $houseInfo->status . "',
+            '" . $houseInfo->houseType . "'
+        )";
 
-        $stmt = $conn->prepare($sql);
-
-        // Define additional parameters
-        $ownerID = 1; // or retrieve this dynamically
-        $lat = 40.7128; // example latitude
-        $lng = -74.0060; // example longitude
-        $numOfBathroom = 1;
-        $numOfBedroom = 1;
-
-        if (!$stmt->bind_param(
-            'isssiiissssiiiddiiiiiiiiiiiss', // Data types: i for int, s for string, d for double
-            $ownerID,
-            $houseInfo->title,
-            $houseInfo->description,
-            $houseInfo->numOfRooms,
-            $numOfBathroom,
-            $numOfBedroom,
-            $houseInfo->price,
-            $houseInfo->city,
-            $houseInfo->district,
-            $houseInfo->neighborhood,
-            $houseInfo->street,
-            $houseInfo->floor,
-            $houseInfo->totalFloor,
-            $houseInfo->area,
-            $lat,
-            $lng,
-            $houseInfo->isSale,
-            $houseInfo->fiberInternet,
-            $houseInfo->airConditioner,
-            $houseInfo->floorHeating,
-            $houseInfo->fireplace,
-            $houseInfo->terrace,
-            $houseInfo->satellite,
-            $houseInfo->parquet,
-            $houseInfo->steelDoor,
-            $houseInfo->furnished,
-            $houseInfo->insulation,
-            $houseInfo->status,
-            $houseInfo->houseType
-        ));
-    // Execute the statement and check if it's successful
-    if ($stmt->execute()) {
-        return true;  // Success
-    } else {
-        return false; // Failure
-    }
+        if ($conn->query($sql)) {
+            echo "House record inserted successfully!";
+            return true;
+        } else {
+            echo "Error inserting record: " . $conn->error;
+            return false;
+        }
     }
 
     function getLastHouseIDFromDb($conn) {
         // Correct SQL query
         $sql = "SELECT MAX(houseID) AS lastHouseID FROM houses";
-
-        // Prepare and execute the query
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-
-        // Fetch the result
-        $result = $stmt->get_result();
+        $result = $conn->query($sql);
         $row = $result->fetch_assoc();
-
-        // Return the maximum houseID
-        return $row['lastHouseID'];
+        $lastID = $row['lastHouseID'];
+        return  $lastID;
     }
 
     
@@ -215,11 +176,8 @@ if (!defined('DB_LOADED')) {
     /*Mehmet*/
     function checkLoginCredentialsFromDb($conn, $email, $password)
     {
-        $sql = "SELECT userID FROM users WHERE email = ? AND password = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $email, $password);
-        $stmt->execute();
-        return $stmt->get_result();
+        $sql = "SELECT userID FROM users WHERE email = '" . $email . "' AND password = '" . $password . "'";
+        return $conn->query($sql);
     }
 
     /*Mehmet*/
@@ -236,10 +194,21 @@ if (!defined('DB_LOADED')) {
     function insertAccountDb($conn, $name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
     {
         $isActive = 1;
-        $sql = "INSERT INTO users (name, surname, email, phone, password, city, district, neighborhood, isActive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($sql);
+        $sql = "INSERT INTO users (name, surname, email, phone, password, city, district, neighborhood, isActive) 
+        VALUES (".
+            "'". $name ."',".
+            "'". $surname ."',".
+            "'". $email ."',".
+            "'". $phone ."',".
+            "'". $password ."',".
+            "'". $city ."',".
+            "'". $district ."',".
+            "'". $neighborhood ."',".
+            $isActive.")";
+        /*$stmt = $conn->prepare($sql);
         $stmt->bind_param("ssssssssi", $name, $surname, $email, $phone, $password, $city, $district, $neighborhood, $isActive);
-        $stmt->execute();
+        $stmt->execute();*/
+        $conn->query($sql);
         return true;
     }
 

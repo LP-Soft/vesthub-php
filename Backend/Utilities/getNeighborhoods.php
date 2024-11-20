@@ -3,19 +3,20 @@ include '../../Database/databaseController.php';
 
 header('Content-Type: application/json');
 
-if (isset($_GET['district'])) {
+if (isset($_GET['district']) && isset($_GET['city'])) {
     $district = $_GET['district'];
-    echo getNeighborhoodsJson($district);
+    $city = $_GET['city'];
+    echo getNeighborhoodsJson($district, $city);
 } else {
     echo json_encode([]);
 }
 
-function getNeighborhoods($district){
-    return takeAllNeighborhoods($GLOBALS['conn'],$district );
+function getNeighborhoods($district, $city){
+    return takeAllNeighborhoods($GLOBALS['conn'], $district, $city);
 }
 
-function getNeighborhoodsJson($district) {
-    $neighborhoods = getNeighborhoods($district);
+function getNeighborhoodsJson($district, $city) {
+    $neighborhoods = getNeighborhoods($district, $city);
     $neighborhoodsArray = [];
 
     foreach($neighborhoods as $neighborhood){

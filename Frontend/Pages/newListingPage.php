@@ -72,8 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Set the basic house information
-    $houseInfo->title = $_POST['title'];
-    $houseInfo->description = $_POST['description'];
+    $houseInfo->title = mysqli_real_escape_string($GLOBALS['conn'], $_POST['title']);
+    $houseInfo->description = mysqli_real_escape_string($GLOBALS['conn'], $_POST['description']);
     $houseInfo->numOfRooms = $_POST['numOfRooms'];
     $houseInfo->price = (int)$_POST['price'];
     $houseInfo->city = $_POST['city'];
@@ -84,8 +84,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $houseInfo->floor = (int)$_POST['floor'];
     $houseInfo->totalFloor = (int)$_POST['totalFloor'];
     $houseInfo->area = (int)$_POST['area'];
+    $houseInfo->ownerID = $_POST['ownerID'];
 
-    // Handle file uploads
+    $url = "https://geocode.maps.co/search?q=".rawurlencode($houseInfo->city).",".rawurlencode($houseInfo->district).",".rawurlencode($houseInfo->street)."&api_key=672e64f5dee6e743749773dwy569183";
+    $response = file_get_contents($url);
+    $decodedResponse = json_decode($response);
+    if (!empty($decodedResponse) && isset($decodedResponse[0])) {
+        echo $decodedResponse[0]->lat . "," . $decodedResponse[0]->lon;
+        $houseInfo->lat = $decodedResponse[0]->lat;
+        $houseInfo->lng = $decodedResponse[0]->lon;
+    }
     createListing($houseInfo);
 }
 ?>
@@ -189,8 +197,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <?php include('../Components/header.php'); ?>
+<?php
+    $ownerID = 0;
+    if(isset($_SESSION['userID'])){
+        $ownerID = $_SESSION['userID'];
+    }
+?>
 <div class="container"> <!-- Open: .container -->
         <form id="createListingForm" method="POST" action="newListingPage.php" class="form-section" enctype="multipart/form-data" onsubmit="submitForm(event)"> <!-- Open: form -->
+            <input type="hidden" name="ownerID" value="<?= $ownerID ?>">
             <div class="left"> <!-- Open: .left -->
                 <div class="upload-container"> <!-- Open: .upload-container -->
                     <label for="files">Select files to upload</label><br>
