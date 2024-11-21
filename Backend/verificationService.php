@@ -15,7 +15,7 @@ function generateVerificationCode()
 
 function insertAccount($name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
 {
-    $result = insertAccountDb($GLOBALS['conn'], $name, $surname, $email, $phone, $password, $city, $district, $neighborhood);
+    $result = insertAccountInDb($GLOBALS['conn'], $name, $surname, $email, $phone, $password, $city, $district, $neighborhood);
 }
 
 ?>

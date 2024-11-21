@@ -10,7 +10,7 @@
         //result[0].lat ve result[0].lon çekilecek
         if($houseInfo->ownerID != 0){ //sessionda birisi varsa 0dan farklı bir değer olacak
 
-            if (createHouseListingToDb($houseInfo, $GLOBALS['conn'])) {  // Call the function
+            if (createHouseListingInDb($houseInfo, $GLOBALS['conn'])) {  // Call the function
 
                 $houseInfo -> id = getLastHouseIDFromDb($GLOBALS['conn']);
                 // Check if form was submitted

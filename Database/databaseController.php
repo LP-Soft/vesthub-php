@@ -7,22 +7,22 @@ require_once "connect.php";
 if (!defined('DB_LOADED')) {
     define('DB_LOADED', true);
 
-    function takeAllCities($conn){
+    function takeAllCitiesFromDb($conn){
         $sql = "SELECT DISTINCT il_adi FROM addresses ORDER BY il_adi";
         return $conn->query($sql);
     }
 
-    function takeAllDistricts($conn, $city){
+    function takeAllDistrictsFromDb($conn, $city){
         $sql = "SELECT DISTINCT ilce_adi FROM addresses WHERE il_adi = '". $city . "' ORDER BY ilce_adi";
         return $conn->query($sql);
     }
 
-    function takeAllNeighborhoods($conn, $district, $city){
+    function takeAllNeighborhoodsFromDb($conn, $district, $city){
         $sql = "SELECT DISTINCT mahalle_adi FROM addresses WHERE ilce_adi = '". $district ."'AND il_adi = '". $city . "' ORDER BY mahalle_adi";
         return $conn->query($sql);
     }
 
-    function takeAllStreets($conn, $neighborhood, $district, $city){
+    function takeAllStreetsFromDb($conn, $neighborhood, $district, $city){
         $sql = "SELECT DISTINCT sokak_adi FROM addresses WHERE mahalle_adi = '". $neighborhood . "' AND ilce_adi = '". $district . "' AND il_adi = '". $city . "' ORDER BY sokak_adi";
         return $conn->query($sql);
     }
@@ -65,7 +65,7 @@ if (!defined('DB_LOADED')) {
         return $result;
     }
 
-    function getAllHomes($conn) {
+    function getAllHomesFromDb($conn) {
         $sql = "SELECT * FROM houses";
         return $conn->query($sql);
     }
@@ -82,22 +82,22 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function get_pendingHouses($conn) {
-        $sql = "SELECT * FROM houses WHERE status = 'pending'";
+    function getPendingHousesFromDb($conn) {
+        $sql = "SELECT * FROM houses WHERE status = 'Pending'";
         return $conn->query($sql);
     }
 
-    function changeStatus_toApprove($conn, $houseInfoID) {
-        $sql = "UPDATE houses SET status = 'approved' WHERE houseID = ". $houseInfoID;
+    function changeStatusToApprovedInDb($conn, $houseInfoID) {
+        $sql = "UPDATE houses SET status = 'Approved' WHERE houseID = ". $houseInfoID;
         $conn->query($sql);
     }
 
-    function changeStatus_toCancel($conn, $houseInfoID) {
-        $sql = "UPDATE houses SET status = 'cancelled' WHERE houseID = ". $houseInfoID;
+    function changeStatusToRejectedInDb($conn, $houseInfoID) {
+        $sql = "UPDATE houses SET status = 'Rejected' WHERE houseID = ". $houseInfoID;
         $conn->query($sql);
     }
 
-    function createHouseListingToDb($houseInfo, $conn) {
+    function createHouseListingInDb($houseInfo, $conn) {
         // Prepare the SQL statement with correct syntax
         $sql = "INSERT INTO houses (
         ownerID, title, description, numOfRooms, numOfBathroom, numOfBedroom, price, city, district, neighborhood, street, 
@@ -230,15 +230,12 @@ if (!defined('DB_LOADED')) {
     /*Mehmet*/
     function checkAccountExistFromDb($conn, $email)
     {
-        $sql = "SELECT userID FROM users WHERE email = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        return $stmt->get_result();
+        $sql = "SELECT userID FROM users WHERE email = '" . $email . "'";
+        return $conn->query($sql);
     }
 
     /*Mehmet*/
-    function insertAccountDb($conn, $name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
+    function insertAccountInDb($conn, $name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
     {
         $isActive = 1;
         $sql = "INSERT INTO users (name, surname, email, phone, password, city, district, neighborhood, isActive) 

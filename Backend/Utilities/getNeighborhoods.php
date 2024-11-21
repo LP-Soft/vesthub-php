@@ -12,7 +12,7 @@ if (isset($_GET['district']) && isset($_GET['city'])) {
 }
 
 function getNeighborhoods($district, $city){
-    return takeAllNeighborhoods($GLOBALS['conn'], $district, $city);
+    return takeAllNeighborhoodsFromDb($GLOBALS['conn'], $district, $city);
 }
 
 function getNeighborhoodsJson($district, $city) {

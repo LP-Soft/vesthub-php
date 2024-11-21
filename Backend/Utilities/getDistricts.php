@@ -11,7 +11,7 @@ if (isset($_GET['city'])) {
 }
 
 function getDistricts($city){
-    return takeAllDistricts($GLOBALS['conn'],$city );
+    return takeAllDistrictsFromDb($GLOBALS['conn'],$city );
 }
 
 function getDistrictsJson($city) {

@@ -7,7 +7,7 @@ echo getCitiesJson();
 
 function getCities()
 {
-    return takeAllCities($GLOBALS['conn']);
+    return takeAllCitiesFromDb($GLOBALS['conn']);
 }
 
 function getCitiesJson() {

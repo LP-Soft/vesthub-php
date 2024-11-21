@@ -7,14 +7,14 @@ include '../../Backend/adminService.php';
 if (isset($_GET['approve'])) {
     $houseID = $_GET['approve'];
     approveHouses($houseID);
-    header("Location: adminPanel.php"); // Redirect to prevent resubmission
+    header("Location: adminPanelPage.php"); // Redirect to prevent resubmission
     exit();
 }
 
 if (isset($_GET['reject'])) {
     $houseID = $_GET['reject'];
     rejectHouses($houseID);
-    header("Location: adminPanel.php"); // Redirect to prevent resubmission
+    header("Location: adminPanelPage.php"); // Redirect to prevent resubmission
     exit();
 }
 ?>
@@ -25,7 +25,7 @@ if (isset($_GET['reject'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
-    <link rel="stylesheet" href="../Styles/adminPanel.css">
+    <link rel="stylesheet" href="../Styles/adminPanelPage.css">
     <link rel="stylesheet" href="../Styles/styles.css">
     <link rel="stylesheet" href="../Styles/houseCard.css">
 </head>
