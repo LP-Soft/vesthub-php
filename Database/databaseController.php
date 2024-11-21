@@ -266,7 +266,7 @@ if (!defined('DB_LOADED')) {
     function updateUserInfoInDb($conn, $name, $surname, $phone, $email, $city, $district, $neighborhood, $userId)
     {
         $sql = "UPDATE users SET name='".$name."', surname='".$surname."', phone='".$phone."', email='".$email."', city='".$city."', district='".$district."', neighborhood='".$neighborhood."', isActive = 1"." WHERE userID=".$userId;
-        echo $sql;
+        //echo $sql;
         return $conn->query($sql);
     }
 

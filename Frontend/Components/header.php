@@ -29,6 +29,9 @@ session_start();
             if (isset($_SESSION['userID'])) {
             ?>
                 <a href="favoritesPage.php">Favorites</a>
+                <a href="userInfoPage.php">User Info</a>
+                <a href="myListingsPage.php">My Listings</a>
+                <a href="newListingPage.php">Add House</a>
                 <form action="mainPage.php" method="post">
                     <button class="logout-button" type="submit" name="logout">Logout</button>
                 </form>

@@ -25,9 +25,12 @@ if (isset($_POST['delete-account'])) {
     $city = $_POST['city'];
     $district = $_POST['district'];
     $neighborhood = $_POST['neighborhood'];
-    $password = $_POST['password'];
     $userId = $_SESSION['userID'];
     updateUserInfo($name, $surname, $phone, $email, $city, $district, $neighborhood, $userId);
+    //echo "<script>alert('User information updated.');</script>";
+    //get request for refreshing the page
+    echo "<script>window.location.href = './userInfoPage.php';</script>";
+    echo "<script>alert('User information updated.');</script>";
 }else if (isset($_POST['new-password'])) {
     $newPassword = $_POST['new-password']; //bu post ile alınan new password userin yeni passwordu
     $confirmPassword = $_POST['confirm-password']; //bu post ile alınan confirm password userin yeni passwordu
@@ -196,7 +199,7 @@ if (isset($_POST['delete-account'])) {
                 </div>
                 <button class="update-password-button">Change Password</button>
             </form>
-            <form class="delete-account-form" action="./userInfoPage.php" method="post">
+            <form class="delete-account-form" action="./userInfoPage.php" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
                 <input type="hidden" name="userID" value="<?php echo $userID; ?>">
                 <button class="delete-account-button" name="delete-account">Delete Account</button>
             </form>
