@@ -37,6 +37,7 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
+    //Kullanılmıyor!!!!!!!
     function getDistrictsFromDb($conn, $city){
         $sql = "SELECT DISTINCT district FROM houses WHERE city = ?";
         $stmt = $conn->prepare($sql);
@@ -69,11 +70,13 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
+    //Kullanılmıyor!!!!!!!
     function getHomeById($conn, $id) {
         $sql = "SELECT * FROM homes WHERE id = " . $id;
         return $conn->query($sql);
     }
 
+    //Kullanılmıyor!!!!!!!
     function getHomesByType($conn, $type) {
         $sql = "SELECT * FROM houses WHERE type = ". $type;
         return $conn->query($sql);
@@ -192,7 +195,8 @@ if (!defined('DB_LOADED')) {
         return  $lastID;
     }
 
-    
+
+    //Kullanılmıyor!!!!!!!
     function closeConnection($conn) {
         $conn->close();
     }
