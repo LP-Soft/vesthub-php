@@ -1,4 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => updateCities());
+document.addEventListener('DOMContentLoaded', () => {
+    updateCities();
+    handleImage();  // Call it directly here for page load
+});
 const urlParams = new URLSearchParams(window.location.search);
 const editListingCity = urlParams.get('city');
 const editListingDistrict = urlParams.get('district');
@@ -131,4 +134,94 @@ function checkFields() {
         alert("Please fill all fields.");
         event.preventDefault();
     }
+}
+
+let selectedFiles = [];
+
+// Function to handle new file uploads (preview selected files)
+function previewFiles(event) {
+    const fileInput = event.target;
+    const filePreview = document.getElementById('filePreview');
+
+    // Loop over newly selected files
+    for (let i = 0; i < fileInput.files.length; i++) {
+        const file = fileInput.files[i];
+        if (file.type.startsWith('image/')) {
+            selectedFiles.push(file);
+
+            const imgSrc = URL.createObjectURL(file);
+
+            const imageCard = document.createElement('div');
+            imageCard.className = 'image-card';
+
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.className = 'image-preview';
+
+            imageCard.appendChild(img);
+
+            const closeButton = document.createElement('span');
+            closeButton.textContent = '×';
+            closeButton.className = 'close-button';
+            closeButton.onclick = function () {
+                removeImage(closeButton, file);
+            };
+
+            imageCard.appendChild(closeButton);
+            filePreview.appendChild(imageCard);
+        }
+    }
+}
+
+// Function to remove the previewed file
+function removeImage(button, file) {
+    const imageCard = button.parentElement;
+    imageCard.remove();
+
+    if (file.isNew) {
+        // Remove the new file from the selectedFiles array
+        selectedFiles = selectedFiles.filter(f => f.file !== file);
+    } else {
+        // Handle the removal of the existing file
+        selectedFiles = selectedFiles.filter(f => f.url !== file);
+    }
+
+}
+
+// Function to load existing files from the server when the page is loaded
+// Function to load existing files from the server when the page is loaded
+function handleImage() {
+    const filePreview = document.getElementById('filePreview');
+
+    // Fetch the existing image URLs from the backend
+    fetch(`../../Backend/Utilities/getImages.php?houseID=${houseID}`)
+        .then(response => response.json())
+        .then(existingFiles => {
+            // Loop over the fetched file URLs and create image previews for them
+            existingFiles.forEach(fileUrl => {
+                const imageCard = document.createElement('div');
+                imageCard.className = 'image-card';
+
+                const img = document.createElement('img');
+                img.src = fileUrl;
+                img.className = 'image-preview';
+
+                imageCard.appendChild(img);
+
+                const closeButton = document.createElement('span');
+                closeButton.textContent = '×';
+                closeButton.className = 'close-button';
+                closeButton.onclick = function () {
+                    removeImage(closeButton, fileUrl);
+                };
+
+                imageCard.appendChild(closeButton);
+                filePreview.appendChild(imageCard);
+
+                // Add existing file to selectedFiles array (use file URL as a reference or use another identifier)
+                selectedFiles.push({ url: fileUrl, isNew: false });  // Mark this as an existing image
+
+            });
+        })
+        .catch(error => console.error('Error fetching existing files:', error));
 }

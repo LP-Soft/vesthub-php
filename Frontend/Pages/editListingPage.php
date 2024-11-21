@@ -11,12 +11,19 @@ $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace', 'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];
 
 // Fetch house details if editing
-$houseInfo = null;
+$house = null;
 $houseID = 0;
 if (isset($_GET['houseID']) && isset($_GET['city']) && isset($_GET['district']) && isset($_GET['neighborhood']) && isset($_GET['street'])) {
     $houseID = $_GET['houseID'];
+    $city = $_GET['city'];
+    $district = $_GET['district'];
+    $neighborhood = $_GET['neighborhood'];
+    $street = $_GET['street'];
     // Fetch house info from database using the house ID
-    $houseInfo = getHouseInfoByIDFromDb($GLOBALS['conn'],$houseID); // Assuming this function exists to fetch the house info
+    $house = getHouseInfoByIDFromDb($GLOBALS['conn'],$houseID, $city, $district, $neighborhood, $street); // Assuming this function exists to fetch the house info
+    if($house == null){
+        return;
+    }
 }
 
 // Handle form submission for creating or updating the listing
@@ -104,8 +111,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $houseInfo->lng = $decodedResponse[0]->lon;
     }
 
+    $keptFiles = $_POST['keptFiles'];
     if ($houseInfo->id != 0) {
-        editListing($houseInfo);  // Assuming this function exists to update the listing
+        editListing($houseInfo, $keptFiles);  // Assuming this function exists to update the listing
     }
 }
 
@@ -122,50 +130,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../Styles/imageBox.css">
 
     <script>
-        let selectedFiles = [];
-
-        function previewFiles(event) {
-            const fileInput = event.target;
-            const filePreview = document.getElementById('filePreview');
-
-            for (let i = 0; i < fileInput.files.length; i++) {
-                const file = fileInput.files[i];
-                if (file.type.startsWith('image/')) {
-                    selectedFiles.push(file);
-
-                    const imgSrc = URL.createObjectURL(file);
-
-                    const imageCard = document.createElement('div');
-                    imageCard.className = 'image-card';
-
-                    const img = document.createElement('img');
-                    img.src = imgSrc;
-                    img.className = 'image-preview';
-
-                    imageCard.appendChild(img);
-
-                    const closeButton = document.createElement('span');
-                    closeButton.textContent = '×';
-                    closeButton.className = 'close-button';
-                    closeButton.onclick = function() {
-                        removeImage(closeButton, file);
-                    };
-
-                    imageCard.appendChild(closeButton);
-                    filePreview.appendChild(imageCard);
-                }
-            }
-        }
-
-        function removeImage(button, file) {
-            const imageCard = button.parentElement;
-            imageCard.remove();
-            selectedFiles = selectedFiles.filter(f => f !== file);
-        }
-
         function submitForm(event) {
             event.preventDefault();
+            const floor = document.getElementById('floor').value;
+            const totalFloor = document.getElementById('totalFloor').value;
 
+            if (parseInt(floor) > parseInt(totalFloor)) {
+                alert('The floor cannot be bigger than the total floor');
+                return; // Prevent form submission
+            }
             const formData = new FormData(document.getElementById('createListingForm'));
 
             formData.delete('files[]');
@@ -173,13 +146,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 formData.append('files[]', file);
             });
 
+            const keptFiles = selectedFiles
+                .filter(file => !file.isNew)
+                .map(file => file.url); // URLs of existing files
+
+            formData.append('keptFiles', JSON.stringify(keptFiles)); // Send existing kept files as JSON
+
             fetch('editListingPage.php', {
                 method: 'POST',
                 body: formData
             }).then(response => {
                 if (response.ok) {
                     alert('The house info is updated!');
-                    window.location.href = 'http://localhost:63342/vesthub-php/Frontend/Pages/myListingsPage.php'; //this is going to be adjusted on the server
+                    window.location.href = 'myListingsPage.php'; //this is going to be adjusted on the server
                 } else {
                     alert('The house info is not updated! The update process is failed!');
                 }
@@ -216,39 +195,39 @@ if(isset($_SESSION['userID'])){
 
         <div class="middle">
             <div class="input">
-                <input id="title" name="title" type="text" placeholder="Title" value="<?= isset($houseInfo) ? $houseInfo['title'] : '' ?>" style="width: 505px; height: 40px; border-radius: 10px" required>
+                <input id="title" name="title" type="text" placeholder="Title" value="<?= isset($house) ? $house['title'] : '' ?>" style="width: 505px; height: 40px; border-radius: 10px" required>
             </div>
             <div class="input">
-                <input id="description" name="description" type="text" placeholder="Description" value="<?= isset($houseInfo) ? $houseInfo['description'] : '' ?>" style="width: 505px; height: 110px; border-radius: 10px" required>
+                <input id="description" name="description" type="text" placeholder="Description" value="<?= isset($house) ? $house['description'] : '' ?>" style="width: 505px; height: 110px; border-radius: 10px" required>
             </div>
             <div class="input">
                 <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                     <option value="" selected hidden>Number of Rooms</option>
                     <?php foreach ($roomCount as $room): ?>
-                        <option value="<?= $room ?>" <?= (isset($houseInfo) && htmlspecialchars($houseInfo['numOfRooms']) == $room) ? 'selected' : '' ?>><?= $room ?></option>
+                        <option value="<?= $room ?>" <?= (isset($house) && htmlspecialchars($house['numOfRooms']) == $room) ? 'selected' : '' ?>><?= $room ?></option>
                     <?php endforeach; ?>
                 </select>
-                <input id="price" name="price" type="number" placeholder="Price" value="<?= isset($houseInfo) ? $houseInfo['price'] : '' ?>" style="width: 220px; height: 40px; border-radius: 10px" required>
+                <input id="price" name="price" type="number" placeholder="Price" value="<?= isset($house) ? $house['price'] : '' ?>" style="width: 220px; height: 40px; border-radius: 10px" required>
             </div>
             <div class="input">
                 <select id="city" name="city" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateDistricts()" required>
-                    <option value="<?= isset($houseInfo['city']) ? htmlspecialchars($houseInfo['city']) : '' ?>" selected>
-                        <?= isset($houseInfo['city']) ? htmlspecialchars($houseInfo['city']) : 'Select City' ?>
+                    <option value="<?= isset($house['city']) ? htmlspecialchars($house['city']) : '' ?>" selected>
+                        <?= isset($house['city']) ? htmlspecialchars($house['city']) : 'Select City' ?>
                     </option>
                 </select>
 
                 <select id="district" name="district" style="width: 220px; height: 40px; border-radius: 10px" onchange="updateNeighborhoods()" required>
-                    <option value="<?= isset($houseInfo['district']) ? htmlspecialchars($houseInfo['district']) : '' ?>" selected>
-                        <?= isset($houseInfo['district']) ? htmlspecialchars($houseInfo['district']) : 'Select District' ?>
+                    <option value="<?= isset($house['district']) ? htmlspecialchars($house['district']) : '' ?>" selected>
+                        <?= isset($house['district']) ? htmlspecialchars($house['district']) : 'Select District' ?>
                     </option>
                 </select>
             </div>
             <div class="input">
                 <select id="neighborhood" name="neighborhood" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateStreets()" required>
-                    <option value=""><?= isset($houseInfo['neighborhood']) ? htmlspecialchars($houseInfo['neighborhood']) : 'Select neighborhood' ?></option>
+                    <option value=""><?= isset($house['neighborhood']) ? htmlspecialchars($house['neighborhood']) : 'Select neighborhood' ?></option>
                 </select>
                 <select id="street" name="street" style="width: 220px; height: 40px; border-radius: 10px" required>
-                    <option value=""><?= isset($houseInfo['street']) ? htmlspecialchars($houseInfo['street']) : 'Select street' ?></option>
+                    <option value=""><?= isset($house['street']) ? htmlspecialchars($house['street']) : 'Select street' ?></option>
                 </select>
 
             </div>
@@ -257,22 +236,22 @@ if(isset($_SESSION['userID'])){
 
 
         <div class="right">
-            <?php displaySaleRentSwitchEdit($houseInfo);?>
+            <?php displaySaleRentSwitchEdit($house);?>
             <div class="input">
                 <select id="houseType" name="houseType" style="width: 280px; height: 40px; border-radius: 10px">
                     <option value="" selected hidden>House type</option>
                     <?php foreach ($houseType as $type) { ?>
-                        <option value="<?= $type ?>" <?= (isset($houseInfo) && $houseInfo['houseType'] == $type) ? 'selected' : '' ?>> <?= $type ?> </option>
+                        <option value="<?= $type ?>" <?= (isset($house) && $house['houseType'] == $type) ? 'selected' : '' ?>> <?= $type ?> </option>
                     <?php } ?>
                 </select>
             </div>
 
             <div class="input">
-                <input type="number" name="floor" placeholder="Floor" value="<?= isset($houseInfo) ? $houseInfo['floor'] : '' ?>" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required>
-                <input type="number" name="totalFloor" placeholder="Total Floors" value="<?= isset($houseInfo) ? $houseInfo['totalFloor'] : '' ?>" style="width: 140px; height: 40px; border-radius: 10px" required>
+                <input type="number" name="floor" placeholder="Floor" value="<?= isset($house) ? $house['floor'] : '' ?>" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required>
+                <input type="number" name="totalFloor" placeholder="Total Floors" value="<?= isset($house) ? $house['totalFloor'] : '' ?>" style="width: 140px; height: 40px; border-radius: 10px" required>
             </div>
             <div class="input">
-                <input type="number" name="area" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1" value="<?= isset($houseInfo) ? $houseInfo['area'] : '' ?>" required>
+                <input type="number" name="area" placeholder="Area" value="<?= isset($house) ? $house['area'] : '' ?>" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1" required>
             </div>
 
             <div class="input">
@@ -282,13 +261,16 @@ if(isset($_SESSION['userID'])){
                     $featureInClass = str_replace(' ', '', $feature);
                     $featureInClass = lcfirst($featureInClass);
                     ?>
-                    <input type="checkbox" name="keyFeatures[]" value="<?= $feature ?>" <?= isset($houseInfo) && $houseInfo[$featureInClass] == 1 ? 'checked' : '' ?>> <?= $feature ?><br>
+                    <input type="checkbox" name="keyFeatures[]" value="<?= $feature ?>" <?= isset($house) && $house[$featureInClass] == 1 ? 'checked' : '' ?>> <?= $feature ?><br>
                 <?php endforeach; ?>
             </div>
             <button class="createListing" type="submit" id="submitBtn">Update Listing </button>
         </div>
     </form>
 </div>
+<script>
+    const houseID = <?php echo $_GET['houseID'] ?>;
+</script>
 <script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
 </html>

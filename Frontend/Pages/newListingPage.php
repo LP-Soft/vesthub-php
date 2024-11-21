@@ -94,7 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $houseInfo->lat = $decodedResponse[0]->lat;
         $houseInfo->lng = $decodedResponse[0]->lon;
     }
+
     createListing($houseInfo);
+
 }
 ?>
 
@@ -110,61 +112,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../Styles/imageBox.css">
 
     <script>
-        let selectedFiles = [];
-
-        function previewFiles(event) {
-            const fileInput = event.target; // Get the input element
-            const filePreview = document.getElementById('filePreview');
-
-            // Loop through the newly selected files
-            for (let i = 0; i < fileInput.files.length; i++) {
-                const file = fileInput.files[i];
-
-                // Only process image files
-                if (file.type.startsWith('image/')) {
-                    selectedFiles.push(file); // Add the file to the selectedFiles array
-
-                    const imgSrc = URL.createObjectURL(file); // Create a temporary URL for the image
-
-                    // Create a new image card using the PHP function
-                    const imageCard = document.createElement('div');
-                    imageCard.className = 'image-card';
-
-                    // Create the image element
-                    const img = document.createElement('img');
-                    img.src = imgSrc;
-                    img.className = 'image-preview';
-
-                    // Add the image and close button to the image card
-                    imageCard.appendChild(img);
-
-                    const closeButton = document.createElement('span');
-                    closeButton.textContent = '×'; // X symbol
-                    closeButton.className = 'close-button';
-                    closeButton.onclick = function() {
-                        removeImage(closeButton, file);
-                    };
-
-                    // Append the close button to the image card
-                    imageCard.appendChild(closeButton);
-
-                    // Add the image card to the preview container
-                    filePreview.appendChild(imageCard);
-                }
-            }
-        }
-
-        function removeImage(button, file) {
-            const imageCard = button.parentElement; // Get the image card (parent of the button)
-            imageCard.remove(); // Remove the image card from the preview
-
-            // Remove the file from the selectedFiles array
-            selectedFiles = selectedFiles.filter(f => f !== file);
-        }
 
         function submitForm(event) {
             event.preventDefault(); // Prevent the default form submission
+            const floor = document.getElementById('floor').value;
+            const totalFloor = document.getElementById('totalFloor').value;
 
+            if (parseInt(floor) > parseInt(totalFloor)) {
+                alert('The floor cannot be bigger than the total floor');
+                return; // Prevent form submission
+            }
             const formData = new FormData(document.getElementById('createListingForm'));
             
             //replace files with the selected files
@@ -183,9 +140,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Handle the response
                 if (response.ok) {
                     // Success
-                    console.log('Form submitted successfully');
+                    alert("House added successfully!");
+                    window.location.href = 'myListingsPage.php'; //this is going to be adjusted on the server
                 } else {
                     // Error
+                    alert("House addition is failed!");
                     console.error('Form submission failed');
                 }
             }).catch(error => {

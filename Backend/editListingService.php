@@ -2,7 +2,87 @@
 include "../../Database/databaseController.php";
 require_once "../../Frontend/Pages/editListingPage.php";
 
-function editListing($houseInfo){
-    editListingInDb($GLOBALS['conn'],$houseInfo);
+function editListing($houseInfo, $keptFiles){
+    var_dump($keptFiles);
+    if(editListingInDb($GLOBALS['conn'],$houseInfo)){
+        $numberOfFilesInFolder = deleteOldImages($houseInfo->id, json_decode($keptFiles));
+        echo $numberOfFilesInFolder;
+        addNewImages($houseInfo->id, $numberOfFilesInFolder);
+    }
+}
+
+function deleteOldImages($houseID, $keptFiles){
+    $numberOfFilesInFolder = 0;
+    $directory = "../../house-images/".$houseID;
+
+    // Check if the directory exists
+    //if (is_dir($directory)) {
+        //echo "delete images if içinde";
+        // Delete all files inside the directory
+        $files = array_diff(scandir($directory), array('.', '..'));  // Get all files excluding '.' and '..'
+
+        foreach ($files as $file) {
+            $numberOfFilesInFolder++;
+
+            $filePath = "{$directory}/{$file}";
+            echo $filePath;
+            if (is_file($filePath)) {
+                if(!in_array($filePath, $keptFiles)){
+                    echo "in_array çalışıyor!!";
+                    unlink($filePath);  // Delete the file
+                    $numberOfFilesInFolder--;
+                }
+
+            }
+        }
+
+        $newFiles = array_diff(scandir($directory), array('.', '..'));
+        renameFiles($directory, $newFiles);
+
+    //}
+    //else{
+      //  echo "not a directory";
+    //}
+    return $numberOfFilesInFolder;
+}
+
+function renameFiles($directory, $newFiles){
+    $image_number = 1;
+    foreach ($newFiles as $file) {
+        $idOfFile = substr($file, 0, strpos($file, '.'));
+        $extension = substr($file, strpos($file, '.'));
+        $filePath = "{$directory}/{$file}";
+        if (is_file($filePath)) {
+            rename($filePath, $directory."/".$image_number.$extension);
+            $image_number++;
+        }
+    }
+}
+
+function addNewImages($houseID, $numberOfFilesInFolder){
+    $upload_dir = "../../house-images/".$houseID."/";
+    $image_number = $numberOfFilesInFolder+1;
+    if (isset($_FILES['files']) && !empty(array_filter($_FILES['files']['name']))) {
+        echo "add new image if";
+        foreach ($_FILES['files']['tmp_name'] as $key => $error) {
+            $file_tmpname = $_FILES['files']['tmp_name'][$key];
+            $file_name = $_FILES['files']['name'][$key];
+            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+
+            // Create a file name in the format "houseID-imageNumber.file_ext" (e.g., 1-1.jpg, 1-2.png)
+            $new_filename = $image_number . '.' . $file_ext;
+            $filepath = $upload_dir . $new_filename;  // Full path for the new file
+            $targetFilePath = $upload_dir . $new_filename;
+            // Check if file already exists
+            if (!file_exists($filepath)) {
+                echo "file exist mi değil mi checki";
+                // Move the uploaded file to the desired folder
+                if (move_uploaded_file($file_tmpname, $filepath)) {
+                    $image_number++;
+                }
+            }
+
+        }
+    }
 }
 ?>

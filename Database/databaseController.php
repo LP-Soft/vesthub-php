@@ -277,8 +277,8 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function getHouseInfoByIDFromDb($conn, $houseID){
-        $sql = "SELECT * FROM houses WHERE houseID = " . $houseID;
+    function getHouseInfoByIDFromDb($conn, $houseID, $city, $district, $neighborhood, $street){
+        $sql = "SELECT * FROM houses WHERE houseID = " . $houseID. " AND city = '" . $city ."' AND district = '" . $district ."' AND neighborhood = '" . $neighborhood ."' AND street = '" . $street ."'";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         return $row;
