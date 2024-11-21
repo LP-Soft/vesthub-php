@@ -146,7 +146,7 @@ function displaySaleRentSwitch() {
     justify-content: center;
 }
 
-.radio-container input[type="radio"] {
+.radio-container .radio-button {
     opacity: 0;
     position: absolute;
     width: 100%;
@@ -173,23 +173,23 @@ function displaySaleRentSwitch() {
 }
 
 /* Sale button styling */
-.radio-container:first-child input[type="radio"]:checked + .radio-label {
+.radio-container:first-child .radio-button:checked + .radio-label {
     background-color: #D17C57;
 }
 
 /* Rent button styling */
-.radio-container:last-child input[type="radio"]:checked + .radio-label {
+.radio-container:last-child .radio-button:checked + .radio-label {
     background-color: #D17C57;
 }
 
 /* Unchecked state */
-.radio-container input[type="radio"]:not(:checked) + .radio-label {
+.radio-container .radio-button:not(:checked) + .radio-label {
     opacity: 0;
 }
 
 /* Background layer */
 .toggle-button-cover::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;

@@ -61,14 +61,10 @@ if (isset($_POST['logout'])) {
             <div class="house-cards">
                 <?php
                 // Fetch all homes
-                $result = getLastFiveHouses();
+                $houses = getLastFiveHouses();
                 // Loop through the result set and include homecard.php
-                if ($result && $result->num_rows > 0) {
-                    while ($house = $result->fetch_assoc()) {
-                        displayHouseCard($house, 0);
-                    }
-                } else {
-                    echo "No homes available.";
+                foreach ($houses as $house) {
+                    displayHouseCard($house,0);
                 }
                 ?>
             </div>
@@ -80,6 +76,5 @@ if (isset($_POST['logout'])) {
 </html>
 
 <?php
-//closeConnection($conn);
 include '../Components/footer.php';
 ?>

@@ -6,13 +6,14 @@ function displaySaleRentSwitch() {
     <link rel="stylesheet" href="../Styles/saleRentSwitch.css">
     <div class="toggle-button-cover">
         <label class="radio-container">
-            <input type="radio" name="isSale" value="1" 
+            <input type="radio" name="isSale" class="radio-button"
+            value="1" 
                    <?= $isSale === 1 ? 'checked' : '' ?>>
             <span class="radio-label">Sale</span>
         </label>
         
         <label class="radio-container">
-            <input type="radio" name="isSale" value="0" 
+            <input type="radio" name="isSale" value="0" class="radio-button"
                    <?= $isSale === 0 ? 'checked' : '' ?>>
             <span class="radio-label">Rent</span>
         </label>
@@ -26,13 +27,13 @@ function displaySaleRentSwitchEdit($houseInfo) {
     <link rel="stylesheet" href="../Styles/saleRentSwitch.css">
     <div class="toggle-button-cover">
         <label class="radio-container">
-            <input type="radio" name="isSale" value="1"
+            <input type="radio" name="isSale" value="1" class="radio-button"
                 <?= $isSale == 1 ? 'checked' : '' ?>>
             <span class="radio-label">Sale</span>
         </label>
 
         <label class="radio-container">
-            <input type="radio" name="isSale" value="0"
+            <input type="radio" name="isSale" value="0" class="radio-button"
                 <?= $isSale == 0 ? 'checked' : '' ?>>
             <span class="radio-label">Rent</span>
         </label>
