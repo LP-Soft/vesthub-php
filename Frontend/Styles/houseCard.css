@@ -20,17 +20,24 @@
 
 .home-card img {
     display: block; /* Make the image a block element */
-    margin: 6px 6px 6px; /* Add top, right and left margin */
-    width: calc(100% - 12px);; /* Allow width to adjust according to total of right and left margins */
-    height: auto; /* Fixed height for the image */
-    object-fit: cover; /* Maintain aspect ratio */
+    margin: 6px; /* Add uniform margin */
+    width: calc(100% - 12px); /* Subtract left and right margins from total width */
+    height: 100%; /* Allow the image to take full height of the container */
+    max-height: 150px; /* Maximum height of 150px */
+    object-fit: cover; /* Ensure the image maintains its aspect ratio without stretching */
     border-radius: 14px;
+    box-sizing: border-box; /* Make sure padding and border are included in the element's width and height */
 }
+
 
 .home-details {
     padding: 15px; /* Padding for text container */
     position: relative; /* Ensure this is above background */
     z-index: 2; /* Ensure text is above any background layers */
+    height: 100%; /* Allow the image to take full height of the container */
+    max-height: 200px; /* Maximum height of 150px */
+    object-fit: cover; /* Ensure the image maintains its aspect ratio without stretching */
+    box-sizing: border-box; /* Make sure padding and border are included in the element's width and height */
 }
 
 .home-details h3 {
@@ -66,8 +73,8 @@
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-right: 20px;
+    margin-top: 50px;
     align-self: center; /* Align the button to the center */
 }
 
