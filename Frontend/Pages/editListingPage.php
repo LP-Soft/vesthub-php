@@ -12,6 +12,7 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
 
 // Fetch house details if editing
 $houseInfo = null;
+$houseID = 0;
 if (isset($_GET['houseID']) && isset($_GET['city']) && isset($_GET['district']) && isset($_GET['neighborhood']) && isset($_GET['street'])) {
     $houseID = $_GET['houseID'];
     // Fetch house info from database using the house ID
@@ -22,7 +23,6 @@ if (isset($_GET['houseID']) && isset($_GET['city']) && isset($_GET['district']) 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Initialize houseInfo object
     $houseInfo = new HouseInfo($_POST);
-
     // Initialize feature variables with default values of 0
     $houseInfo->fiberInternet = 0;
     $houseInfo->airConditioner = 0;
@@ -92,11 +92,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $houseInfo->floor = (int)$_POST['floor'];
     $houseInfo->totalFloor = (int)$_POST['totalFloor'];
     $houseInfo->area = (int)$_POST['area'];
-    $houseInfo->ownerID = $_POST['ownerID'];
+    $houseInfo->ownerID = (int)$_POST['ownerID'];
+    $houseInfo->id = (int)$_POST['houseID'];
 
-    if (isset($houseID)) {
-        var_dump($houseInfo);
-        editListing($houseID, $houseInfo);  // Assuming this function exists to update the listing
+    $url = "https://geocode.maps.co/search?q=".rawurlencode($houseInfo->city).",".rawurlencode($houseInfo->district).",".rawurlencode($houseInfo->street)."&api_key=672e64f5dee6e743749773dwy569183";
+    $response = file_get_contents($url);
+    $decodedResponse = json_decode($response);
+    if (!empty($decodedResponse) && isset($decodedResponse[0])) {
+        echo $decodedResponse[0]->lat . "," . $decodedResponse[0]->lon;
+        $houseInfo->lat = $decodedResponse[0]->lat;
+        $houseInfo->lng = $decodedResponse[0]->lon;
+    }
+
+    if ($houseInfo->id != 0) {
+        editListing($houseInfo);  // Assuming this function exists to update the listing
     }
 }
 
@@ -107,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Listing Page</title>
     <link rel="stylesheet" href="../Styles/newListingPage.css">
     <link rel="stylesheet" href="../Styles/styles.css">
     <link rel="stylesheet" href="../Styles/imageBox.css">
@@ -168,9 +178,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 body: formData
             }).then(response => {
                 if (response.ok) {
-                    console.log('Form submitted successfully');
+                    alert('The house info is updated!');
+                    window.location.href = 'http://localhost:63342/vesthub-php/Frontend/Pages/myListingsPage.php'; //this is going to be adjusted on the server
                 } else {
-                    console.error('Form submission failed');
+                    alert('The house info is not updated! The update process is failed!');
                 }
             }).catch(error => {
                 console.error('Error:', error);
@@ -192,7 +203,8 @@ if(isset($_SESSION['userID'])){
 <div class="container">
     <form id="createListingForm" method="POST" action="editListingPage.php" class="form-section" enctype="multipart/form-data" onsubmit="submitForm(event)">
         <input type="hidden" name="ownerID" value="<?= $ownerID ?>">
-        <!-- File Upload Section -->
+        <input type="hidden" name="houseID" value="<?= $houseID ?>">
+
         <div class="left">
             <div class="upload-container">
                 <label for="files">Select files to upload</label><br>
@@ -202,7 +214,6 @@ if(isset($_SESSION['userID'])){
             </div>
         </div>
 
-        <!-- Form Fields for House Details -->
         <div class="middle">
             <div class="input">
                 <input id="title" name="title" type="text" placeholder="Title" value="<?= isset($houseInfo) ? $houseInfo['title'] : '' ?>" style="width: 505px; height: 40px; border-radius: 10px" required>
@@ -214,14 +225,13 @@ if(isset($_SESSION['userID'])){
                 <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                     <option value="" selected hidden>Number of Rooms</option>
                     <?php foreach ($roomCount as $room): ?>
-                        <option value="<?= $room ?>" <?= (isset($houseInfo) && $houseInfo['numOfRooms'] == $room) ? 'selected' : '' ?>><?= $room ?></option>
+                        <option value="<?= $room ?>" <?= (isset($houseInfo) && htmlspecialchars($houseInfo['numOfRooms']) == $room) ? 'selected' : '' ?>><?= $room ?></option>
                     <?php endforeach; ?>
                 </select>
                 <input id="price" name="price" type="number" placeholder="Price" value="<?= isset($houseInfo) ? $houseInfo['price'] : '' ?>" style="width: 220px; height: 40px; border-radius: 10px" required>
             </div>
             <div class="input">
                 <select id="city" name="city" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateDistricts()" required>
-                    <!-- City dropdown options -->
                     <option value="<?= isset($houseInfo['city']) ? htmlspecialchars($houseInfo['city']) : '' ?>" selected>
                         <?= isset($houseInfo['city']) ? htmlspecialchars($houseInfo['city']) : 'Select City' ?>
                     </option>
@@ -245,9 +255,9 @@ if(isset($_SESSION['userID'])){
 
         </div>
 
-        <!-- Right Section -->
+
         <div class="right">
-            <?php displaySaleRentSwitch();?>
+            <?php displaySaleRentSwitchEdit($houseInfo);?>
             <div class="input">
                 <select id="houseType" name="houseType" style="width: 280px; height: 40px; border-radius: 10px">
                     <option value="" selected hidden>House type</option>
@@ -256,7 +266,7 @@ if(isset($_SESSION['userID'])){
                     <?php } ?>
                 </select>
             </div>
-            <!-- Floor and Area Details -->
+
             <div class="input">
                 <input type="number" name="floor" placeholder="Floor" value="<?= isset($houseInfo) ? $houseInfo['floor'] : '' ?>" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required>
                 <input type="number" name="totalFloor" placeholder="Total Floors" value="<?= isset($houseInfo) ? $houseInfo['totalFloor'] : '' ?>" style="width: 140px; height: 40px; border-radius: 10px" required>
@@ -264,7 +274,7 @@ if(isset($_SESSION['userID'])){
             <div class="input">
                 <input type="number" name="area" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1" value="<?= isset($houseInfo) ? $houseInfo['area'] : '' ?>" required>
             </div>
-            <!-- Key Features Checkboxes -->
+
             <div class="input">
                 <label for="keyFeatures">Key Features:</label><br>
                 <?php foreach ($keyFeatures as $feature): ?>
@@ -282,4 +292,4 @@ if(isset($_SESSION['userID'])){
 <script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
 </html>
-<?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->
+<?php include('../Components/footer.php'); ?>

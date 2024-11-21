@@ -140,54 +140,48 @@ if (!defined('DB_LOADED')) {
         }
     }
 
-    function editListingInDb($conn,$houseInfo, $houseID){
-        function editListingInDb($conn, $houseInfo, $houseID) {
-            // Prepare the SQL statement to update the house listing
-            $sql = "UPDATE houses SET
-            ownerID = " . $houseInfo->ownerID . ",
-            title = '" . $houseInfo->title . "',
-            description = '" . $houseInfo->description . "',
-            numOfRooms = '" . $houseInfo->numOfRooms . "',
-            numOfBathroom = 1, -- numOfBathroom
-            numOfBedroom = 1, -- numOfBedroom
-            price = " . $houseInfo->price . ",
-            city = '" . $houseInfo->city . "',
-            district = '" . $houseInfo->district . "',
-            neighborhood = '" . $houseInfo->neighborhood . "',
-            street = '" . $houseInfo->street . "',
-            floor = " . $houseInfo->floor . ",
-            totalFloor = " . $houseInfo->totalFloor . ",
-            area = " . $houseInfo->area . ",
-            lat = " . $houseInfo->lat . ",
-            lng = " . $houseInfo->lng . ", 
-            isSale = " . $houseInfo->isSale . ",
-            fiberInternet = " . $houseInfo->fiberInternet . ",
-            airConditioner = " . $houseInfo->airConditioner . ",
-            floorHeating = " . $houseInfo->floorHeating . ",
-            fireplace = " . $houseInfo->fireplace . ",
-            terrace = " . $houseInfo->terrace . ",
-            satellite = " . $houseInfo->satellite . ",
-            parquet = " . $houseInfo->parquet . ",
-            steelDoor = " . $houseInfo->steelDoor . ",
-            furnished = " . $houseInfo->furnished . ",
-            insulation = " . $houseInfo->insulation . ",
-            status = '" . $houseInfo->status . "',
-            houseType = '" . $houseInfo->houseType . "'
-            WHERE houseID = " . $houseID;
+    function editListingInDb($conn, $houseInfo) {
+        // Prepare the SQL statement to update the house listing
+        $sql = "UPDATE houses SET
+        ownerID = " . (int)$houseInfo->ownerID . ",
+        title = '" . $houseInfo->title . "',
+        description = '" . $houseInfo->description . "',
+        numOfRooms = '" . $houseInfo->numOfRooms . "',
+        numOfBathroom = 1,
+        numOfBedroom = 1,
+        price = " . $houseInfo->price . ",
+        city = '" . $houseInfo->city . "',
+        district = '" . $houseInfo->district . "',
+        neighborhood = '" . $houseInfo->neighborhood . "',
+        street = '" . $houseInfo->street . "',
+        floor = " . $houseInfo->floor . ",
+        totalFloor = " . $houseInfo->totalFloor . ",
+        area = " . $houseInfo->area . ",
+        lat = " . $houseInfo->lat . ",
+        lng = " . $houseInfo->lng . ",
+        isSale = " . $houseInfo->isSale . ",
+        fiberInternet = " . $houseInfo->fiberInternet . ",
+        airConditioner = " . $houseInfo->airConditioner . ",
+        floorHeating = " . $houseInfo->floorHeating . ",
+        fireplace = " . $houseInfo->fireplace . ",
+        terrace = " . $houseInfo->terrace . ",
+        satellite = " . $houseInfo->satellite . ",
+        parquet = " . $houseInfo->parquet . ",
+        steelDoor = " . $houseInfo->steelDoor . ",
+        furnished = " . $houseInfo->furnished . ",
+        insulation = " . $houseInfo->insulation . ",
+        status = '" . $houseInfo->status . "',
+        houseType = '" . $houseInfo->houseType . "'
+        WHERE houseID = " . $houseInfo->id;
 
-            echo $sql;
-
-            // Execute the SQL query and check if it was successful
-            if ($conn->query($sql)) {
-                echo "House record updated successfully!";
-                return true;
-            } else {
-                echo "Error updating record: " . $conn->error;
-                return false;
-            }
+        // Execute the SQL query and check if it was successful
+        if ($conn->query($sql)) {
+            return true;
+        } else {
+            return false;
         }
-
     }
+
 
     function getLastHouseIDFromDb($conn) {
         // Correct SQL query
