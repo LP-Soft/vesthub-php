@@ -247,11 +247,11 @@ if(isset($_SESSION['userID'])){
             </div>
 
             <div class="input">
-                <input type="number" name="floor" placeholder="Floor" value="<?= isset($house) ? $house['floor'] : '' ?>" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required>
-                <input type="number" name="totalFloor" placeholder="Total Floors" value="<?= isset($house) ? $house['totalFloor'] : '' ?>" style="width: 140px; height: 40px; border-radius: 10px" required>
+                <input type="number" id="floor" name="floor" placeholder="Floor" value="<?= isset($house) ? $house['floor'] : '' ?>" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required>
+                <input type="number" id ="totalFloor" name="totalFloor" placeholder="Total Floors" value="<?= isset($house) ? $house['totalFloor'] : '' ?>" style="width: 140px; height: 40px; border-radius: 10px" required>
             </div>
             <div class="input">
-                <input type="number" name="area" placeholder="Area" value="<?= isset($house) ? $house['area'] : '' ?>" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1" required>
+                <input type="number" id="area" name="area" placeholder="Area" value="<?= isset($house) ? $house['area'] : '' ?>" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1" required>
             </div>
 
             <div class="input">
