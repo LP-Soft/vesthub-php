@@ -88,7 +88,7 @@ if (!defined('DB_LOADED')) {
     }
 
     function changeStatusToApprovedInDb($conn, $houseInfoID) {
-        $sql = "UPDATE houses SET status = 'Approved' WHERE houseID = ". $houseInfoID;
+        $sql = "UPDATE houses SET status = 'Available' WHERE houseID = ". $houseInfoID;
         $conn->query($sql);
     }
 
