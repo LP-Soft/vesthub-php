@@ -290,5 +290,29 @@ if (!defined('DB_LOADED')) {
         $sql = "UPDATE users SET isActive = 0 WHERE userID = " . $userID;
         return $conn->query($sql);
     }
+
+    function getFavoritedHousesFromDb($conn, $userID)
+    {
+        $sql = "SELECT * FROM favorites WHERE userID = " . $userID;
+        return $conn->query($sql);
+    }
+
+    function insertFavoritedHouseToDb($conn, $houseID, $userID)
+    {
+        $sql = "INSERT INTO favorites (userID, houseID) VALUES (" . $userID . ", " . $houseID . ")";
+        return $conn->query($sql);
+    }
+
+    function deleteFavoritedHouseFromDb($conn, $houseID, $userID)
+    {
+        $sql = "DELETE FROM favorites WHERE userID = " . $userID . " AND houseID = " . $houseID;
+        return $conn->query($sql);
+    }
+
+    function checkFavoritedHouseFromDb($conn, $houseID, $userID)
+    {
+        $sql = "SELECT * FROM favorites WHERE userID = " . $userID . " AND houseID = " . $houseID;
+        return $conn->query($sql);
+    }
 }
 ?>
