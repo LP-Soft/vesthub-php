@@ -84,6 +84,10 @@ function getDistrictNeighborhoodPairs()
 
 function getFilteredHouses($filters)
 {
+    $userID = 0;
+    if(isset($_SESSION['userID'])){
+        $userID = $_SESSION['userID'];
+    }
     global $conn;
     $whereConditions = [];
 
@@ -136,6 +140,8 @@ function getFilteredHouses($filters)
         }
     }
 
+    $whereConditions[] = "status = 'Available'";
+    $whereConditions[] = "ownerID != " . $userID;
     // Construct the WHERE clause
     $whereSQL = !empty($whereConditions) ? "WHERE " . implode(" AND ", $whereConditions) : "";
 

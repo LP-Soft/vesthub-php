@@ -27,8 +27,8 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function getLastFiveHousesFromDb($conn){
-        $sql = "SELECT * FROM houses WHERE status = 'Available' ORDER BY houseID DESC LIMIT 5";
+    function getLastFiveHousesFromDb($conn, $userID){
+        $sql = "SELECT * FROM houses WHERE status = 'Available' AND ownerID != " .$userID. " ORDER BY houseID DESC LIMIT 5";
         return $conn->query($sql);
     }
 
