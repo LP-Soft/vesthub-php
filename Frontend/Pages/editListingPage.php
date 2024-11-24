@@ -101,6 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $houseInfo->area = (int)$_POST['area'];
     $houseInfo->ownerID = (int)$_POST['ownerID'];
     $houseInfo->id = (int)$_POST['houseID'];
+    $houseInfo->numOfBathroom = (int)$_POST['numOfBathroom'];
+    $houseInfo->numOfBedroom = (int)$_POST['numOfBedroom'];
 
     $url = "https://geocode.maps.co/search?q=".rawurlencode($houseInfo->city).",".rawurlencode($houseInfo->district).",".rawurlencode($houseInfo->street)."&api_key=672e64f5dee6e743749773dwy569183";
     $response = file_get_contents($url);
@@ -134,11 +136,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             event.preventDefault();
             const floor = document.getElementById('floor').value;
             const totalFloor = document.getElementById('totalFloor').value;
+            const bedroom = document.getElementById('numOfBedroom').value;
+            const rooms = document.getElementById('numOfRooms').value;
 
             if (parseInt(floor) > parseInt(totalFloor)) {
                 alert('The floor cannot be bigger than the total floor');
                 return; // Prevent form submission
             }
+            if(parseInt(bedroom) > parseInt(rooms.charAt(0))){
+                alert('The number of bedroom cannot be bigger than the number of rooms');
+                return; // Prevent form submission
+            }
+
             const formData = new FormData(document.getElementById('createListingForm'));
 
             formData.delete('files[]');
@@ -199,6 +208,10 @@ if(isset($_SESSION['userID'])){
             </div>
             <div class="input">
                 <input id="description" name="description" type="text" placeholder="Description" value="<?= isset($house) ? $house['description'] : '' ?>" style="width: 505px; height: 110px; border-radius: 10px" required>
+            </div>
+            <div class="input">
+                <input id="numOfBathroom" name="numOfBathroom" type="number" placeholder="Number of bathroom" value="<?= isset($house) ? $house['numOfBathroom'] : '' ?>" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required min="1">
+                <input id="numOfBedroom" name="numOfBedroom" type="number" placeholder="Number of bedroom" value="<?= isset($house) ? $house['numOfBedroom'] : '' ?>" style="width: 220px; height: 40px; border-radius: 10px" required min="1">
             </div>
             <div class="input">
                 <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>

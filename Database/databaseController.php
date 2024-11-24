@@ -107,8 +107,8 @@ if (!defined('DB_LOADED')) {
             '" . $houseInfo->title . "',
             '" . $houseInfo->description . "',
             '" . $houseInfo->numOfRooms . "',
-            1, -- numOfBathroom
-            1, -- numOfBedroom
+            " . $houseInfo->numOfBathroom . ",
+            " . $houseInfo->numOfBedroom . ",
             " . $houseInfo->price . ",
             '" . $houseInfo->city . "',
             '" . $houseInfo->district . "',
@@ -150,8 +150,8 @@ if (!defined('DB_LOADED')) {
         title = '" . $houseInfo->title . "',
         description = '" . $houseInfo->description . "',
         numOfRooms = '" . $houseInfo->numOfRooms . "',
-        numOfBathroom = 1,
-        numOfBedroom = 1,
+        numOfBathroom = " . $houseInfo->numOfBathroom . ",
+        numOfBedroom = " . $houseInfo->numOfBedroom . ",
         price = " . $houseInfo->price . ",
         city = '" . $houseInfo->city . "',
         district = '" . $houseInfo->district . "',

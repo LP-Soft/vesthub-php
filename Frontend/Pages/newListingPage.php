@@ -85,6 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $houseInfo->totalFloor = (int)$_POST['totalFloor'];
     $houseInfo->area = (int)$_POST['area'];
     $houseInfo->ownerID = $_POST['ownerID'];
+    $houseInfo->numOfBedroom = (int)$_POST['numOfBedroom'];
+    $houseInfo->numOfBathroom = (int)$_POST['numOfBathroom'];
 
     $url = "https://geocode.maps.co/search?q=".rawurlencode($houseInfo->city).",".rawurlencode($houseInfo->district).",".rawurlencode($houseInfo->street)."&api_key=672e64f5dee6e743749773dwy569183";
     $response = file_get_contents($url);
@@ -117,9 +119,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             event.preventDefault(); // Prevent the default form submission
             const floor = document.getElementById('floor').value;
             const totalFloor = document.getElementById('totalFloor').value;
+            const bedroom = document.getElementById('numOfBedroom').value;
+            const rooms = document.getElementById('numOfRooms').value;
+            console.log(bedroom, rooms)
 
             if (parseInt(floor) > parseInt(totalFloor)) {
                 alert('The floor cannot be bigger than the total floor');
+                return; // Prevent form submission
+            }
+            if(parseInt(bedroom) > parseInt(rooms.charAt(0))){
+                alert('The number of bedroom cannot be bigger than the number of rooms');
                 return; // Prevent form submission
             }
             const formData = new FormData(document.getElementById('createListingForm'));
@@ -181,6 +190,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required>
                 </div>
                 <div class="input">
+                    <input id="numOfBathroom" name="numOfBathroom" type="number" placeholder="Number of bathroom" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required min="1">
+                    <input id="numOfBedroom" name="numOfBedroom" type="number" placeholder="Number of bedroom" style="width: 220px; height: 40px; border-radius: 10px" required min="1">
+                </div>
+                <div class="input">
                     <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                         <option value="" selected hidden>Number of rooms</option>
                         <?php foreach ($roomCount as $room) { ?>
@@ -189,6 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                     <input id="price" name="price" type="number" placeholder="Price" style="width: 220px; height: 40px; border-radius: 10px" required min="0">
                 </div>
+
                 <div class="input">
                     <select id="city" name="city" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateDistricts()" required>
                         <option value="">City</option>

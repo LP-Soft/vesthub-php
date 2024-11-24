@@ -6,6 +6,8 @@ class houseInfo {
     public $title;
     public $description;
     public $numOfRooms;
+    public $numOfBathroom;
+    public $numOfBedroom;
     public $price;
     public $city;
     public $district;
@@ -47,6 +49,8 @@ class houseInfo {
         $this->floor = (int)$postData['floor'];
         $this->totalFloor = (int)$postData['totalFloor'];
         $this->area = (int)$postData['area'];
+        $this->numOfBathroom = (int)$postData['numOfBathroom'];
+        $this->numOfBedroom = (int)$postData['numOfBedroom'];
         //$this->lat = (float)$postData['lat'];
         //$this->lng = (float)$postData['lng'];
 
