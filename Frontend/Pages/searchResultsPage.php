@@ -74,10 +74,14 @@ $searchResults = getFilteredHouses($filters);
          </select>
          <label for="amenities">Amenities:</label>
          <div class="Amenities">
-            <label><input type="checkbox" name="amenities[]" value="pool"> Pool</label>
-            <label><input type="checkbox" name="amenities[]" value="gym"> Gym</label>
-            <label><input type="checkbox" name="amenities[]" value="parking"> Parking</label>
-            <label><input type="checkbox" name="amenities[]" value="garden"> Garden</label>
+            <label><input type="checkbox" name="amenities[]" value="floorHeating"> Floor Heating</label>
+            <label><input type="checkbox" name="amenities[]" value="furnished"> Furnished</label>
+            <label><input type="checkbox" name="amenities[]" value="fiberInternet"> Fiber Internet</label>
+            <label><input type="checkbox" name="amenities[]" value="airConditioner"> Air Conditioner</label>
+            <label><input type="checkbox" name="amenities[]" value="fireplace"> Fireplace</label>
+            <label><input type="checkbox" name="amenities[]" value="satellite"> Satellite</label>
+            <label><input type="checkbox" name="amenities[]" value="steelDoor"> Steel Door</label>
+            <label><input type="checkbox" name="amenities[]" value="insulation"> Insulation</label>
          </div>
          <button type="submit">Apply Filters</button>
       </form>

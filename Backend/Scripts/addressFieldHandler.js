@@ -7,8 +7,16 @@ const editListingCity = urlParams.get('city');
 const editListingDistrict = urlParams.get('district');
 const editListingNeighborhood = urlParams.get('neighborhood');
 const editListingStreet = urlParams.get('street');
+const selectedSaleRent = urlParams.get('sale_rent');
+const selectedSort = urlParams.get('sort');
 
 console.log(editListingCity, ",", editListingDistrict , ",", editListingNeighborhood , ",", editListingStreet);
+if (selectedSaleRent) {
+    document.getElementById('sale_rent').value = selectedSaleRent;
+}
+if (selectedSort) {
+    document.getElementById('sort').value = selectedSort;
+}
 function updateCities() {
     fetch("../../Backend/Utilities/getCities.php")
         .then(response => response.json())
@@ -20,6 +28,9 @@ function updateCities() {
                 option.value = city;
                 option.text = city;
                 citySelect.appendChild(option);
+                if (city === editListingCity) {
+                    option.selected = true;
+                }
             });
 
             //editListingPage için
@@ -47,6 +58,9 @@ function updateDistricts() {
                     option.value = district;
                     option.text = district;
                     districtSelect.appendChild(option);
+                    if (district === editListingDistrict) {
+                        option.selected = true;
+                    }
                 });
                 if(editListingDistrict != null){
                     districtSelect.value = editListingDistrict;
@@ -80,6 +94,9 @@ function updateNeighborhoods() {
                     option.value = neighborhood;
                     option.text = neighborhood;
                     neighborhoodSelect.appendChild(option);
+                    if (neighborhood === editListingNeighborhood) {
+                        option.selected = true;
+                    }
                 });
                 if(editListingNeighborhood != null){
                     neighborhoodSelect.value = editListingNeighborhood;

@@ -92,35 +92,60 @@ function getFilteredHouses($filters)
     $whereConditions = [];
 
     // Process each filter and add it to the WHERE conditions
+    // Process each filter and add it to the WHERE conditions
     if (!empty($filters['sale_rent'])) {
         $isSale = ($filters['sale_rent'] === 'sale') ? 1 : 0;
-        $whereConditions[] = "isSale = '" . $conn->real_escape_string($isSale) . "'";
+        $whereConditions[] = "isSale = '" . $isSale . "'";
     }
     if (!empty($filters['city'])) {
-        $whereConditions[] = "city = '" . $conn->real_escape_string($filters['city']) . "'";
+        $whereConditions[] = "city = '" . $filters['city'] . "'";
     }
     if (!empty($filters['district'])) {
-        $whereConditions[] = "district = '" . $conn->real_escape_string($filters['district']) . "'";
+        $whereConditions[] = "district = '" . $filters['district']. "'";
     }
     if (!empty($filters['neighborhood'])) {
-        $whereConditions[] = "neighborhood = '" . $conn->real_escape_string($filters['neighborhood']) . "'";
+        $whereConditions[] = "neighborhood = '" . $filters['neighborhood'] . "'";
     }
     if (!empty($filters['house_type'])) {
-        $whereConditions[] = "houseType = '" . $conn->real_escape_string($filters['house_type']) . "'";
+        $whereConditions[] = "houseType = '" . $filters['house_type'] . "'";
     }
 
-    // Handle amenities (array of selected options)
-    /*
+    $amenitiesConditions = [];
     if (!empty($filters['amenities']) && is_array($filters['amenities'])) {
-        $amenityConditions = [];
         foreach ($filters['amenities'] as $amenity) {
-            $amenityConditions[] = "amenities LIKE '%" . $conn->real_escape_string($amenity) . "%'";
+            switch ($amenity) {
+                case 'Floor Heating':
+                    $amenity = 'floorHeating';
+                    break;
+                case 'Furnished':
+                    $amenity = 'furnished';
+                    break;
+                case 'Fiber Internet':
+                    $amenity = 'fiberInternet';
+                    break;
+                case 'Air Conditioner':
+                    $amenity = 'airConditioner';
+                    break;
+                case 'Fireplace':
+                    $amenity = 'fireplace';
+                    break;
+                case 'Satellite':
+                    $amenity = 'satellite';
+                    break;
+                case 'Steel Door':
+                    $amenity = 'steelDoor';
+                    break;
+                case 'Insulation':
+                    $amenity = 'insulation';
+                    break;
+            }
+            $amenitiesConditions[] = $amenity.'=' . '1';
         }
-        // Join amenities conditions with "AND" if you need all selected amenities to match
-        // or with "OR" if you want any of the selected amenities to match
-        $whereConditions[] = "(" . implode(" OR ", $amenityConditions) . ")";
+        // Join amenities conditions with "OR" if you want any of the selected amenities to match
+        if (!empty($amenitiesConditions)) {
+            $whereConditions[] = "(" . implode(" OR ", $amenitiesConditions) . ")";
+        }
     }
-    */
     // Handle sorting
     $orderBy = "";
     if (!empty($filters['sort'])) {
