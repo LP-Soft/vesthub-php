@@ -14,8 +14,8 @@ $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace
 // Fetch house details if editing
 $house = null;
 $houseID = 0;
-if (isset($_GET['houseID']) && isset($_GET['city']) && isset($_GET['district']) && isset($_GET['neighborhood']) && isset($_GET['street'])) {
-    $houseID = $_GET['houseID'];
+if (isset($_GET['id']) && isset($_GET['city']) && isset($_GET['district']) && isset($_GET['neighborhood']) && isset($_GET['street'])) {
+    $houseID = $_GET['id'];
     $city = $_GET['city'];
     $district = $_GET['district'];
     $neighborhood = $_GET['neighborhood'];

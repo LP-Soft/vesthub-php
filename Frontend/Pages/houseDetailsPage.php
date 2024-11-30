@@ -150,7 +150,7 @@ $owner = getUserInfo($house->ownerID);
                 <div class="isSale-edit">
                     <div class="edit">
                         <?php if ($userLogged != -1 && $house->ownerID == $userLogged): ?>
-                            <a href="editListingPage.php?id=<?php echo $houseId; ?>" class="edit-listing-icon">
+                            <a href="editListingPage.php?id=<?php echo $houseId;?>&city=<?php echo $house->city;?>&district=<?php echo $house->district;?>&neighborhood=<?php echo $house->neighborhood;?>&street=<?php echo $house->street;?>" class="edit-listing-icon">
                                 <div class="edit-icon"></div>
                             </a>
                         <?php endif; ?>
