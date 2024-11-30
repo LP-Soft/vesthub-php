@@ -166,7 +166,7 @@ if ($result && $result->num_rows > 0) {
                     <?php if ($userLogged != -1 && $house->ownerID == $userLogged): ?>
                         <div class="mark-action">
                             <span class="mark-action-badge <?php echo $house->isSale ? 'sold' : 'rent'; ?>" onclick="markAsAction('<?php echo $house->isSale ? 'sold' : 'rent'; ?>', <?php echo $house->houseID; ?>)">
-                                <?php echo $house->isSale ? 'Mark as Sold' : 'Mark as Rent'; ?>
+                                <?php echo $house->isSale ? 'Mark as Sold' : 'Mark as Rented'; ?>
                             </span>
                         </div>
                     <?php endif; ?>
