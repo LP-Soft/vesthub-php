@@ -5,7 +5,8 @@ require_once '../../Classes/houseInfo.php';
 include '../Components/SaleRentSwitch.php';
 use Classes\houseInfo;
 
-// Define the room count, house type, and key features
+/* Buraya gelen hrefte "http://localhost:8000/vesthub-php/Frontend/Pages/editListingPage.php?id=8" id var onu kullanabiliriz.*/
+
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace', 'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];

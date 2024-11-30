@@ -7,22 +7,26 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Get the house ID from the URL parameter (or set to 1 for testing)
-$houseId = $_GET['id'];  // Replace this with dynamic ID if needed (e.g., $_GET['id'])
+$houseId = $_GET['id'];
 
-// Function to get house images dynamically from the directory
-function getHouseImages($houseId) {
-    $directory = "../../house-images/{$houseId}/"; // Set the directory path based on the house ID
-    $images = glob($directory . "*.{jpg,png,gif}", GLOB_BRACE); // Get all image files in the directory
-    return $images ?: []; // Return images if found, else an empty array
+$userLogged = -1;
+if (isset($_SESSION['userID']))
+{
+    $userLogged = $_SESSION['userID'];
+}
+function getHouseImages($houseId)
+{
+    $directory = "../../house-images/{$houseId}/";
+    $images = glob($directory . "*.{jpg,png,gif}", GLOB_BRACE);
+    return $images ?: [];
 }
 
 // Fetch images for the specific house
 $houseImages = getHouseImages($houseId);
 
-// Get house details from the backend (use the function defined in houseDetailsService.php)
-$house = getHouseDetails($houseId); // Fetch the house details as an object
-$user = getUserInfo(2); // Fetch the user details as an object
+$house = getHouseDetails($houseId);
+$owner = getUserInfo($house->ownerID);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +43,9 @@ $user = getUserInfo(2); // Fetch the user details as an object
         <!-- Image Column -->
         <div class="image-column">
             <div class="main-image">
-                <img id="mainHouseImage" src="<?php echo htmlspecialchars($houseImages[0] ?? '../../house-images/default.png'); ?>" alt="House Front View">
+                <img id="mainHouseImage"
+                     src="<?php echo htmlspecialchars($houseImages[0] ?? '../../house-images/default.png'); ?>"
+                     alt="House Front View">
                 <div class="image-navigation">
                     <button class="nav-button-prev">❮</button>
                     <button class="nav-button-next">❯</button>
@@ -136,24 +142,44 @@ $user = getUserInfo(2); // Fetch the user details as an object
                 <p><?php echo htmlspecialchars($house->description); ?></p>
             </div>
         </div>
-
-        <!-- Right Column - Price and Contact -->
         <div class="contact-column">
             <div class="price-isSale">
                 <div class="price">
                     <?php echo number_format($house->price, 0, '.', ','); ?>₺
                 </div>
-                <div class="isSale" style="background-color: <?php echo $house->isSale ? '#56ec45' : '#d17c57'; ?>">
-                    <span class="for-sale-badge <?php echo $house->isSale ? 'sale' : 'rent'; ?>">
-                        <?php echo $house->isSale ? 'For Sale' : 'For Rent'; ?>
-                    </span>
+                <div class="isSale-edit">
+                    <div class="edit">
+                        <?php if ($userLogged != -1 && $house->ownerID == $userLogged): ?>
+                            <a href="editListingPage.php?id=<?php echo $houseId; ?>" class="edit-listing-icon">
+                                <div class="edit-icon"></div>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                    <div class="isSale">
+                        <span class="for-sale-badge <?php echo $house->isSale ? 'sale' : 'rent'; ?>">
+                            <?php echo $house->isSale ? 'For Sale' : 'For Rent'; ?>
+                        </span>
+                    </div>
                 </div>
             </div>
+
             <div>
-                <div class="contact-info">
-                    <p>Contact: Ali Taş</p>
-                    <a href="tel:+905555555555" class="phone">📞 +90 555 55 55 55</a>
+                <div class="contact-info-container">
+                    <div class="contact-info">
+                        <h3>For Detailed Information:</h3>
+                    </div>
+                    <div class="contact-info">
+                        <img src="../Assets/user.png" alt="User Icon" class="user-icon">
+                        <p><strong><?php echo $owner->name . "&nbsp;" . $owner->surname ?></strong></p>
+                    </div>
+                    <div class="contact-info">
+                        <a href="tel:<?php echo "+90" . $owner->phone ?>" class="phone">
+                            <img src="../Assets/telephone.png" alt="Phone Icon" class="phone-icon">
+                            <?php echo "+90" . $owner->phone ?>
+                        </a>
+                    </div>
                 </div>
+            </div>
                 <div class="map-container">
                     <iframe
                             src="https://maps.google.com/maps?q=<?php echo $house->lat; ?>,<?php echo $house->lng; ?>&hl=en&z=14&amp;output=embed&markers=<?php echo $house->lat; ?>,<?php echo $house->lng; ?>"

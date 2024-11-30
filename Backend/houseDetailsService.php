@@ -17,6 +17,8 @@ function getHouseDetails($houseID) {
             'title' => $row['title'],
             'description' => $row['description'],
             'numOfRooms' => $row['numOfRooms'],
+            'numOfBathroom' => $row['numOfBathroom'],
+            'numOfBedroom' => $row['numOfBedroom'],
             'price' => $row['price'],
             'city' => $row['city'],
             'district' => $row['district'],
@@ -28,6 +30,7 @@ function getHouseDetails($houseID) {
             'area' => $row['area'],
             'keyFeatures' => [], // This will be populated below
             'isSale' => $row['isSale'],
+            'ownerID' => $row['ownerID'],
             'lat' => $row['lat'],
             'lng' => $row['lng'],
         ]);

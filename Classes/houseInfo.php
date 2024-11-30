@@ -27,7 +27,7 @@ class houseInfo {
     public $steelDoor = 0;
     public $furnished = 0;
     public $insulation = 0;
-    public $isSale = 1;
+    public $isSale = 0;
     public $status = 'Pending';
     public $id = 0; // not existing at the beginning
     public $lat = 0.0;
@@ -51,6 +51,8 @@ class houseInfo {
         $this->area = (int)$postData['area'];
         $this->numOfBathroom = (int)$postData['numOfBathroom'];
         $this->numOfBedroom = (int)$postData['numOfBedroom'];
+        $this->isSale = (int)$postData['isSale'];
+        $this->ownerID = (int)$postData['ownerID'];
         //$this->lat = (float)$postData['lat'];
         //$this->lng = (float)$postData['lng'];
 
@@ -92,14 +94,11 @@ class houseInfo {
             }
         }
 
-        // Check if the property is for sale or rent
-        if (isset($postData['isSale'])) {
-            $this->isSale = 0; // Set to 0 for rent
-        }
-
+        /*
         if (isset($_SESSION['userID']))
         {
             $this->ownerID = $_SESSION['userID'];
         }
+        */
     }
 }

@@ -272,7 +272,6 @@ body {
 .feature {
     font-size: 14px;
     color: #555;
-    background-color: rgba(249, 227, 226);
     border-radius: 10px;
     flex-direction: row;
     gap: 10px;
@@ -330,30 +329,10 @@ body {
 
 .isSale
 {
-    background-color: #56ec45;
     border-radius: 20px;
     width: fit-content;
-    padding: 10px 29px 10px;
     color: #ffffff;
 }
-
-.contact-info {
-    max-width: 100%;
-    background-color: #D9D9D9;
-    border-radius: 20px;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between; /* Adds space between items */
-    align-items: start;            /* Centers items vertically */
-    font-size: 16px;
-    margin: 10px;
-    gap: 20px;
-}
-
-.contact-info p {
-    margin: 0;
-}
-
 
 .map-container {
     width: 100%;
@@ -363,6 +342,126 @@ body {
     margin-top: 20px;
     border: 1px solid #ddd;
 }
+.isSale-edit {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align items closely together */
+    margin-top: 10px; /* Reduced margin above */
+}
+
+.edit {
+    margin-right: 5px; /* Reduce the spacing between edit and badge */
+}
+
+.edit a.edit-listing-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; /* Slightly smaller button size */
+    height: 36px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.edit a.edit-listing-icon:hover {
+    background-color: #888888; /* Darker blue on hover */
+}
+
+.edit-icon {
+    width: 18px; /* Adjust size for smaller button */
+    height: 18px;
+    background: url('../Assets/edit.png') no-repeat center center;
+    background-size: contain;
+}
+
+.isSale .for-sale-badge {
+    display: inline-block;
+    padding: 8px 16px; /* Increased padding for bigger appearance */
+    border-radius: 15px;
+    font-size: 16px; /* Increased font size */
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.isSale .for-sale-badge.sale {
+    background-color: #b0be9e !important;  /* Ensuring color is applied */
+}
+
+.isSale .for-sale-badge.rent {
+    background-color: #d78f69 !important;  /* Ensuring color is applied */
+}
+
+.contact-info-container {
+    max-width: 100%;
+    background-color: #E9EBEA;
+    border-radius: 20px;
+    padding: 20px 30px; /* Increased padding for more space */
+    display: flex;
+    flex-direction: column; /* Stack the items vertically */
+    justify-content: flex-start; /* Start the items from the top */
+    font-size: 16px;
+    margin: 20px 0; /* Margin to separate the outer container */
+    gap: 20px; /* Space between items inside the container */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.contact-info {
+    display: flex;
+    justify-content: flex-start; /* Align the content to the left */
+    font-size: 16px;
+    margin: 0; /* Remove margin inside the contact-info */
+    gap: 10px; /* Space between elements inside the contact-info div */
+    align-items: center; /* Center align the items vertically */
+}
+
+.contact-info h3 {
+    margin: 0;
+    font-size: 20px; /* Larger heading size for emphasis */
+    color: #333; /* Dark color for the heading */
+    font-weight: bold; /* Bold heading */
+    text-align: right; /* Right-align the heading */
+    flex: 1; /* Make sure h3 takes the remaining space and aligns to the right */
+}
+
+.contact-info p,
+.contact-info a {
+    margin: 0;
+    text-align: left; /* Align the contact and phone to the left */
+}
+
+.phone {
+    text-decoration: none; /* Remove the underline */
+    font-size: 18px; /* Larger font size for the phone number */
+    color: #0066cc; /* A blue color for the text */
+    font-weight: bold; /* Make the phone number bold */
+    display: flex; /* Ensure phone icon and text are aligned */
+    align-items: center; /* Vertically align the phone icon and text */
+    gap: 10px; /* Space between the phone icon and the text */
+    transition: color 0.3s, transform 0.3s; /* Smooth transition for color and scale */
+}
+
+.phone:hover {
+    color: #004b8f; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge the text on hover */
+}
+
+.phone-icon {
+    width: 24px; /* Set the desired width of the phone icon */
+    height: 24px; /* Set the desired height of the phone icon */
+    object-fit: contain; /* Make sure the image is scaled correctly */
+}
+
+.user-icon {
+    width: 24px; /* Set the size of the user icon */
+    height: 24px; /* Set the size of the user icon */
+    object-fit: contain; /* Ensure the image is properly scaled */
+}
+
+
 
 /* Responsive Design */
 @media (max-width: 1200px) {
