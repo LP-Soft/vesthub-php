@@ -342,40 +342,46 @@ body {
     margin-top: 20px;
     border: 1px solid #ddd;
 }
+
 .isSale-edit {
     display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Align items closely together */
-    margin-top: 10px; /* Reduced margin above */
+    align-items: center; /* Vertically center the elements */
+    justify-content: flex-start; /* Align all items to the left */
+    gap: 10px; /* Add spacing between the edit, favorite, and badge */
+    margin-top: 10px; /* Add some space above the container */
 }
 
-.edit {
-    margin-right: 5px; /* Reduce the spacing between edit and badge */
-}
-
+/* Edit Icon Styling */
 .edit a.edit-listing-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px; /* Slightly smaller button size */
+    width: 36px;
     height: 36px;
     border-radius: 50%;
     text-decoration: none;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Added transition for transform */
 }
 
 .edit a.edit-listing-icon:hover {
-    background-color: #888888; /* Darker blue on hover */
+    background-color: #888888; /* Darker background on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
 .edit-icon {
-    width: 18px; /* Adjust size for smaller button */
+    width: 18px;
     height: 18px;
     background: url('../Assets/edit.png') no-repeat center center;
     background-size: contain;
 }
+
+/* Optional: Apply a scale effect on active (clicked) state */
+.edit a.edit-listing-icon:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
 
 .isSale .for-sale-badge {
     display: inline-block;
@@ -460,6 +466,86 @@ body {
     height: 24px; /* Set the size of the user icon */
     object-fit: contain; /* Ensure the image is properly scaled */
 }
+
+.favorite-icon {
+    display: inline-flex; /* Align similar to edit-icon */
+    align-items: center; /* Center content vertically */
+    width: 36px; /* Match size with edit-icon */
+    height: 36px; /* Match size with edit-icon */
+    border-radius: 50%; /* Circle shape */
+    background-color: transparent; /* Initially transparent */
+    background-image: url('../Assets/heart-outline.png'); /* Default icon */
+    background-size: 50%; /* Icon size inside the circle */
+    background-repeat: no-repeat; /* Prevent repeating */
+    background-position: center; /* Center the icon */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.favorite-icon:hover {
+    background-color: #888888; /* Same hover background as edit-icon */
+    transform: scale(1.1); /* Slight enlargement on hover */
+}
+
+.favorite-icon.active {
+    background-image: url('../Assets/heart-filled.png'); /* Change to filled heart when active */
+    background-color: #ff6666; /* Red background when active */
+}
+
+.favorite-icon:active {
+    transform: scale(0.95); /* Slightly shrink on click for feedback */
+}
+
+/* General Styling for Mark as Sold / Mark as Rent Badge */
+.mark-action {
+    border-radius: 20px;
+    width: fit-content;
+    color: #ffffff;
+
+}
+
+.mark-action-badge {
+    display: inline-block;
+    padding: 8px 16px; /* Padding inside the badge */
+    border-radius: 20px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    font-weight: bold; /* Make the text stand out */
+    text-align: center;
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth background transition */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.mark-action-badge.sold {
+    background-color: #3ED736; /* Red background for Sold */
+    color: white; /* White text */
+}
+
+.mark-action-badge.rent {
+    background-color: #ff0000; /* Green background for Rent */
+    color: white; /* White text */
+}
+
+/* Hover effect */
+.mark-action-badge:hover {
+    background-color: #666666; /* Darker red for Sold on hover */
+    transform: scale(1.05); /* Slight enlargement on hover */
+}
+
+/* Active effect (when clicked) */
+.mark-action-badge:active {
+    transform: scale(0.95); /* Shrink slightly on click */
+}
+
+/* Responsive design: Adjust padding and font size on smaller screens */
+@media (max-width: 768px) {
+    .mark-action-badge {
+        font-size: 12px; /* Smaller font size on mobile */
+        padding: 6px 12px; /* Adjust padding for smaller screens */
+    }
+}
+
 
 
 

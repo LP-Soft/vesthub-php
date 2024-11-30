@@ -1,9 +1,19 @@
 <?php
-// Include the database controller and houseInfo class
-include "../../Database/databaseController.php";
-require_once '../../Classes/houseInfo.php'; // Adjust the path as needed
+
+require_once __DIR__ . '/../Database/databaseController.php';
+require_once __DIR__ . '/../Classes/houseInfo.php';
 
 use Classes\houseInfo;
+
+function addFavorite($houseID, $userID)
+{
+    return addFavoriteToDb($GLOBALS['conn'], $houseID, $userID);
+}
+
+function removeFavorite($houseID, $userID)
+{
+    return removeFavoriteFromDb($GLOBALS['conn'], $houseID, $userID);
+}
 
 function getHouseDetails($houseID) {
 
@@ -31,6 +41,7 @@ function getHouseDetails($houseID) {
             'keyFeatures' => [], // This will be populated below
             'isSale' => $row['isSale'],
             'ownerID' => $row['ownerID'],
+            'houseID' => $row['houseID'],
             'lat' => $row['lat'],
             'lng' => $row['lng'],
         ]);
@@ -54,5 +65,42 @@ function getHouseDetails($houseID) {
     }
 }
 
+if (isset($_POST['action'], $_POST['houseID'], $_POST['userID']))
+{
+    $action = $_POST['action'];
+    $houseID = $_POST['houseID'];
+    $userID = $_POST['userID'];
+
+    try {
+        if ($action === 'add') {
+            // Call function to add favorite
+            $result = addFavorite($houseID, $userID);
+
+            // Check if the operation was successful
+            if ($result) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to add to favorites']);
+            }
+        } elseif ($action === 'remove') {
+            // Call function to remove favorite
+            $result = removeFavorite($houseID, $userID);
+
+            // Check if the operation was successful
+            if ($result) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to remove from favorites']);
+            }
+        } else {
+            // Invalid action
+            echo json_encode(['success' => false, 'message' => 'Invalid action']);
+        }
+    } catch (Exception $e) {
+        // Catch any unexpected errors
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+
+}
 
 ?>

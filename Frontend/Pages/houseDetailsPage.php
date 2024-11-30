@@ -2,6 +2,7 @@
 require_once '../Components/header.php';
 require_once '../../Backend/houseDetailsService.php';
 require_once '../../Backend/Utilities/getUserInfo.php';
+require_once '../../Backend/favoritesService.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -26,6 +27,18 @@ $houseImages = getHouseImages($houseId);
 
 $house = getHouseDetails($houseId);
 $owner = getUserInfo($house->ownerID);
+
+$result = getFavoriteHousesByOwner($userLogged);
+$favorites = [];
+
+if ($result && $result->num_rows > 0) {
+    while ($favHouse = $result->fetch_assoc()) {
+        $favorites[] = $favHouse['houseID'];
+    }
+}
+
+//echo "favorites: " . $favorites[2];
+//echo "house: " . json_encode($house->houseID);
 
 ?>
 
@@ -147,14 +160,39 @@ $owner = getUserInfo($house->ownerID);
                 <div class="price">
                     <?php echo number_format($house->price, 0, '.', ','); ?>₺
                 </div>
+
                 <div class="isSale-edit">
+
+                    <?php if ($userLogged != -1 && $house->ownerID == $userLogged): ?>
+                        <div class="mark-action">
+                            <span class="mark-action-badge <?php echo $house->isSale ? 'sold' : 'rent'; ?>" onclick="markAsAction('<?php echo $house->isSale ? 'sold' : 'rent'; ?>', <?php echo $house->houseID; ?>)">
+                                <?php echo $house->isSale ? 'Mark as Sold' : 'Mark as Rent'; ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Favorite Icon: Only visible if the user is logged in and is not the owner -->
+                    <?php if ($userLogged != -1 && $house->ownerID != $userLogged): ?>
+                        <div class="favorite-icon">
+                            <!-- If the house is in favorites, add the 'active' class -->
+                            <span
+                                id="favoriteIcon"
+                                onclick="toggleFavorite()"
+                                class="favorite-icon <?php echo in_array($house->houseID, $favorites) ? 'active' : ''; ?>"
+                            ></span>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Edit Button: Visible only if the user is logged in and is the owner -->
                     <div class="edit">
                         <?php if ($userLogged != -1 && $house->ownerID == $userLogged): ?>
                             <a href="editListingPage.php?id=<?php echo $houseId;?>&city=<?php echo $house->city;?>&district=<?php echo $house->district;?>&neighborhood=<?php echo $house->neighborhood;?>&street=<?php echo $house->street;?>" class="edit-listing-icon">
-                                <div class="edit-icon"></div>
+                                <span class="edit-icon"></span>
                             </a>
                         <?php endif; ?>
                     </div>
+
+                    <!-- For Sale / For Rent Badge -->
                     <div class="isSale">
                         <span class="for-sale-badge <?php echo $house->isSale ? 'sale' : 'rent'; ?>">
                             <?php echo $house->isSale ? 'For Sale' : 'For Rent'; ?>
@@ -162,7 +200,6 @@ $owner = getUserInfo($house->ownerID);
                     </div>
                 </div>
             </div>
-
             <div>
                 <div class="contact-info-container">
                     <div class="contact-info">
@@ -238,6 +275,43 @@ $owner = getUserInfo($house->ownerID);
             updateImage(currentImageIndex + 1);
         }
     });
+
+    function toggleFavorite() {
+        const favoriteIcon = document.getElementById('favoriteIcon');
+        const houseID = <?php echo $house->houseID; ?>; // Current house ID
+        const userID = <?php echo $userLogged; ?>; // Current user ID
+        const isCurrentlyFavorite = favoriteIcon.classList.contains('active');
+
+        fetch('../../Backend/houseDetailsService.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=${isCurrentlyFavorite ? 'remove' : 'add'}&houseID=${houseID}&userID=${userID}`
+        })
+            .then(response => {
+                // Check if the response is OK
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();  // Parse as plain text, not JSON
+            })
+            .then(data => {
+                if (data.includes('success')) {
+                    // Assuming the backend returns some success message
+                    favoriteIcon.classList.toggle('active');
+                } else {
+                    // Handle error
+                    console.error('Failed to update favorites');
+                    alert(data || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Network error. Please try again.');
+            });
+    }
+
 
     // Initialize with the first image
     updateImage(0);

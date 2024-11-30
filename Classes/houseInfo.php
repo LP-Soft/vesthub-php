@@ -29,14 +29,14 @@ class houseInfo {
     public $insulation = 0;
     public $isSale = 0;
     public $status = 'Pending';
-    public $id = 0; // not existing at the beginning
+
+    public $houseID = 0; // not existing at the beginning
     public $lat = 0.0;
     public $lng = 0.0;
     public $ownerID = 0;
 
     public function __construct($postData) {
         // Initialize basic details from POST data
-        $this->id = 0;
         $this->title = $postData['title'];
         $this->description = $postData['description'];
         $this->numOfRooms = (int)$postData['numOfRooms'];
@@ -53,6 +53,7 @@ class houseInfo {
         $this->numOfBedroom = (int)$postData['numOfBedroom'];
         $this->isSale = (int)$postData['isSale'];
         $this->ownerID = (int)$postData['ownerID'];
+        $this->houseID = (int)$postData['houseID'];
         $this->lat = (float)$postData['lat'];
         $this->lng = (float)$postData['lng'];
 

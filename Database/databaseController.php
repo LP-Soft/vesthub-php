@@ -409,5 +409,17 @@ if (!defined('DB_LOADED')) {
 
         return $result;
     }
+
+    function addFavoriteToDb($conn, $houseID, $userID)
+    {
+        $sql = "INSERT INTO favorites (userID, houseID) VALUES (" . $userID . ", " . $houseID . ")";
+        return $conn->query($sql);
+    }
+
+    function removeFavoriteFromDb($conn, $houseID, $userID)
+    {
+        $sql = "DELETE FROM favorites WHERE userID = " . $userID . " AND houseID = " . $houseID;
+        return $conn->query($sql);
+    }
 }
 ?>
