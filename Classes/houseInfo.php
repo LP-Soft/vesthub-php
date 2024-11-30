@@ -53,8 +53,8 @@ class houseInfo {
         $this->numOfBedroom = (int)$postData['numOfBedroom'];
         $this->isSale = (int)$postData['isSale'];
         $this->ownerID = (int)$postData['ownerID'];
-        //$this->lat = (float)$postData['lat'];
-        //$this->lng = (float)$postData['lng'];
+        $this->lat = (float)$postData['lat'];
+        $this->lng = (float)$postData['lng'];
 
         // Initialize key features
         if (isset($postData['keyFeatures'])) {

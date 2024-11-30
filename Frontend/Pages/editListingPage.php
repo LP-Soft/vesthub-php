@@ -283,7 +283,7 @@ if(isset($_SESSION['userID'])){
     </form>
 </div>
 <script>
-    const houseID = <?php echo $_GET['houseID'] ?>;
+    const houseID = <?php echo $_GET['id'] ?>;
 </script>
 <script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
