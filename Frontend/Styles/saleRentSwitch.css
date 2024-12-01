@@ -174,7 +174,7 @@ function displaySaleRentSwitch() {
 
 /* Sale button styling */
 .radio-container:first-child .radio-button:checked + .radio-label {
-    background-color: #D17C57;
+    background-color: #B7C094;
 }
 
 /* Rent button styling */

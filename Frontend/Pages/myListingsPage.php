@@ -28,7 +28,7 @@ require_once '../Components/houseCard.php';
                 // Loop through the result set and include homecard.php
                 if ($result && $result->num_rows > 0) {
                     while ($house = $result->fetch_assoc()) {
-                        displayHouseCard($house, 0);
+                        displayHouseCard($house, 2);
                     }
                 }
             }

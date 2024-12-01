@@ -29,9 +29,14 @@ function displayHouseCard($house, $service) {
 
         <div class="home-type-label">
             <?php if($house['isSale'] == 1) { ?>
-                <button class= "saleRentButton" style="background-color: #3ED736">Sale</button>
+                <button class= "typeStatusButton" style="background-color: #B7C094">Sale</button>
             <?php } else { ?>
-                <button class= "saleRentButton" style="background-color: #FF4245">Rent</button>
+                <button class= "typeStatusButton" style="background-color: #d78f69">Rent</button>
+            <?php } ?>
+        </div>
+        <div class="home-status-label">
+            <?php if($service == 2){?>
+                <button class= "typeStatusButton" style="background-color: <?php echo $house['status'] == 'Rejected' ? '#FF4245' : ($house['status'] == 'Pending' ? '#FFDF00' : '#3ED736'); ?>"><?php echo $house['status'] ?></button>
             <?php } ?>
         </div>
         <div class="home-details">
@@ -39,7 +44,7 @@ function displayHouseCard($house, $service) {
             <h5><?php echo htmlspecialchars($house['price']); ?> ₺ </h5>
             <?php if($service == 0) { ?> <!-- user servisinden geliyorsa -->
                 <p><?php echo $fullAddress; ?></p>
-            <?php } else { ?>
+            <?php } elseif ($service == 1) { ?>
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <button class="adminButton" onclick="event.stopPropagation(); window.location.href='adminPanel.php?reject=<?php echo $house['houseID']; ?>'" style="background-color: #FF4245">Reject</button>
                     <button class="adminButton" onclick="event.stopPropagation(); window.location.href='adminPanel.php?approve=<?php echo $house['houseID']; ?>'" style="background-color: #3ED736">Approve</button>
@@ -47,6 +52,4 @@ function displayHouseCard($house, $service) {
             <?php } ?>
         </div>
     </div>
-    <?php
-}
-?>
+<?php } ?>
