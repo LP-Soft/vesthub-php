@@ -11,12 +11,12 @@
         if($houseInfo->ownerID != 0){ //sessionda birisi varsa 0dan farklı bir değer olacak
 
             if (createHouseListingInDb($houseInfo, $GLOBALS['conn'])) {  // Call the function
-                $houseInfo -> id = getLastHouseIDFromDb($GLOBALS['conn']);
+                $houseInfo -> houseID = getLastHouseIDFromDb($GLOBALS['conn']);
                 // Check if form was submitted
 
                 //Create directory even there won't be any image uploaded, it will be needed in edit listing!
                 $upload_dir = '../../house-images/'; //path of house-images
-                $upload_dir .= $houseInfo->id . '/'; //create new directory inside of house-images with the id of the house
+                $upload_dir .= $houseInfo->houseID . '/'; //create new directory inside of house-images with the id of the house
                 if (!is_dir($upload_dir)) {
                     mkdir($upload_dir, 0777, true); //since there is no directory right now, create with mkdir()
                 }

@@ -5,8 +5,6 @@ require_once '../../Classes/houseInfo.php';
 include '../Components/SaleRentSwitch.php';
 use Classes\houseInfo;
 
-/* Buraya gelen hrefte "http://localhost:8000/vesthub-php/Frontend/Pages/editListingPage.php?id=8" id var onu kullanabiliriz.*/
-
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace', 'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];
@@ -101,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $houseInfo->totalFloor = (int)$_POST['totalFloor'];
     $houseInfo->area = (int)$_POST['area'];
     $houseInfo->ownerID = (int)$_POST['ownerID'];
-    $houseInfo->id = (int)$_POST['houseID'];
+    $houseInfo->houseID = (int)$_POST['houseID'];
     $houseInfo->numOfBathroom = (int)$_POST['numOfBathroom'];
     $houseInfo->numOfBedroom = (int)$_POST['numOfBedroom'];
 
@@ -109,13 +107,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = file_get_contents($url);
     $decodedResponse = json_decode($response);
     if (!empty($decodedResponse) && isset($decodedResponse[0])) {
-        echo $decodedResponse[0]->lat . "," . $decodedResponse[0]->lon;
         $houseInfo->lat = $decodedResponse[0]->lat;
         $houseInfo->lng = $decodedResponse[0]->lon;
     }
 
     $keptFiles = $_POST['keptFiles'];
-    if ($houseInfo->id != 0) {
+    if ($houseInfo->houseID != 0) {
         editListing($houseInfo, $keptFiles);  // Assuming this function exists to update the listing
     }
 }

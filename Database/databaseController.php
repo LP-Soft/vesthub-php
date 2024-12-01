@@ -176,7 +176,7 @@ if (!defined('DB_LOADED')) {
         insulation = " . $houseInfo->insulation . ",
         status = '" . $houseInfo->status . "',
         houseType = '" . $houseInfo->houseType . "'
-        WHERE houseID = " . $houseInfo->id;
+        WHERE houseID = " . $houseInfo->houseID;
 
         // Execute the SQL query and check if it was successful
         if ($conn->query($sql)) {

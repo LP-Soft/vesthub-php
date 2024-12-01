@@ -5,9 +5,9 @@ require_once "../../Frontend/Pages/editListingPage.php";
 function editListing($houseInfo, $keptFiles){
     var_dump($keptFiles);
     if(editListingInDb($GLOBALS['conn'],$houseInfo)){
-        $numberOfFilesInFolder = deleteOldImages($houseInfo->id, json_decode($keptFiles));
+        $numberOfFilesInFolder = deleteOldImages($houseInfo->houseID, json_decode($keptFiles));
         echo $numberOfFilesInFolder;
-        addNewImages($houseInfo->id, $numberOfFilesInFolder);
+        addNewImages($houseInfo->houseID, $numberOfFilesInFolder);
     }
 }
 
@@ -25,10 +25,8 @@ function deleteOldImages($houseID, $keptFiles){
             $numberOfFilesInFolder++;
 
             $filePath = "{$directory}/{$file}";
-            echo $filePath;
             if (is_file($filePath)) {
                 if(!in_array($filePath, $keptFiles)){
-                    echo "in_array çalışıyor!!";
                     unlink($filePath);  // Delete the file
                     $numberOfFilesInFolder--;
                 }
@@ -63,7 +61,6 @@ function addNewImages($houseID, $numberOfFilesInFolder){
     $upload_dir = "../../house-images/".$houseID."/";
     $image_number = $numberOfFilesInFolder+1;
     if (isset($_FILES['files']) && !empty(array_filter($_FILES['files']['name']))) {
-        echo "add new image if";
         foreach ($_FILES['files']['tmp_name'] as $key => $error) {
             $file_tmpname = $_FILES['files']['tmp_name'][$key];
             $file_name = $_FILES['files']['name'][$key];
@@ -75,7 +72,6 @@ function addNewImages($houseID, $numberOfFilesInFolder){
             $targetFilePath = $upload_dir . $new_filename;
             // Check if file already exists
             if (!file_exists($filepath)) {
-                echo "file exist mi değil mi checki";
                 // Move the uploaded file to the desired folder
                 if (move_uploaded_file($file_tmpname, $filepath)) {
                     $image_number++;
