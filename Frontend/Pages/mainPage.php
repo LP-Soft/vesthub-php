@@ -1,6 +1,6 @@
 <?php
 require '../Components/header.php';
-include '../../Backend/mainPageService.php';
+include '../../Backend/mainService.php';
 include '../Components/houseCard.php';
 include '../Components/SaleRentSwitch.php';
 

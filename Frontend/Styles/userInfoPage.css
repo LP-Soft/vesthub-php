@@ -6,31 +6,7 @@
     flex: 1;
     align-items: center;
     justify-content: center;
-}
 
-.content .user-info{
-    display: flex;
-    flex-direction: column;
-    background-color: #D9D9D9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 50%;
-}
-
-.content .user-info .user-name{
-    font-size: 32px;
-    font-weight: bold;
-}
-.content .user-info .user-phone{
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.content .user-info .user-update-inputs{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 p{
@@ -38,8 +14,59 @@ p{
     font-size: 14px;
 }
 
-h1, h3{
-    margin: 15px;
+.content .user-info{
+    display: flex;
+    flex-direction: column;
+    background-color: #D9D9D9;
+    padding: 26px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.content .user-info .user-info-header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: end;
+}
+
+.content .user-info .user-info-header .user{
+    flex-direction: column;
+    margin: 0px;
+}
+
+
+.content .user-info .user-info-body{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.content .user-info .user-info-body .user-update-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+}
+
+.content .user-info .user-info-body .user-update-inputs .input-field{
+    border-radius: 10px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.content .user-info .user-info-body .update-password-inputs .input-field{
+    border-radius: 10px;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.content .user-info .update-password-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 30%;
 }
 
 .content .user-info .user-update-inputs .user-update-button{
@@ -56,11 +83,6 @@ h1, h3{
     background-color: #b0be9e;
 }
 
-.content .user-info .update-password-inputs{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
 .content .user-info .update-password-inputs .update-password-button{
     border-radius: 16px;
@@ -77,15 +99,13 @@ h1, h3{
 }
 
 .content .user-info .delete-account-form .delete-account-button{
-    border-radius: 16px;
     border: none;
     cursor: pointer;
-    padding: 10px;
     gap: 5px;
-    flex-direction: row;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
-    background-color: #d78f69;
+    font-size: 12px;
+    background-color: transparent;
+    text-decoration: underline;
 }

@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include '../Components/houseCard.php';
-include '../../Backend/adminService.php';
+include '../../Backend/adminPanelService.php';
 if (isset($_GET['approve'])) {
     $houseID = $_GET['approve'];
     approveHouses($houseID);
