@@ -28,9 +28,7 @@ function updateCities() {
                 option.value = city;
                 option.text = city;
                 citySelect.appendChild(option);
-                if (city === editListingCity) {
-                    option.selected = true;
-                }
+                
             });
 
             //editListingPage için
@@ -58,9 +56,7 @@ function updateDistricts() {
                     option.value = district;
                     option.text = district;
                     districtSelect.appendChild(option);
-                    if (district === editListingDistrict) {
-                        option.selected = true;
-                    }
+                    
                 });
                 if(editListingDistrict != null){
                     districtSelect.value = editListingDistrict;
@@ -94,9 +90,6 @@ function updateNeighborhoods() {
                     option.value = neighborhood;
                     option.text = neighborhood;
                     neighborhoodSelect.appendChild(option);
-                    if (neighborhood === editListingNeighborhood) {
-                        option.selected = true;
-                    }
                 });
                 if(editListingNeighborhood != null){
                     neighborhoodSelect.value = editListingNeighborhood;
@@ -147,8 +140,8 @@ function checkFields() {
     const district = document.getElementById("district").value;
     const neighborhood = document.getElementById("neighborhood").value;
 
-    if (city === "" || district === "" || neighborhood === "") {
-        alert("Please fill all fields.");
+    if (city === "") {
+        alert("Please select city.");
         event.preventDefault();
     }
 }

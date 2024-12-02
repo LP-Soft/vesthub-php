@@ -176,8 +176,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <input type="email" maxlength="45" minlength="1" id="email" name="email" class="input-field" placeholder="E-mail" required>
                 <input type="tel" maxlength="10" minlength="10" id="phone" name="phone" class="input-field" placeholder="Phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number.">
-                <input type="password" minlength="8" id="password" name="password" class="input-field" placeholder="Password" required>
-                <input type="password" minlength="8" id="confirm_password" name="confirm_password" class="input-field" placeholder="Confirm Password" required pattern=".{8,}" title="Passwords must match" oninput="this.setCustomValidity(this.value != document.getElementById('password').value ? 'Passwords do not match' : '')">
+                <input type="password" minlength="8" maxlength="16" id="password" name="password" class="input-field" placeholder="Password" required>
+                <input type="password" minlength="8" maxlength="16" id="confirm_password" name="confirm_password" class="input-field" placeholder="Confirm Password" required pattern=".{8,}" title="Passwords must match" oninput="this.setCustomValidity(this.value != document.getElementById('password').value ? 'Passwords do not match' : '')">
 
                 <div class="input-row">
                             <select class="search-select" name="city" id="city" onchange="updateDistricts()">
