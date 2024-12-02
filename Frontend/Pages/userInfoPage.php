@@ -26,6 +26,24 @@ if (isset($_POST['delete-account'])) {
     $district = $_POST['district'];
     $neighborhood = $_POST['neighborhood'];
     $userId = $_SESSION['userID'];
+    if ($city == "") {
+        echo "<script>alert('Please select your city.');</script>";
+        echo "<script>window.location.href = './userInfoPage.php';</script>";
+        return;
+    } else if ($district == "") {
+        echo "<script>alert('Please select your district.');</script>";
+        echo "<script>window.location.href = './userInfoPage.php';</script>";
+        return;
+    } else if ($neighborhood == "") {
+        echo "<script>alert('Please select your neighborhood.');</script>";
+        echo "<script>window.location.href = './userInfoPage.php';</script>";
+        return;
+    } else if (checkEmail($email, $userId)) {
+        echo "<script>alert('This email is already in use.');</script>";
+        echo "<script>window.location.href = './userInfoPage.php';</script>";
+        return;
+    }
+
     updateUserInfo($name, $surname, $phone, $email, $city, $district, $neighborhood, $userId);
     //echo "<script>alert('User information updated.');</script>";
     //get request for refreshing the page
@@ -152,33 +170,33 @@ if (isset($_POST['delete-account'])) {
                 <form class="user-update-inputs" action="./userInfoPage.php" method="post">
                     <div>
                         <p>Name</p>
-                        <input type="text" class="name input-field" placeholder="Name" name="name">
+                        <input type="text" class="name input-field" placeholder="Name" name="name" required>
                     </div>
                     <div>
                         <p>Surname</p>
-                        <input type="text" class="surname input-field" placeholder="Surname" name="surname">
+                        <input type="text" class="surname input-field" placeholder="Surname" name="surname" required>
                     </div>
                     <div>
                         <p>Phone</p>
-                        <input type="text" class="phone input-field" placeholder="Phone" name="phone">
+                        <input type="tel" maxlength="10" minlength="10" class="phone input-field" placeholder="Phone" name="phone" required>
                     </div>
                     <div>
                         <p>E-mail</p>
-                        <input type="text" class="email input-field" placeholder="E-mail" name="email">
+                        <input type="text" class="email input-field" placeholder="E-mail" name="email" required>
                     </div>
                     <div>
                         <p>City</p>
-                        <select id="city" class="city input-field" onchange="updateDistricts()" name="city">
+                        <select id="city" class="city input-field" onchange="updateDistricts()" name="city" required>
                         </select>
                     </div>
                     <div>
                         <p>District</p>
-                        <select id="district" class="district input-field" onchange="updateNeighborhoods()" name="district">
+                        <select id="district" class="district input-field" onchange="updateNeighborhoods()" name="district" required>
                         </select>
                     </div>
                     <div>
                         <p>Neighborhood</p>
-                        <select id="neighborhood" class="neighborhood input-field" name="neighborhood">
+                        <select id="neighborhood" class="neighborhood input-field" name="neighborhood" required>
                         </select>
                     </div>
                     <button class="user-update-button">Update</button>
@@ -186,15 +204,15 @@ if (isset($_POST['delete-account'])) {
                 <form class="update-password-inputs" action="./userInfoPage.php" method="post">
                     <div>
                         <p>Current Password</p>
-                        <input type="password" class="password input-field" placeholder="Password" name="password">
+                        <input type="password" maxlength="16" class="password input-field" placeholder="Password" name="password" required>
                     </div>
                     <div>
                         <p>New Password</p>
-                        <input type="password" minlength="8" class="new-password input-field" placeholder="New Password" name="new-password">
+                        <input type="password" minlength="8" maxlength="16" class="new-password input-field" placeholder="New Password" name="new-password" required>
                     </div>
                     <div>
                         <p>Confirm New Password</p>
-                        <input type="password" minlength="8" class="confirm-password input-field" placeholder="Confirm New Password" name="confirm-password">
+                        <input type="password" minlength="8" maxlength="16" class="confirm-password input-field" placeholder="Confirm New Password" name="confirm-password" required>
                     </div>
                     <button class="update-password-button">Change Password</button>
                 </form>

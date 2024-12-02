@@ -17,3 +17,10 @@ function deleteUser($userID)
     $conn = $GLOBALS['conn'];
     deleteUserFromDb($conn, $userID);
 }
+
+function checkEmail($email, $userId)
+{
+    $conn = $GLOBALS['conn'];
+    $response= checkEmailInDb($conn, $email, $userId);
+    return $response->num_rows > 0;
+}

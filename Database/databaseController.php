@@ -279,6 +279,12 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
+    function checkEmailInDb($conn, $email, $userId)
+    {
+        $sql = "SELECT * FROM users WHERE email = '" . $email . "' AND userID != " . $userId;
+        return $conn->query($sql);
+    }
+
     function getHouseInfoByIDFromDb($conn, $houseID, $city, $district, $neighborhood, $street){
         $sql = "SELECT * FROM houses WHERE houseID = " . $houseID. " AND city = '" . $city ."' AND district = '" . $district ."' AND neighborhood = '" . $neighborhood ."' AND street = '" . $street ."'";
         $result = $conn->query($sql);
