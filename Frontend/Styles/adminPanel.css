@@ -1,0 +1,22 @@
+/* Main container */
+.Content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* House Content Layout */
+.HouseContent {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to the next row */
+    gap: 20px; /* Space between items */
+    padding: 10px;
+    justify-content: center; /* Center items in the row */
+}
+
+/* Ensures each card takes up 20% of the row */
+.HouseContent > .home-card {
+    flex: 1 1 calc(20% - 20px); /* Five items per row */
+    max-width: calc(20% - 20px); /* Prevents stretching beyond 20% */
+    box-sizing: border-box; /* Includes padding/border in width */
+}
