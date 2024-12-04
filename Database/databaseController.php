@@ -329,12 +329,8 @@ if (!defined('DB_LOADED')) {
         }
         global $conn;
         $whereConditions = [];
-
-        // Process each filter and add it to the WHERE conditions
-        // Process each filter and add it to the WHERE conditions
-        if (!empty($filters['sale_rent'])) {
-            $isSale = ($filters['sale_rent'] === 'sale') ? 1 : 0;
-            $whereConditions[] = "isSale = '" . $isSale . "'";
+        if (!empty($filters['isSale'])) {
+            $whereConditions[] = "isSale = " . $filters['isSale'];
         }
         if (!empty($filters['city'])) {
             $whereConditions[] = "city = '" . $filters['city'] . "'";
@@ -348,7 +344,6 @@ if (!defined('DB_LOADED')) {
         if (!empty($filters['house_type'])) {
             $whereConditions[] = "houseType = '" . $filters['house_type'] . "'";
         }
-
         $amenitiesConditions = [];
         if (!empty($filters['amenities']) && is_array($filters['amenities'])) {
             foreach ($filters['amenities'] as $amenity) {

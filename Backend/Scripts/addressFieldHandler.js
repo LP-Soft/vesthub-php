@@ -1,19 +1,17 @@
-document.addEventListener('DOMContentLoaded', () => {
-    updateCities();
-    handleImage();  // Call it directly here for page load
-});
 const urlParams = new URLSearchParams(window.location.search);
 const editListingCity = urlParams.get('city');
 const editListingDistrict = urlParams.get('district');
 const editListingNeighborhood = urlParams.get('neighborhood');
 const editListingStreet = urlParams.get('street');
-const selectedSaleRent = urlParams.get('sale_rent');
+const selectedSaleRent = urlParams.get('isSale');
 const selectedSort = urlParams.get('sort');
 
+document.addEventListener('DOMContentLoaded', () => {
+    updateCities();
+    handleImage();  // Call it directly here for page load 
+});
+document.getElementById('isSale').value = selectedSaleRent;
 console.log(editListingCity, ",", editListingDistrict , ",", editListingNeighborhood , ",", editListingStreet);
-if (selectedSaleRent) {
-    document.getElementById('sale_rent').value = selectedSaleRent;
-}
 if (selectedSort) {
     document.getElementById('sort').value = selectedSort;
 }

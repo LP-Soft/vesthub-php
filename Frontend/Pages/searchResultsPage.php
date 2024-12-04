@@ -18,7 +18,7 @@
 <body>
 <?php include('../Components/header.php'); 
 $filters = [
-    'sale_rent' => $_GET['sale_rent'] ?? null,
+    'isSale' => $_GET['isSale'] ?? null,
     'city' => $_GET['city'] ?? null,
     'district' => $_GET['district'] ?? null,
     'neighborhood' => $_GET['neighborhood'] ?? null,
@@ -39,11 +39,10 @@ $searchResults = getFilteredHouses($filters);
    <div class="Sidebar">
       <h2>Filters</h2>
       <form>
-         <label for="sale_rent">Type:</label>
-         <select name="sale_rent" id="sale_rent">
-            <option value="">Rent / Sale</option>
-            <option value="rent">Rent</option>
-            <option value="sale">Sale</option>
+         <label for="isSale">Type:</label>
+         <select name="isSale" id="isSale">
+            <option value="0">Rent</option>
+            <option value="1">Sale</option>
          </select>
          <label for="city">City:</label>
          <select name="city" id="city" onchange="updateDistricts()">
