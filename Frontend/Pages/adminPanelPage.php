@@ -43,6 +43,9 @@ if (isset($_GET['reject'])) {
         } else {
             echo "<p>No pending houses found.</p>";
         }
-        ?>        
+        ?>
+    </div>            
 </div>
+</body>
+
 <?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->

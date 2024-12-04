@@ -103,3 +103,6 @@ $searchResults = getFilteredHouses($filters);
 <script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
 </html>
+<?php
+include '../Components/footer.php';
+?>
