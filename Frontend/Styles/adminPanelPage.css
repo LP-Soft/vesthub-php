@@ -1,24 +1,24 @@
 /* Main container */
 .Content {
-    height: 100%;
+    flex: 1; 
+    width: 100%; 
     padding: 20px;
-    max-width: 1200px;
     margin: 0 auto;
+    box-sizing: border-box;
 }
 
 /* House Content Layout */
 .HouseContent {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    justify-content: center;
     height: 100%;
-    flex-wrap: wrap; /* Allows wrapping to the next row */
-    gap: 20px; /* Space between items */
-    padding: 10px;
-    justify-content: center; /* Center items in the row */
 }
 
-/* Ensures each card takes up 20% of the row */
+/* House Cards */
 .HouseContent > .home-card {
-    flex: 1 1 calc(20% - 20px); /* Five items per row */
-    max-width: calc(20% - 20px); /* Prevents stretching beyond 20% */
-    box-sizing: border-box; /* Includes padding/border in width */
+    flex: 1 1 calc(20% - 20px); 
+    max-width: calc(20% - 20px); 
+    box-sizing: border-box;
 }
