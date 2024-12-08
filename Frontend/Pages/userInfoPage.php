@@ -168,33 +168,39 @@ if (isset($_POST['delete-account'])) {
             </div>
             <div class="user-info-body">
                 <form class="user-update-inputs" action="./userInfoPage.php" method="post">
-                    <div>
-                        <p>Name</p>
-                        <input type="text" class="name input-field" placeholder="Name" name="name" required>
+                    <div class="input-rows">
+                        <div>
+                            <p>Name</p>
+                            <input type="text" class="name input-field" placeholder="Name" name="name" required>
+                        </div>
+                        <div>
+                            <p>Surname</p>
+                            <input type="text" class="surname input-field" placeholder="Surname" name="surname" required>
+                        </div>
                     </div>
-                    <div>
-                        <p>Surname</p>
-                        <input type="text" class="surname input-field" placeholder="Surname" name="surname" required>
+                    <div class="input-rows">
+                        <div>
+                            <p>Phone</p>
+                            <input type="tel" maxlength="10" minlength="10" class="phone input-field" placeholder="Phone" name="phone" required>
+                        </div>
+                        <div>
+                            <p>E-mail</p>
+                            <input type="text" class="email input-field" placeholder="E-mail" name="email" required>
+                        </div>
                     </div>
-                    <div>
-                        <p>Phone</p>
-                        <input type="tel" maxlength="10" minlength="10" class="phone input-field" placeholder="Phone" name="phone" required>
+                    <div class="input-rows">
+                        <div>
+                            <p>City</p>
+                            <select id="city" class="city input-field" onchange="updateDistricts()" name="city" required>
+                            </select>
+                        </div>
+                        <div>
+                            <p>District</p>
+                            <select id="district" class="district input-field" onchange="updateNeighborhoods()" name="district" required>
+                            </select>
+                        </div>
                     </div>
-                    <div>
-                        <p>E-mail</p>
-                        <input type="text" class="email input-field" placeholder="E-mail" name="email" required>
-                    </div>
-                    <div>
-                        <p>City</p>
-                        <select id="city" class="city input-field" onchange="updateDistricts()" name="city" required>
-                        </select>
-                    </div>
-                    <div>
-                        <p>District</p>
-                        <select id="district" class="district input-field" onchange="updateNeighborhoods()" name="district" required>
-                        </select>
-                    </div>
-                    <div>
+                    <div class="input-row-neighborhood">
                         <p>Neighborhood</p>
                         <select id="neighborhood" class="neighborhood input-field" name="neighborhood" required>
                         </select>
