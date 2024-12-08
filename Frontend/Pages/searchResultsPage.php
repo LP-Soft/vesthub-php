@@ -74,6 +74,8 @@ $searchResults = getFilteredHouses($filters);
          <label for="amenities">Amenities:</label>
          <div class="Amenities">
             <label><input type="checkbox" name="amenities[]" value="floorHeating"> Floor Heating</label>
+            <label><input type="checkbox" name="amenities[]" value="terrace"> Terrace </label>
+            <label><input type="checkbox" name="amenities[]" value="Parquet"> Parquet</label>
             <label><input type="checkbox" name="amenities[]" value="furnished"> Furnished</label>
             <label><input type="checkbox" name="amenities[]" value="fiberInternet"> Fiber Internet</label>
             <label><input type="checkbox" name="amenities[]" value="airConditioner"> Air Conditioner</label>
