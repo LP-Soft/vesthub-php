@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # PHP web sunucusu için port eşlemesi
+    volumes:
+      - ./Frontend:/var/www/html/Frontend # Frontend'i /Frontend olarak bağla
+      - ./Backend:/var/www/html/Backend   # Backend'i /Backend olarak bağla
+      - ./Database:/var/www/html/Database # Database'i /Database olarak bağla
+      - ./Classes:/var/www/html/Classes   # Classes'i /Classes olarak bağla
+      - ./house-images:/var/www/html/house-images # house-images'i /house-images olarak bağla
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: vesthub
+      MYSQL_USER: lpsoft
+      MYSQL_PASSWORD: LpSoft123
+    ports:
+      - "3306:3306" # MySQL erişim portu
+    volumes:
+      - db_data:/var/lib/mysql
+      - db-exported:/var/www/html/db-exported # db-exported'i /db-exported olarak bağla
+
+volumes:
+  db_data:
+  db-exported:

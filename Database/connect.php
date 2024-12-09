@@ -2,7 +2,7 @@
 
 // CREATE USER 'lpsoft'@'localhost' IDENTIFIED BY 'LpSoft123';
 // sonra bu usera yetkileri verin
-$servername = "localhost";
+$servername = "localhost"; //change this to "db" if you are using docker
 $username = "lpsoft";
 $password = "LpSoft123";
 $dbname = "vesthub";
