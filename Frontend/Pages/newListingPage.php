@@ -184,41 +184,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div> <!-- Close: .left -->
             <div class="middle"> <!-- Open: .middle -->
                 <div class="input">
+                    <p> Title </p>
                     <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required>
                 </div>
                 <div class="input">
+                    <p> Description </p>
                     <input id="description" name="description" type="text" placeholder="Description" style="width: 505px; height: 110px; border-radius: 10px" required>
                 </div>
-                <div class="input">
-                    <input id="numOfBathroom" name="numOfBathroom" type="number" placeholder="Number of bathroom" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required min="1">
-                    <input id="numOfBedroom" name="numOfBedroom" type="number" placeholder="Number of bedroom" style="width: 220px; height: 40px; border-radius: 10px" required min="1">
+                <div class="input-rows">
+                    <div>
+                        <p> Number of Bathroom</p>
+                        <input id="numOfBathroom" name="numOfBathroom" type="number" placeholder="Number of bathroom" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required min="1">
+                    </div>
+                    <div>
+                        <p> Number of Bedroom</p>
+                        <input id="numOfBedroom" name="numOfBedroom" type="number" placeholder="Number of bedroom" style="width: 220px; height: 40px; border-radius: 10px" required min="1">
+                    </div>
                 </div>
-                <div class="input">
+                <div class="input-rows">
+                    <div>
+                    <p> Number of Rooms</p>
                     <select name="numOfRooms" id="numOfRooms" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 25px" required>
                         <option value="" selected hidden>Number of rooms</option>
                         <?php foreach ($roomCount as $room) { ?>
                             <option value="<?= $room ?>" ><?= $room ?></option>
                         <?php } ?>
                     </select>
-                    <input id="price" name="price" type="number" placeholder="Price" style="width: 220px; height: 40px; border-radius: 10px" required min="0">
+                    </div>
+                    <div>
+                        <p> Price</p>
+                        <input id="price" name="price" type="number" placeholder="Price" style="width: 220px; height: 40px; border-radius: 10px" required min="0">
+                    </div>
                 </div>
 
-                <div class="input">
-                    <select id="city" name="city" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateDistricts()" required>
-                        <option value="">City</option>
-                    </select>
-                    <select id="district" name="district" style="width: 220px; height: 40px; border-radius: 10px" onchange="updateNeighborhoods()" required>
-                        <option value="">District</option>
-                    </select>
+                <div class="input-rows">
+                    <div>
+                        <p> City</p>
+                        <select id="city" name="city" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateDistricts()" required>
+                            <option value="">City</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p> District</p>
+                        <select id="district" name="district" style="width: 220px; height: 40px; border-radius: 10px" onchange="updateNeighborhoods()" required>
+                            <option value="">District</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="input">
-                    <select id="neighborhood" name="neighborhood" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateStreets()" required>
-                        <option value="">Neighborhood</option>
-                    </select>
-                    <select id="street" name="street" style="width: 220px; height: 40px; border-radius: 10px" required>
-                        <option value="">Street</option>
-                    </select>
-
+                <div class="input-rows">
+                    <div>
+                        <p> Neighborhood</p>
+                        <select id="neighborhood" name="neighborhood" style="width: 250px; height: 40px; border-radius: 10px; margin-right: 20px" onchange="updateStreets()" required>
+                            <option value="">Neighborhood</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p> Street</p>
+                        <select id="street" name="street" style="width: 220px; height: 40px; border-radius: 10px" required>
+                            <option value="">Street</option>
+                        </select>
+                    </div>
                 </div>
 
             </div> <!-- Close: .middle -->
@@ -226,6 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="right"> <!-- Open: .right -->
                 <?php displaySaleRentSwitch();?>
                 <div class="input">
+                    <p> House Type</p>
                     <select id="houseType" name="houseType" style="width: 280px; height: 40px; border-radius: 10px">
                         <option value="" selected hidden>House type</option>
                         <?php foreach ($houseType as $type) { ?>
@@ -234,25 +260,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                 </div>
 
-                <div class="input">
-                    <input id="floor" name="floor" type="number" placeholder="Floor" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required min="-2">
-                    <input id="totalFloor" name="totalFloor" type="number" placeholder="Total Floor" style="width: 140px; height: 40px; border-radius: 10px" required min="1">
+                <div class="input-rows">
+                    <div>
+                        <p> Floor </p>
+                        <input id="floor" name="floor" type="number" placeholder="Floor" style="width: 110px; height: 40px; border-radius: 10px; margin-right: 10px" required min="-2">
+                    </div>
+                    <div>
+                        <p> Total Floor </p>
+                        <input id="totalFloor" name="totalFloor" type="number" placeholder="Total Floor" style="width: 140px; height: 40px; border-radius: 10px" required min="1">
+                    </div>
                 </div>
 
                 <div class="input">
+                    <p> Area</p>
                     <input id="area" name="area" type="number" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1">
                 </div>
 
                 <div class="input"> <!-- Open: .key-features -->
-                    <label for="keyFeatures">Features</label>
+                 <label for="keyFeatures" style="display: block; margin-bottom: 8px">Features</label>
                     <div class="features-grid">
-                        <?php $counter = 0 ?>
                         <?php foreach ($keyFeatures as $feature) { ?>
-                                <?php $counter++ ?>
-                                <input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>">
-                                <label for="<?= $feature ?>"><?= $feature ?> </label>
-                                <?php if ($counter%2 == 0) { echo "<br>"; }?>
-
+                                <label><input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>"><?= $feature ?> </label>
                         <?php } ?>
                     </div> <!-- Close: .features-grid -->
                 </div> <!-- Close: .key-features -->

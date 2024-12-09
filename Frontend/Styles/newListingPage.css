@@ -2,6 +2,7 @@
 .container {
     display: flex;
     flex: 1;
+    width: 100%;
 }
 
 /* Full-height left column */
@@ -34,8 +35,19 @@
     padding: 20px;
 }
 
-.input {
+.input-rows {
+    display: flex;
     padding: 10px;
+    flex-direction: row;
+}
+
+.input{
+    padding: 10px;
+}
+
+p{
+    margin: 0;
+    font-size: 14px;
 }
 
 .createListing {
@@ -64,4 +76,8 @@
     border-radius: 100px;
 }
 
-
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns, equally spaced */
+    gap: 5px;
+}
