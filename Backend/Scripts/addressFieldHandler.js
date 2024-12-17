@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCities();
     handleImage();  // Call it directly here for page load 
 });
-document.getElementById('isSale').value = selectedSaleRent;
+if (selectedSaleRent != null) {
+    document.getElementById('isSale').value = selectedSaleRent;
+}
 console.log(editListingCity, ",", editListingDistrict , ",", editListingNeighborhood , ",", editListingStreet);
 if (selectedSort) {
     document.getElementById('sort').value = selectedSort;
