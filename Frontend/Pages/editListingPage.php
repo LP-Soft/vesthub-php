@@ -5,6 +5,10 @@ require_once '../../Classes/houseInfo.php';
 include '../Components/SaleRentSwitch.php';
 use Classes\houseInfo;
 
+if (!isset($_SESSION['userID'])) {
+    header("Location: loginPage.php");
+}
+
 $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+1'];
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace', 'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];
