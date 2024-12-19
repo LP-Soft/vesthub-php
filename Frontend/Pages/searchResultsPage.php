@@ -91,7 +91,7 @@ $searchResults = getFilteredHouses($filters);
       <?php echo "<h1>Search Results :</h1>"; ?>
       <div class="SearchContent">
         <?php
-        if($searchResults) {
+        if($searchResults && $searchResults->num_rows > 0) {
             while ($house = $searchResults->fetch_assoc()) {
                 displayHouseCard($house, 0);
             }
