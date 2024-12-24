@@ -329,8 +329,8 @@ if (!defined('DB_LOADED')) {
         }
         global $conn;
         $whereConditions = [];
-        if (!empty($filters['isSale'])) {
-            $whereConditions[] = "isSale = " . $filters['isSale'];
+        if (isset($filters['isSale']) && $filters['isSale'] !== '') {
+            $whereConditions[] = "isSale = '" . $filters['isSale'] . "'";
         }
         if (!empty($filters['city'])) {
             $whereConditions[] = "city = '" . $filters['city'] . "'";
@@ -420,6 +420,11 @@ if (!defined('DB_LOADED')) {
     function removeFavoriteFromDb($conn, $houseID, $userID)
     {
         $sql = "DELETE FROM favorites WHERE userID = " . $userID . " AND houseID = " . $houseID;
+        return $conn->query($sql);
+    }
+
+    function getEmailByHouseId($conn, $house_id) {
+        $sql = "SELECT email FROM users WHERE userID = (SELECT ownerID FROM houses WHERE houseID = " . $house_id . ")";
         return $conn->query($sql);
     }
 }
