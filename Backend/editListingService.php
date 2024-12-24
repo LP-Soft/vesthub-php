@@ -3,10 +3,8 @@ include "../../Database/databaseController.php";
 require_once "../../Frontend/Pages/editListingPage.php";
 
 function editListing($houseInfo, $keptFiles){
-    var_dump($keptFiles);
     if(editListingInDb($GLOBALS['conn'],$houseInfo)){
         $numberOfFilesInFolder = deleteOldImages($houseInfo->houseID, json_decode($keptFiles));
-        echo $numberOfFilesInFolder;
         addNewImages($houseInfo->houseID, $numberOfFilesInFolder);
     }
 }

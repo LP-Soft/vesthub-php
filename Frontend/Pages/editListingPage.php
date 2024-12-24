@@ -3,6 +3,8 @@ require_once "../Components/imageBox.php";
 include "../../Backend/editListingService.php";
 require_once '../../Classes/houseInfo.php';
 include '../Components/SaleRentSwitch.php';
+include('../Components/header.php');
+
 use Classes\houseInfo;
 
 if (!isset($_SESSION['userID'])) {
@@ -181,7 +183,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<?php include('../Components/header.php'); ?>
 
 <?php
 $ownerID = 0;

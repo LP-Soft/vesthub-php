@@ -3,6 +3,8 @@ require_once "../Components/imageBox.php";
 include "../../Backend/newListingService.php";
 require_once '../../Classes/houseInfo.php';
 include '../Components/SaleRentSwitch.php';
+include('../Components/header.php');
+
 use Classes\houseInfo;
 
 if (!isset($_SESSION['userID'])) {
@@ -96,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = file_get_contents($url);
     $decodedResponse = json_decode($response);
     if (!empty($decodedResponse) && isset($decodedResponse[0])) {
-        echo $decodedResponse[0]->lat . "," . $decodedResponse[0]->lon;
         $houseInfo->lat = $decodedResponse[0]->lat;
         $houseInfo->lng = $decodedResponse[0]->lon;
     }
@@ -168,7 +169,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<?php include('../Components/header.php'); ?>
 <?php
     $ownerID = 0;
     if(isset($_SESSION['userID'])){
