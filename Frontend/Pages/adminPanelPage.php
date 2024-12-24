@@ -3,11 +3,22 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include '../Components/houseCard.php';
+include '../../Backend/Utilities/sendMail.php';
 include '../../Backend/adminPanelService.php';
 if (isset($_GET['approve'])) {
     $houseID = $_GET['approve'];
     approveHouses($houseID);
-    header("Location: adminPanelPage.php"); // Redirect to prevent resubmission
+
+    // Get email result
+    $ownerEmailResult = getEmailChoosenHouse($houseID);
+    
+    if ($ownerEmailResult && $emailRow = $ownerEmailResult->fetch_assoc()) {
+        $ownerEmail = $emailRow['email'];
+        // Send email only once
+        sendEmail($ownerEmail, "Request", "Acknowledge", "Your house request has been approved.");
+    }
+
+    header("Location: adminPanelPage.php");
     exit();
 }
 
