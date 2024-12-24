@@ -109,13 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $houseInfo->numOfBathroom = (int)$_POST['numOfBathroom'];
     $houseInfo->numOfBedroom = (int)$_POST['numOfBedroom'];
 
-    $url = "https://geocode.maps.co/search?q=".rawurlencode($houseInfo->city).",".rawurlencode($houseInfo->district).",".rawurlencode($houseInfo->street)."&api_key=672e64f5dee6e743749773dwy569183";
+    $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".rawurlencode($houseInfo->city).",".rawurlencode($houseInfo->district).",".rawurlencode($houseInfo->neighborhood).",".rawurlencode($houseInfo->street)."&key=AIzaSyCgUa6diztbBQ258McBxYPW6c4dCLYrjKc";
     $response = file_get_contents($url);
     $decodedResponse = json_decode($response);
-    if (!empty($decodedResponse) && isset($decodedResponse[0])) {
-        $houseInfo->lat = $decodedResponse[0]->lat;
-        $houseInfo->lng = $decodedResponse[0]->lon;
-    }
+    $houseInfo->lat = $decodedResponse->results[0]->geometry->location->lat;
+    $houseInfo->lng = $decodedResponse->results[0]->geometry->location->lng;
 
     $keptFiles = $_POST['keptFiles'];
     if ($houseInfo->houseID != 0) {
