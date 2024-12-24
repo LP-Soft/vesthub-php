@@ -79,7 +79,7 @@ if (isset($_POST['delete-account'])) {
     <title>User Info Page</title>
     <link rel="stylesheet" href="../Styles/userInfoPage.css">
 </head>
-<script src="../../../Backend/Scripts/addressFieldHandler.js"></script>
+<script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 <script>
     console.log("User Info Page");
     <?php
