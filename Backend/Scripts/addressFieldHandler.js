@@ -5,18 +5,45 @@ const editListingNeighborhood = urlParams.get('neighborhood');
 const editListingStreet = urlParams.get('street');
 const selectedSaleRent = urlParams.get('isSale');
 const selectedSort = urlParams.get('sort');
-
+const selectedAmenities = urlParams.getAll('amenities[]');
+const selectedHouseType = urlParams.get('house_type');
+function setSelectedAmenities() {
+    const checkboxes = document.getElementsByName('amenities[]');
+    if (selectedAmenities.length > 0) {
+        console.log("Setting amenities...");
+        console.log("Found checkboxes:", checkboxes.length);
+        checkboxes.forEach(checkbox => {
+            console.log("Checking", checkbox.value, "against", selectedAmenities);
+            if (selectedAmenities.includes(checkbox.value)) {
+                    checkbox.checked = true;
+                    console.log("Checked", checkbox.value);
+            }
+        });
+    }
+}
+function setSelectedHouseType() {
+    const selectedHouse = document.getElementById('house_type');
+    if (selectedHouse) {
+        selectedHouse.value = selectedHouseType;
+    }
+} 
+//document.addEventListener('DOMContentLoaded', setSelectedAmenities);
 document.addEventListener('DOMContentLoaded', () => {
+    setSelectedHouseType();
+    setSelectedAmenities();
     updateCities();
-    handleImage();  // Call it directly here for page load 
+    handleImage();  // Call it directly here for page load
+    console.log("DOM fully loaded and parsed"); 
 });
 if (selectedSaleRent != null) {
     document.getElementById('isSale').value = selectedSaleRent;
 }
 console.log(editListingCity, ",", editListingDistrict , ",", editListingNeighborhood , ",", editListingStreet);
+console.log(selectedAmenities);
 if (selectedSort) {
     document.getElementById('sort').value = selectedSort;
 }
+
 function updateCities() {
     fetch("../../Backend/Utilities/getCities.php")
         .then(response => response.json())
@@ -235,3 +262,4 @@ function handleImage() {
         })
         .catch(error => console.error('Error fetching existing files:', error));
 }
+
