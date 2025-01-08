@@ -86,8 +86,7 @@ if (isset($_POST['delete-account'])) {
 
     echo "var userID = " . $userID . ";";
     echo "console.log('userID = ' + userID);"; //konsola userID yi yazdırıyor
-
-
+        
     echo "console.log('user = ' + " . json_encode($user->city) . ");";
     ?>
     //change the fields with the user's information
