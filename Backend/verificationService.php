@@ -4,7 +4,7 @@ include "../../Database/databaseController.php";
 
 function generateVerificationCode()
 {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $characters = '0123456789';
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < 6; $i++) {

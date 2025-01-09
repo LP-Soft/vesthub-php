@@ -1,4 +1,3 @@
-// send_email.php
 <?php
 require "include_path/phpmailer/src/PHPMailer.php";
 require "include_path/phpmailer/src/SMTP.php";
@@ -33,7 +32,7 @@ function sendEmail($toAddress, $toName, $subject, $body) {
         $mail->AltBody = strip_tags($body);
 
         $mail->send();
-        echo 'Message has been sent';
+        //echo 'Message has been sent';
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
