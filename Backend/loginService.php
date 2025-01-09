@@ -31,19 +31,23 @@ function checkLoginCredentials($email, $password)
     // Run the query to get the user result
     $userResult = checkLoginCredentialsFromDb($GLOBALS['conn'], $email, $password);
     
-    // Check if we got a result
-    if ($userResult->num_rows > 0) {
-        // Fetch the user data as an associative array
+    // First check if we got a valid result
+    if ($userResult && $userResult->num_rows > 0) {
+        // Fetch the user data
         $userData = $userResult->fetch_assoc();
-        $arr = array();
-        $arr['userID'] = $userData['userID'];
-        $arr['role'] = $userData['role'];
-        // Return only the userID
-        return $arr;
-    } else {
-        // Return null if no user was found
-        return null;
+        
+        // Verify password
+        if (password_verify($password, $userData['password'])) {
+            // Return user data array
+            return array(
+                'userID' => $userData['userID'],
+                'role' => $userData['role']
+            );
+        }
     }
+    
+    return null;
+
 }
 
 

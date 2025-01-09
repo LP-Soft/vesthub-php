@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $arr = checkLoginCredentials($email, $password);
 
-    if ($arr['userID'] == null) {
+    //check if arr is empty
+    if (empty($arr)) {
         $error_message = "Invalid email or password";
     } else {
         $_SESSION['userID'] = $arr['userID'];

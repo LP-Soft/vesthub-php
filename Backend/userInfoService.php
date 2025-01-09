@@ -9,7 +9,8 @@ function updateUserInfo($name, $surname, $phone, $email, $city, $district, $neig
 function updatePassword($password, $userId)
 {
     $conn = $GLOBALS['conn'];
-    updatePasswordInDb($conn, $password, $userId);
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    updatePasswordInDb($conn, $hashedPassword, $userId);
 }
 
 function deleteUser($userID)

@@ -15,6 +15,8 @@ function generateVerificationCode()
 
 function insertAccount($name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
 {
+    //hash password before inserting
+    $password = password_hash($password, PASSWORD_DEFAULT);
     $result = insertAccountInDb($GLOBALS['conn'], $name, $surname, $email, $phone, $password, $city, $district, $neighborhood);
 }
 

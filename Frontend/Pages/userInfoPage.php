@@ -64,6 +64,7 @@ if (isset($_POST['delete-account'])) {
         echo "<script>alert('Current password is incorrect.');</script>";
     } else if ($newPassword == $confirmPassword) {
         updatePassword($newPassword, $userId);
+        echo "<script>alert('Password updated.');</script>";
     } else {
         echo "<script>alert('Passwords do not match.');</script>";
     }

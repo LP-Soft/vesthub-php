@@ -22,8 +22,7 @@ class User {
         $this->email = $postData['email'] ?? '';
         $this->phone = $postData['phone'] ?? '';
         
-        // Hash the password for secure storage
-        $this->password = isset($postData['password']) ? password_hash($postData['password'], PASSWORD_DEFAULT) : '';
+        $this->password = $postData['password'];
         
         // Address and status details
         $this->city = $postData['city'] ?? '';
