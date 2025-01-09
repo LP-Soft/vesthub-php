@@ -377,7 +377,7 @@ if (!defined('DB_LOADED')) {
             }
             // Join amenities conditions with "OR" if you want any of the selected amenities to match
             if (!empty($amenitiesConditions)) {
-                $whereConditions[] = "(" . implode(" OR ", $amenitiesConditions) . ")";
+                $whereConditions[] = "(" . implode(" AND ", $amenitiesConditions) . ")";
             }
         }
         // Handle sorting
