@@ -538,6 +538,11 @@ body {
     transform: scale(0.95); /* Shrink slightly on click */
 }
 
+.for-sale-badge.inactive {
+    background-color: #888;
+    color: white;
+}
+
 /* Responsive design: Adjust padding and font size on smaller screens */
 @media (max-width: 768px) {
     .mark-action-badge {

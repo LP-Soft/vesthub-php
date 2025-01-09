@@ -56,6 +56,7 @@ class houseInfo {
         $this->houseID = (int)$postData['houseID'];
         $this->lat = (float)$postData['lat'];
         $this->lng = (float)$postData['lng'];
+        $this->status = $postData['status'];
 
         // Initialize key features
         if (isset($postData['keyFeatures'])) {

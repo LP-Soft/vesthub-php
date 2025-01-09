@@ -427,5 +427,19 @@ if (!defined('DB_LOADED')) {
         $sql = "SELECT email FROM users WHERE userID = (SELECT ownerID FROM houses WHERE houseID = " . $house_id . ")";
         return $conn->query($sql);
     }
+
+    function markHouseAsSold($houseID) {
+        $sql = "UPDATE houses SET status = 'Sold' WHERE houseID = ?";
+        $stmt = $GLOBALS['conn']->prepare($sql);
+        $stmt->bind_param("i", $houseID);
+        return $stmt->execute();
+    }
+
+    function markHouseAsRented($houseID) {
+        $sql = "UPDATE houses SET status = 'Rented' WHERE houseID = ?";
+        $stmt = $GLOBALS['conn']->prepare($sql);
+        $stmt->bind_param("i", $houseID);
+        return $stmt->execute();
+    }
 }
 ?>

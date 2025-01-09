@@ -44,6 +44,7 @@ function getHouseDetails($houseID) {
             'houseID' => $row['houseID'],
             'lat' => $row['lat'],
             'lng' => $row['lng'],
+            'status' => $row['status'],
         ]);
 
         // Populate key features
@@ -101,6 +102,35 @@ if (isset($_POST['action'], $_POST['houseID'], $_POST['userID']))
         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
 
+}
+
+function markHouseAsSoldOrRented($houseID, $isSale) {
+    if ($isSale) {
+        return markHouseAsSold($houseID);
+    } else {
+        return markHouseAsRented($houseID);
+    }
+}
+
+// Add this to the existing POST handler section
+if (isset($_POST['action'], $_POST['houseID'], $_POST['isSale'])) {
+    $action = $_POST['action'];
+    $houseID = $_POST['houseID'];
+    $isSale = $_POST['isSale'];
+
+    // Handle mark as sold/rented
+    if ($action === 'markInactive') {
+        try {
+            $result = markHouseAsSoldOrRented($houseID, $isSale);
+            if ($result) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to update house status']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }
 
 ?>

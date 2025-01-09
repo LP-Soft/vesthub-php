@@ -172,11 +172,14 @@ if ($result && $result->num_rows > 0) {
                 <div class="isSale-edit">
 
                     <?php if ($userLogged != -1 && $house->ownerID == $userLogged): ?>
-                        <div class="mark-action">
-                            <span class="mark-action-badge <?php echo $house->isSale ? 'sold' : 'rent'; ?>" onclick="markAsAction('<?php echo $house->isSale ? 'sold' : 'rent'; ?>', <?php echo $house->houseID; ?>)">
-                                <?php echo $house->isSale ? 'Mark as Sold' : 'Mark as Rented'; ?>
-                            </span>
-                        </div>
+                        <?php if($house->status !== 'Sold' && $house->status !== 'Rented'): ?>
+                            <div class="mark-action">
+                                <span class="mark-action-badge <?php echo $house->isSale ? 'sold' : 'rent'; ?>"
+                                      onclick="markAsAction('<?php echo $house->isSale ? 'sold' : 'rented'; ?>', <?php echo $house->houseID; ?>, <?php echo $house->isSale; ?>)">
+                                    <?php echo $house->isSale ? 'Mark as Sold' : 'Mark as Rented'; ?>
+                                </span>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
 
                     <!-- Favorite Icon: Only visible if the user is logged in and is not the owner -->
@@ -200,10 +203,22 @@ if ($result && $result->num_rows > 0) {
                         <?php endif; ?>
                     </div>
 
-                    <!-- For Sale / For Rent Badge -->
+                    <!-- For Sale / For Rent / Sold / Rented Badge -->
                     <div class="isSale">
-                        <span class="for-sale-badge <?php echo $house->isSale ? 'sale' : 'rent'; ?>">
-                            <?php echo $house->isSale ? 'For Sale' : 'For Rent'; ?>
+                        <span class="for-sale-badge <?php
+                        if ($house->status === 'Sold' || $house->status === 'Rented') {
+                            echo 'inactive';
+                        } else {
+                            echo $house->isSale ? 'sale' : 'rent';
+                        }
+                        ?>">
+                            <?php
+                            if ($house->status === 'Sold' || $house->status === 'Rented') {
+                                echo $house->status;
+                            } else {
+                                echo $house->isSale ? 'For Sale' : 'For Rent';
+                            }
+                            ?>
                         </span>
                     </div>
                 </div>
@@ -312,6 +327,50 @@ if ($result && $result->num_rows > 0) {
                     // Handle error
                     console.error('Failed to update favorites');
                     alert(data || 'An error occurred');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Network error. Please try again.');
+            });
+    }
+
+    function markAsAction(type, houseID, isSale) {
+        if (!confirm(`Are you sure you want to mark this house as ${type}?`)) {
+            return;
+        }
+
+        fetch('../../Backend/houseDetailsService.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=markInactive&houseID=${houseID} &isSale=${isSale}`
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    // Update the UI to reflect the change
+                    const badge = document.querySelector('.mark-action-badge');
+                    badge.style.display = 'none';  // Hide the button after successful marking
+
+                    // Update the sale/rent badge
+                    const forSaleBadge = document.querySelector('.for-sale-badge');
+                    if (forSaleBadge) {
+                        forSaleBadge.textContent = type === 'sold' ? 'Sold' : 'Rented';
+                        forSaleBadge.classList.remove('sale', 'rent');
+                        forSaleBadge.classList.add('inactive');
+                    }
+
+                    // Optional: Show success message
+                    alert(`Successfully marked as ${type}`);
+                } else {
+                    alert(data.message || 'Failed to update status');
                 }
             })
             .catch(error => {
