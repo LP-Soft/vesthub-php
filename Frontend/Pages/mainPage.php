@@ -57,11 +57,11 @@ if (isset($_POST['logout'])) {
             </div>
         </div>
         <div class="last-houses">
-            <p class="last-houses-text">Last 5 Added Houses</p>
+            <p class="last-houses-text">Last 10 Added Houses</p>
             <div class="house-cards">
                 <?php
                 // Fetch all homes
-                $houses = getLastFiveHouses();
+                $houses = getLastTenHouses();
                 // Loop through the result set and include homecard.php
                 foreach ($houses as $house) {
                     displayHouseCard($house,0);

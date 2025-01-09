@@ -1,11 +1,11 @@
 <?php
 include "../../Database/databaseController.php";
 
-function getLastFiveHouses()
+function getLastTenHouses()
 {
     $userID = 0;
     if(isset($_SESSION['userID'])) {
         $userID = $_SESSION['userID'];
     }
-    return getLastFiveHousesFromDb($GLOBALS['conn'], $userID);
+    return getLastTenHousesFromDb($GLOBALS['conn'], $userID);
 }
