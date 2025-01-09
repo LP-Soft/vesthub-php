@@ -10,6 +10,8 @@ error_reporting(E_ALL);
 
 $houseId = $_GET['id'];
 
+$dummyImageArray = array("../../house-images/dummy.png");
+
 $userLogged = -1;
 if (isset($_SESSION['userID']))
 {
@@ -39,6 +41,8 @@ if ($result && $result->num_rows > 0) {
 
 //echo "favorites: " . $favorites[2];
 //echo "house: " . json_encode($house->houseID);
+//echo "house images: " . json_encode($houseImages);
+//echo "dummy image array: " . json_encode($dummyImageArray);
 
 ?>
 
@@ -57,8 +61,8 @@ if ($result && $result->num_rows > 0) {
         <div class="image-column">
             <div class="main-image">
                 <img id="mainHouseImage"
-                     src="<?php echo htmlspecialchars($houseImages[0] ?? '../../house-images/default.png'); ?>"
-                     alt="House Front View">
+                     src=""
+                     alt="House Front View"/>
                 <div class="image-navigation">
                     <button class="nav-button-prev">❮</button>
                     <button class="nav-button-next">❯</button>
@@ -66,7 +70,11 @@ if ($result && $result->num_rows > 0) {
             </div>
             <!-- Thumbnail Container -->
             <div class="thumbnail-container">
-                <?php foreach ($houseImages as $index => $image): ?>
+                <?php
+                if ($houseImages == null) {
+                    $houseImages = $dummyImageArray;
+                }
+                foreach ($houseImages as $index => $image): ?>
                     <img class="thumbnail" src="<?php echo htmlspecialchars($image); ?>"
                          alt="House View <?php echo $index + 1; ?>"
                          onclick="changeImage(<?php echo $index; ?>)">
