@@ -5,6 +5,13 @@ error_reporting(E_ALL);
 include '../Components/houseCard.php';
 include '../../Backend/Utilities/sendMail.php';
 include '../../Backend/adminPanelService.php';
+
+include('../Components/header.php');
+
+if (!isset($_SESSION['userID'])) {
+    header("Location: loginPage.php");
+}
+
 if (isset($_GET['approve'])) {
     $houseID = $_GET['approve'];
     approveHouses($houseID);
@@ -41,7 +48,6 @@ if (isset($_GET['reject'])) {
     <link rel="stylesheet" href="../Styles/houseCard.css">
 </head>
 <body>
-<?php include('../Components/header.php'); ?> <!-- Header included -->
 <div class="Content">
     <h1>Waiting For Approval</h1>
     <div class="HouseContent">

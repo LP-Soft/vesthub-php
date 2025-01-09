@@ -7,6 +7,11 @@ error_reporting(E_ALL);
 include '../Components/header.php';
 include '../../Backend/registrationService.php';
 
+
+if (isset($_SESSION['userID'])) {
+    header("Location: mainPage.php");
+}
+
 $error_message = ""; // Initialize an error message variable
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

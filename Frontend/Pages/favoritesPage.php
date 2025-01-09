@@ -3,7 +3,9 @@ require_once '../Components/header.php';
 require_once '../../Backend/favoritesService.php';
 require_once '../Components/houseCard.php';
 
-
+if (!isset($_SESSION['userID'])) {
+    header("Location: loginPage.php");
+}
 //Su anlik user giris yapmadigi icin userID static 2 olarak belirlendi.
 ?>
 
