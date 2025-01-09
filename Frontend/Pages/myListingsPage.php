@@ -4,7 +4,7 @@ require_once '../../Backend/myListingsService.php';
 require_once '../Components/houseCard.php';
 //Su anlik user giris yapmadigi icin ownderID static 2 olarak belirlendi.
 
-if (!isset($_SESSION['userID'])) {
+if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("Location: loginPage.php");
 }
 ?>
@@ -35,11 +35,14 @@ if (!isset($_SESSION['userID'])) {
                         displayHouseCard($house, 2);
                     }
                 }
+                else { ?>
+                    <h1>No listings available.</h1>
+                <?php
+                }
             }
-            else {
-                echo "No homes available.";
-            }
+            
             ?>
+
         </div>
     </div>
 </div>

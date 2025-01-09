@@ -3,10 +3,10 @@ require_once '../Components/header.php';
 require_once '../../Backend/favoritesService.php';
 require_once '../Components/houseCard.php';
 
-if (!isset($_SESSION['userID'])) {
+if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("Location: loginPage.php");
 }
-//Su anlik user giris yapmadigi icin userID static 2 olarak belirlendi.
+
 ?>
 
 <!DOCTYPE html>
@@ -35,10 +35,12 @@ if (!isset($_SESSION['userID'])) {
                         displayHouseCard($house, 0);
                     }
                 }
+                else { ?>
+                    <h1>No favorites available.</h1>
+                <?php
+                }
             }
-            else {
-                echo "No favorite homes available.";
-            }
+            
             ?>
         </div>
     </div>

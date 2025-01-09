@@ -6,7 +6,7 @@ require_once '../../Classes/userInfo.php';
 require_once '../../Backend/Utilities/getUserInfo.php';
 require_once '../../Backend/userInfoService.php';
 
-if (!isset($_SESSION['userID'])) {
+if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("Location: loginPage.php");
 }
 $userID = $_SESSION['userID'];

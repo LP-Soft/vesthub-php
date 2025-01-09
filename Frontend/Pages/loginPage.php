@@ -3,6 +3,14 @@ include '../Components/header.php';
 include '../../Backend/loginService.php';
 
 $error_message = ""; // Initialize an error message variable
+if (isset($_SESSION['userID'])) {
+    if($_SESSION['role'] == 'admin'){
+        header("Location: adminPanelPage.php");
+    }else {
+        header("Location: mainPage.php");
+    }
+    
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];

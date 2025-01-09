@@ -7,7 +7,8 @@ include('../Components/header.php');
 
 use Classes\houseInfo;
 
-if (!isset($_SESSION['userID'])) {
+
+if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("Location: loginPage.php");
 }
 
@@ -29,6 +30,12 @@ if (isset($_GET['id']) && isset($_GET['city']) && isset($_GET['district']) && is
     if($house == null){
         return;
     }
+    else if($house['ownerID'] != $_SESSION['userID']){
+        header("Location: mainPage.php");
+    }
+}
+else {
+    header("Location: mainPage.php");
 }
 
 // Handle form submission for creating or updating the listing

@@ -7,7 +7,7 @@ include('../Components/header.php');
 
 use Classes\houseInfo;
 
-if (!isset($_SESSION['userID'])) {
+if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("Location: loginPage.php");
 }
 

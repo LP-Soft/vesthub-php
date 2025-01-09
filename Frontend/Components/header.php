@@ -26,7 +26,7 @@ session_start();
             <a href="aboutPage.php">About</a>
             <!-- Kullanıcı giriş yapmamışsa -->
             <?php
-            if (isset($_SESSION['userID'])) {
+            if (isset($_SESSION['userID']) && isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
             ?>
                 <a href="favoritesPage.php">Favorites</a>
                 <a href="userInfoPage.php">User Info</a>
@@ -36,7 +36,17 @@ session_start();
                     <button class="logout-button" type="submit" name="logout">Logout</button>
                 </form>
             <?php
-            } else {
+            } else if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+            ?>
+                <a href="adminPanelPage.php">Admin Panel</a>
+                <form action="mainPage.php" method="post">
+                    <button class="logout-button" type="submit" name="logout">Logout</button>
+                </form>
+
+            <?php
+            }
+            
+            else {
             ?>
                 <button class="btn signin-btn" onclick="window.location.href='loginPage.php'"
                     href="loginPage.php">Sign in</button>
