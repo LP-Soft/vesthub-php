@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     sendEmail($_SESSION['email'], "Verification Code", "Your verification code is: $verification_code", "Please enter this code: $verification_code to verify your account.");
 
     // Set expiration time (e.g., 30 seconds from now)
-    $_SESSION['verification_code_expiration'] = time() + 30;
+    $_SESSION['verification_code_expiration'] = time() + 180;
     $_SESSION['verification_code'] = $verification_code;
 }
 
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img id="logo" src="../Assets/vesthub_logo.png" alt="Vesthub Logo">
             <h1 id="verification-title">Enter the verification code sent to <?php echo $_SESSION['email'] ?> </h1>
             
-            <div class="countdown-timer" id="countdown-timer">Code expires in 00:30</div>
+            <div class="countdown-timer" id="countdown-timer">Code expires in</div>
             
             <!-- Display the error message if there is one -->
             <?php if (!empty($error_message)): ?>
@@ -184,9 +184,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
+        
         const countdownTimer = document.getElementById('countdown-timer');
         let countdownSeconds = <?= $remaining_time ?>;
+        
+        function startTimer(duration) {
+            let timer = duration;
+            const display = document.getElementById('countdown-timer');
+            
+            const countdown = setInterval(() => {
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
 
+                // Format time as MM:SS
+                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                display.textContent = `Code expires in ${timeString}`;
+
+                if (--timer < 0) {
+                    clearInterval(countdown);
+                    display.textContent = 'Code expired';
+                }
+            }, 1000);
+        }
+
+        // Start 3-minute countdown when page loads
+        window.onload = () => {
+            startTimer(180); // 3 minutes in seconds
+        };
         function updateCountdown() {
             if (countdownSeconds > 0) {
                 countdownSeconds--;
