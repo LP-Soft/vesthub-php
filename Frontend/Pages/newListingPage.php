@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (response.ok) {
                     // Success
                     alert("House added successfully!");
-                    //window.location.href = 'myListingsPage.php'; //this is going to be adjusted on the server
+                    window.location.href = 'myListingsPage.php'; //this is going to be adjusted on the server
                 } else {
                     // Error
                     alert("House addition is failed!");
