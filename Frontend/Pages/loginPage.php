@@ -7,12 +7,13 @@ $error_message = ""; // Initialize an error message variable
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $userID = checkLoginCredentials($email, $password);
+    $arr = checkLoginCredentials($email, $password);
 
-    if ($userID == null) {
+    if ($arr['userID'] == null) {
         $error_message = "Invalid email or password";
     } else {
-        $_SESSION['userID'] = $userID;
+        $_SESSION['userID'] = $arr['userID'];
+        $_SESSION['role'] = $arr['role'];
         header("Location: mainPage.php");
         exit();
     }

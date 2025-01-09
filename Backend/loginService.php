@@ -27,6 +27,7 @@ function getUserFromEmailandPassword($email, $password)
 */
 function checkLoginCredentials($email, $password)
 {
+    
     // Run the query to get the user result
     $userResult = checkLoginCredentialsFromDb($GLOBALS['conn'], $email, $password);
     
@@ -34,9 +35,11 @@ function checkLoginCredentials($email, $password)
     if ($userResult->num_rows > 0) {
         // Fetch the user data as an associative array
         $userData = $userResult->fetch_assoc();
-        
+        $arr = array();
+        $arr['userID'] = $userData['userID'];
+        $arr['role'] = $userData['role'];
         // Return only the userID
-        return $userData['userID'];
+        return $arr;
     } else {
         // Return null if no user was found
         return null;
