@@ -4,7 +4,23 @@ require_once '../../Backend/houseDetailsService.php';
 require_once '../../Backend/Utilities/getUserInfo.php';
 require_once '../../Backend/favoritesService.php';
 
+if (!isset($_GET['id'])) {
+    echo "
+    <div style='text-align: center; margin-top: 20%; font-family: Arial, sans-serif;'>
+        <h1 style='color: #ff4d4d;'>Oops! The house you are looking for is no longer available.</h1>
+        <p style='color: #666;'>It seems the property has been removed or is no longer listed. Please check other listings or contact support if you need assistance.</p>
+    </div>";
+    exit();
+}else if (!is_numeric($_GET['id'])) {
+    echo "
+    <div style='text-align: center; margin-top: 20%; font-family: Arial, sans-serif;'>
+        <h1 style='color: #ff4d4d;'>Oops! The house you are looking for is no longer available.</h1>
+        <p style='color: #666;'>It seems the property has been removed or is no longer listed. Please check other listings or contact support if you need assistance.</p>
+    </div>";
+    exit();
+}
 $houseId = $_GET['id'];
+
 
 $dummyImageArray = array("../../house-images/dummy.png");
 

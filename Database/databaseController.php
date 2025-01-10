@@ -28,53 +28,6 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function getCitiesFromDb($conn){
-        $sql = "SELECT DISTINCT city FROM houses";
-        return $conn->query($sql);
-    }
-
-    function getDistrictsFromDb($conn, $city){
-        $sql = "SELECT DISTINCT district FROM houses WHERE city = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $city);
-        $stmt->execute();
-        return $stmt->get_result();
-    }
-
-    function getCityDistrictPairsFromDb($conn){
-        $sql = "SELECT city, district FROM houses";
-        return $conn->query($sql);
-    }
-
-    function getDistrictNeighborhoodPairsFromDb($conn){
-        $sql = "SELECT district, neighborhood FROM houses";
-        return $conn->query($sql);
-    }
-
-    function getNeighborhoodsFromDb($conn, $district){
-        $sql = "SELECT DISTINCT neighborhood FROM houses WHERE district = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $district);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result;
-    }
-
-    function getAllHomesFromDb($conn) {
-        $sql = "SELECT * FROM houses";
-        return $conn->query($sql);
-    }
-
-    function getHomeById($conn, $id) {
-        $sql = "SELECT * FROM homes WHERE id = " . $id;
-        return $conn->query($sql);
-    }
-
-    function getHomesByType($conn, $type) {
-        $sql = "SELECT * FROM houses WHERE type = ". $type;
-        return $conn->query($sql);
-    }
-
     function getPendingHousesFromDb($conn) {
         $sql = "SELECT * FROM houses WHERE status = 'Pending'";
         return $conn->query($sql);
@@ -191,10 +144,6 @@ if (!defined('DB_LOADED')) {
         return  $lastID;
     }
 
-    function closeConnection($conn) {
-        $conn->close();
-    }
-
     function getHousesByOwnerFromDb($conn, $ownerID){
         $sql = "SELECT * FROM houses WHERE ownerID = " . $ownerID. " AND status != 'Deleted'";
         return $conn->query($sql);
@@ -244,7 +193,6 @@ if (!defined('DB_LOADED')) {
         return true;
     }
 
-
     function getUserInfoFromDb($conn, $userID) {
         $sql = "SELECT * FROM users WHERE userID = " . $userID;
         return $conn->query($sql);
@@ -281,29 +229,6 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    function getFavoritedHousesFromDb($conn, $userID)
-    {
-        $sql = "SELECT * FROM favorites WHERE userID = " . $userID. " AND status != 'Deleted'";
-        return $conn->query($sql);
-    }
-
-    function insertFavoritedHouseToDb($conn, $houseID, $userID)
-    {
-        $sql = "INSERT INTO favorites (userID, houseID) VALUES (" . $userID . ", " . $houseID . ")";
-        return $conn->query($sql);
-    }
-
-    function deleteFavoritedHouseFromDb($conn, $houseID, $userID)
-    {
-        $sql = "DELETE FROM favorites WHERE userID = " . $userID . " AND houseID = " . $houseID;
-        return $conn->query($sql);
-    }
-
-    function checkFavoritedHouseFromDb($conn, $houseID, $userID)
-    {
-        $sql = "SELECT * FROM favorites WHERE userID = " . $userID . " AND houseID = " . $houseID;
-        return $conn->query($sql);
-    }
     function getFilteredHousesDB($conn,$filters)
     {
         $userID = 0;
