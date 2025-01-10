@@ -104,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!-- Sale/Rent button: https://codepen.io/alvarotrigo/pen/oNoJePo -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

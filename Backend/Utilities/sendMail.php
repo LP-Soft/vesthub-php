@@ -20,7 +20,8 @@ function sendEmail($toAddress, $toName, $subject, $body) {
         $mail->Password   = 'nvfa onid lrof sjur';                  // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      // Enable TLS encryption
         $mail->Port       = 587;                                 // TCP port to connect to
-
+        $mail->CharSet = 'UTF-8';
+        
         // Recipients
         $mail->setFrom('mehmetalibaransevvalsafak@gmail.com', 'VestHub');
         $mail->addAddress($toAddress, $toName);

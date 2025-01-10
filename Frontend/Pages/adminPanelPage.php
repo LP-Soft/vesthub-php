@@ -90,12 +90,12 @@ if (isset($_GET['reject'])) {
     <div class="HouseContent">
     <?php
         $pendingHouses = PendigHouse();
-        if ($pendingHouses) {
+        if ($pendingHouses->num_rows > 0) {
             while ($house = $pendingHouses->fetch_assoc()) {
                 displayHouseCard($house, 1);
             }
         } else {
-            echo "<p>No pending houses found.</p>";
+            echo "<p style='text-align: center; color:rgb(255, 0, 0); font-size: 20px;'>No pending houses found.</p>";
         }
         ?>
     </div>            
