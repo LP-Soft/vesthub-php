@@ -383,7 +383,7 @@ if ($result && $result->num_rows > 0) {
                     // Update the sale/rent badge
                     const forSaleBadge = document.querySelector('.for-sale-badge');
                     if (forSaleBadge) {
-                        forSaleBadge.textContent = type === 'sold' ? 'Sold' : type === 'rent' ? 'Rented' : 'Deleted';
+                        forSaleBadge.textContent = type === 'sold' ? 'Sold' : type === 'rented' ? 'Rented' : 'Deleted';
                         forSaleBadge.classList.remove('sale', 'rent');
                         forSaleBadge.classList.add('inactive');
                     }

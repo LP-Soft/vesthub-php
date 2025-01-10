@@ -102,7 +102,7 @@ if (isset($_POST['action'], $_POST['houseID'], $_POST['userID']))
 }
 
 function markHouseAsSoldOrRented($houseID, $isSale) {
-    if ($isSale) {
+    if ($isSale === '1') {
         return markHouseAsSold($houseID);
     } else {
         return markHouseAsRented($houseID);
@@ -114,7 +114,7 @@ function deleteHouse($houseID) {
 }
 
 // Add this to the existing POST handler section
-if (isset($_POST['action'], $_POST['houseID'], $_POST['isSale'])) {
+if (isset($_POST['action'], $_POST['houseID'], $_POST['isSale'], $_POST['type'])) {
     $action = $_POST['action'];
     $houseID = $_POST['houseID'];
     $isSale = $_POST['isSale'];
