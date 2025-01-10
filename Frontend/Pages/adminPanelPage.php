@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 include '../Components/houseCard.php';
 include '../../Backend/Utilities/sendMail.php';
 include '../../Backend/adminPanelService.php';
-
 include('../Components/header.php');
 
 if (!isset($_SESSION['userID'])) {
@@ -15,23 +14,61 @@ if (!isset($_SESSION['userID'])) {
 if (isset($_GET['approve'])) {
     $houseID = $_GET['approve'];
     approveHouses($houseID);
-
-    // Get email result
-    $ownerEmailResult = getEmailChoosenHouse($houseID);
     
-    if ($ownerEmailResult && $emailRow = $ownerEmailResult->fetch_assoc()) {
-        $ownerEmail = $emailRow['email'];
-        // Send email only once
-        sendEmail($ownerEmail, "Request", "Acknowledge", "Your house request has been approved.");
-    }
+    // Get house details
+    $ownerEmailResult = getEmailChoosenHouse($houseID);
+    $titleResult = getTitleForEmail($houseID); // Changed variable name to match function
+    
+    // Debug logging
+    error_log("Email Result: " . print_r($ownerEmailResult, true));
+    error_log("Title Result: " . print_r($titleResult, true));
 
+    // Check both results and fetch data
+    if ($ownerEmailResult && $titleResult) {
+        $emailRow = $ownerEmailResult->fetch_assoc();
+        $titleRow = $titleResult->fetch_assoc();
+        
+        if ($emailRow && $titleRow) {
+            $ownerEmail = $emailRow['email'];
+            $houseTitle = $titleRow['title']; // Changed variable name
+            
+            try {
+                sendEmail(
+                    $ownerEmail, 
+                    "VestHub User", 
+                    "House Listing Approved", 
+                    "Your house listing '$houseTitle' has been approved."
+                );
+                error_log("Email sent successfully to: " . $ownerEmail);
+            } catch (Exception $e) {
+                error_log("Failed to send email: " . $e->getMessage());
+            }
+        }
+    }
+    
     header("Location: adminPanelPage.php");
     exit();
 }
 
 if (isset($_GET['reject'])) {
     $houseID = $_GET['reject'];
+    $ownerEmailResult = getEmailChoosenHouse($houseID);
+    $titleEmailResult = getTitleForEmail($houseID);
     rejectHouses($houseID);
+    if ($ownerEmailResult && $titleEmailResult) {
+        $emailRow = $ownerEmailResult->fetch_assoc();
+        $titleRow = $titleEmailResult->fetch_assoc();
+        if($emailRow && $titleRow) {
+            $ownerEmail = $emailRow['email'];
+            $houseTitle = $titleRow['title'];
+            try {
+                sendEmail($ownerEmail, "VestHub User", "House Listing Rejected", "Your house listing '$houseTitle' has been rejected.");
+                error_log("Email sent successfully to: " . $ownerEmail);
+            } catch (Exception $e) {
+                error_log("Failed to send email: " . $e->getMessage());
+            }
+        }
+    }
     header("Location: adminPanelPage.php"); // Redirect to prevent resubmission
     exit();
 }

@@ -20,4 +20,11 @@ function getEmailChoosenHouse($house_id) {
     return getEmailByHouseId($conn, $house_id);
 }
 
+function getTitleForEmail($house_id) {
+    $conn = $GLOBALS['conn']; // Get the database connection
+    return getTitle($conn, $house_id);
+}
+
+
+
 // email gönderilecek kişinin email adresini getir.
