@@ -1,5 +1,4 @@
 <?php
-
 include "../../Database/databaseController.php";
 
 function generateVerificationCode()

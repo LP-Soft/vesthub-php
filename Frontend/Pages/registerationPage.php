@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 include '../Components/header.php';
 include '../../Backend/registrationService.php';
 
@@ -11,7 +7,6 @@ include '../../Backend/registrationService.php';
 if (isset($_SESSION['userID'])) {
     header("Location: mainPage.php");
 }
-
 
 $error_message = ""; // Initialize an error message variable
 
@@ -49,9 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $error_message = "Registration failed. Email might already be in use.";
     }
-        
-        
-    
 }
 ?>
 
@@ -59,108 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Styles/registerationPage.css">
     <title>Register Page</title>
     <style>
-        #register-container {
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
-            padding: 20px 0;
-        }
-
-        #register-box {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        #logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-        }
-
-        #register-title {
-            font-size: 24px;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        #register-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .input-row {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        .search-select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        #register-btn {
-            background-color: #b8c5a6;
-            color: #333;
-            padding: 12px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 120px;
-            margin: 20px auto 0;
-            transition: background-color 0.3s;
-        }
-
-        #register-btn:hover {
-            background-color: #a5b191;
-        }
-
-        #login-link {
-            display: block;
-            margin-top: 15px;
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        #login-link:hover {
-            text-decoration: underline;
-        }
-
         #error-message {
             color: red;
             font-size: 14px;
             margin-top: 10px;
             display: <?= !empty($error_message) ? 'block' : 'none' ?>;
-        }
-
-        .input-error {
-            border-color: red;
         }
     </style>
 </head>
@@ -188,16 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="input-row">
                             <select class="search-select" name="city" id="city" onchange="updateDistricts()">
                                 <option value="">City</option>
-                                <!--Burası javascript ile dolduruluyor-->
                             </select>
                             <select class="search-select" name="district" id="district" onchange="updateNeighborhoods()">
                                 <option value="">District</option>
-                                <!--Burası javascript ile dolduruluyor-->
                             </select>
                             <select class="search-select" name="neighborhood" id="neighborhood">
                                 <label for="neighborhood">Neighborhood</label>
                                 <option value="">Neighborhood</option>
-                                <!--Burası javascript ile dolduruluyor-->
                             </select>
                 </div>
                 <button type="submit" id="register-btn">Register</button>
@@ -205,11 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-
-    <script src="../../Backend/Scripts/addressFieldHandler.js">
-        
-        
-    </script>
+    <script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
 </html>
 

@@ -1,9 +1,7 @@
 <?php
    include '../../Backend/searchResultsService.php';
    include '../Components/houseCard.php';
-   ini_set('display_errors', 1);
-   ini_set('display_startup_errors', 1);
-   error_reporting(E_ALL);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +31,6 @@ if (isset($_GET['sort'])) {
 }
 $searchResults = getFilteredHouses($filters);
 ?>
- <!-- Header included -->
 
 <div class="MainContainer">
    <div class="Sidebar">

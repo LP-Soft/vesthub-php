@@ -9,9 +9,8 @@
 </head>
 <body>
 
-<?php include('../Components/header.php'); ?> <!-- Header kısmı dahil ediliyor -->
+<?php include('../Components/header.php'); ?>
 
-<!-- Ana İçerik -->
 <div class="content">
     <h2>LPSoft Project Team</h2>
     <div class="team">
@@ -43,7 +42,7 @@
     </div>
 </div>
 
-<?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->
+<?php include('../Components/footer.php'); ?>
 
 </body>
 </html>

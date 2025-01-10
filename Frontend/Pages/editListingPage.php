@@ -7,7 +7,6 @@ include('../Components/header.php');
 
 use Classes\houseInfo;
 
-
 if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("Location: loginPage.php");
 }
@@ -16,7 +15,6 @@ $roomCount = ['1+0', '1+1', '2+0', '2+1', '3+1', '3+2', '4+1', '5+1', '6+1', '7+
 $houseType = ['Apartment', 'Villa', 'Studio'];
 $keyFeatures = ['Fiber Internet', 'Air Conditioner', 'Floor Heating', 'Fireplace', 'Terrace', 'Satellite', 'Parquet', 'Steel Door', 'Furnished', 'Insulation'];
 
-// Fetch house details if editing
 $house = null;
 $houseID = 0;
 if (isset($_GET['id']) && isset($_GET['city']) && isset($_GET['district']) && isset($_GET['neighborhood']) && isset($_GET['street'])) {
@@ -37,7 +35,6 @@ if (isset($_GET['id']) && isset($_GET['city']) && isset($_GET['district']) && is
             <p style='color: #666;'>It seems the property has been removed or is no longer listed. Please check other listings or contact support if you need assistance.</p>
         </div>";
         exit();
-        //return;
     }
     else if($house['ownerID'] != $_SESSION['userID']){
         header("Location: mainPage.php");
@@ -133,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $keptFiles = $_POST['keptFiles'];
     if ($houseInfo->houseID != 0) {
-        editListing($houseInfo, $keptFiles);  // Assuming this function exists to update the listing
+        editListing($houseInfo, $keptFiles);
     }
 }
 
@@ -185,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }).then(response => {
                 if (response.ok) {
                     alert('The house info is updated!');
-                    window.location.href = 'myListingsPage.php'; //this is going to be adjusted on the server
+                    window.location.href = 'myListingsPage.php';
                 } else {
                     alert('The house info is not updated! The update process is failed!');
                 }
@@ -314,15 +311,15 @@ if(isset($_SESSION['userID'])){
                 <input type="number" id="area" name="area" placeholder="Area" value="<?= isset($house) ? $house['area'] : '' ?>" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1" required>
             </div>
 
-            <div class="input"> <!-- Open: .key-features -->
+            <div class="input"> 
                 <label for="keyFeatures" style="display: block; margin-bottom: 8px">Features</label>
                 <div class="features-grid">
                     <?php foreach ($keyFeatures as $feature) {
                         $dbKey = lcfirst(str_replace(' ', '', ucwords($feature)));?>
                         <label><input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>"<?= (isset($house[$dbKey]) && $house[$dbKey]) ? 'checked' : '' ?>><?= $feature ?></label>
                     <?php } ?>
-                </div> <!-- Close: .features-grid -->
-            </div> <!-- Close: .key-features -->
+                </div> 
+            </div> 
             <button class="createListing" type="submit" id="submitBtn">Update Listing </button>
         </div>
     </form>

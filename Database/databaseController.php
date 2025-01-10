@@ -1,9 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once "connect.php";
-// databaseController.php
 if (!defined('DB_LOADED')) {
     define('DB_LOADED', true);
 
@@ -28,7 +24,6 @@ if (!defined('DB_LOADED')) {
     }
 
     function getLastTenHousesFromDb($conn, $userID){
-        //$sql = "SELECT * FROM houses WHERE status = 'Available' AND ownerID != " .$userID. " ORDER BY houseID DESC LIMIT 10";
         $sql = "SELECT * FROM houses WHERE status = 'Available' AND status != 'Deleted' ORDER BY houseID DESC LIMIT 10";
         return $conn->query($sql);
     }
@@ -38,7 +33,6 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    //Kullanılmıyor!!!!!!!
     function getDistrictsFromDb($conn, $city){
         $sql = "SELECT DISTINCT district FROM houses WHERE city = ?";
         $stmt = $conn->prepare($sql);
@@ -71,13 +65,11 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    //Kullanılmıyor!!!!!!!
     function getHomeById($conn, $id) {
         $sql = "SELECT * FROM homes WHERE id = " . $id;
         return $conn->query($sql);
     }
 
-    //Kullanılmıyor!!!!!!!
     function getHomesByType($conn, $type) {
         $sql = "SELECT * FROM houses WHERE type = ". $type;
         return $conn->query($sql);
@@ -191,9 +183,7 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-
     function getLastHouseIDFromDb($conn) {
-        // Correct SQL query
         $sql = "SELECT MAX(houseID) AS lastHouseID FROM houses";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
@@ -201,8 +191,6 @@ if (!defined('DB_LOADED')) {
         return  $lastID;
     }
 
-
-    //Kullanılmıyor!!!!!!!
     function closeConnection($conn) {
         $conn->close();
     }
@@ -226,21 +214,18 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-    /*Mehmet*/
     function checkLoginCredentialsFromDb($conn, $email, $password)
     {
         $sql = "SELECT userID, `role`, `password` FROM users WHERE email = '" . $email . "' AND isActive = 1";
         return $conn->query($sql);
     }
 
-    /*Mehmet*/
     function checkAccountExistFromDb($conn, $email)
     {
         $sql = "SELECT userID FROM users WHERE email = '" . $email . "'";
         return $conn->query($sql);
     }
 
-    /*Mehmet*/
     function insertAccountInDb($conn, $name, $surname, $email, $phone, $password, $city, $district, $neighborhood)
     {
         $isActive = 1;
@@ -255,29 +240,22 @@ if (!defined('DB_LOADED')) {
             "'". $district ."',".
             "'". $neighborhood ."',".
             $isActive.")";
-        /*$stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssi", $name, $surname, $email, $phone, $password, $city, $district, $neighborhood, $isActive);
-        $stmt->execute();*/
         $conn->query($sql);
         return true;
     }
 
 
-    /*Mehmet*/
     function getUserInfoFromDb($conn, $userID) {
         $sql = "SELECT * FROM users WHERE userID = " . $userID;
         return $conn->query($sql);
     }
 
-    /*Ali*/
     function updateUserInfoInDb($conn, $name, $surname, $phone, $email, $city, $district, $neighborhood, $userId)
     {
         $sql = "UPDATE users SET name='".$name."', surname='".$surname."', phone='".$phone."', email='".$email."', city='".$city."', district='".$district."', neighborhood='".$neighborhood."', isActive = 1"." WHERE userID=".$userId;
-        //echo $sql;
         return $conn->query($sql);
     }
 
-    /*Ali*/
     function updatePasswordInDb($conn, $password, $userId)
     {
         $sql = "UPDATE users SET password='".$password."' WHERE userID=".$userId;
@@ -380,7 +358,6 @@ if (!defined('DB_LOADED')) {
                 }
                 $amenitiesConditions[] = $amenity.'=' . '1';
             }
-            // Join amenities conditions with "OR" if you want any of the selected amenities to match
             if (!empty($amenitiesConditions)) {
                 $whereConditions[] = "(" . implode(" AND ", $amenitiesConditions) . ")";
             }
@@ -409,7 +386,6 @@ if (!defined('DB_LOADED')) {
         // Construct the WHERE clause
         $whereSQL = !empty($whereConditions) ? "WHERE " . implode(" AND ", $whereConditions) : "";
 
-        // Complete SQL query
         $sql = "SELECT * FROM houses $whereSQL $orderBy";
         $result = $conn->query($sql);
 
@@ -433,23 +409,23 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-function markHouseAsSold($houseID) {
-    $sql = "UPDATE houses SET status = 'Sold' WHERE houseID = ?";
-    $stmt = $GLOBALS['conn']->prepare($sql);
-    $stmt->bind_param("i", $houseID);
-    return $stmt->execute();
-}
+    function markHouseAsSold($houseID) {
+        $sql = "UPDATE houses SET status = 'Sold' WHERE houseID = ?";
+        $stmt = $GLOBALS['conn']->prepare($sql);
+        $stmt->bind_param("i", $houseID);
+        return $stmt->execute();
+    }
 
-function markHouseAsRented($houseID) {
-    $sql = "UPDATE houses SET status = 'Rented' WHERE houseID = ?";
-    $stmt = $GLOBALS['conn']->prepare($sql);
-    $stmt->bind_param("i", $houseID);
-    return $stmt->execute();
-}
+    function markHouseAsRented($houseID) {
+        $sql = "UPDATE houses SET status = 'Rented' WHERE houseID = ?";
+        $stmt = $GLOBALS['conn']->prepare($sql);
+        $stmt->bind_param("i", $houseID);
+        return $stmt->execute();
+    }
 
-function getTitle($conn, $house_id){
-    $sql = "SELECT title FROM houses WHERE houseID = " . $house_id;
-    return $conn->query($sql);
-}
+    function getTitle($conn, $house_id){
+        $sql = "SELECT title FROM houses WHERE houseID = " . $house_id;
+        return $conn->query($sql);
+    }
 }
 ?>

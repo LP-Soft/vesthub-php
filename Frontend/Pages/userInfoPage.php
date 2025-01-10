@@ -45,15 +45,13 @@ if (isset($_POST['delete-account'])) {
     }
 
     updateUserInfo($name, $surname, $phone, $email, $city, $district, $neighborhood, $userId);
-    //echo "<script>alert('User information updated.');</script>";
-    //get request for refreshing the page
     echo "<script>window.location.href = './userInfoPage.php';</script>";
     echo "<script>alert('User information updated.');</script>";
 } else if (isset($_POST['new-password'])) {
-    $newPassword = $_POST['new-password']; //bu post ile alınan new password userin yeni passwordu
-    $confirmPassword = $_POST['confirm-password']; //bu post ile alınan confirm password userin yeni passwordu
+    $newPassword = $_POST['new-password'];
+    $confirmPassword = $_POST['confirm-password']; 
     $userId = $_SESSION['userID'];
-    $password = $_POST['password']; //bu post ile alınan password userin mevcut passwordu
+    $password = $_POST['password'];
     if ($password == "") {
         echo "<script>alert('Please enter your current password.');</script>";
     } else if ($newPassword == "") {
@@ -82,14 +80,6 @@ if (isset($_POST['delete-account'])) {
 </head>
 <script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 <script>
-    console.log("User Info Page");
-    <?php
-
-    echo "var userID = " . $userID . ";";
-    echo "console.log('userID = ' + userID);"; //konsola userID yi yazdırıyor
-        
-    echo "console.log('user = ' + " . json_encode($user->city) . ");";
-    ?>
     //change the fields with the user's information
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -108,9 +98,6 @@ if (isset($_POST['delete-account'])) {
         document.querySelector(".phone").value = phone;
         document.querySelector(".email").value = email;
         
-
-        console.log("DOM loaded");
-
         let citySelect = document.getElementById("city");
         let districtSelect = document.getElementById("district");
         let neighborhoodSelect = document.getElementById("neighborhood");
@@ -232,7 +219,6 @@ if (isset($_POST['delete-account'])) {
     <?php
     include '../Components/footer.php';
     ?>
-
 
 </body>
 

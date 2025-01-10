@@ -22,7 +22,6 @@ function getHouseDetails($houseID) {
 
     // Check if the house was found
     if ($result && $row = $result->fetch_assoc()) {
-        // Map SQL data to houseInfo properties
         $house = new houseInfo([
             'title' => $row['title'],
             'description' => $row['description'],
@@ -58,8 +57,6 @@ function getHouseDetails($houseID) {
         $house->steelDoor = $row['steelDoor'];
         $house->furnished = $row['furnished'];
         $house->insulation = $row['insulation'];
-
-        // Debugging: Echo house details
         
         return $house;
     } else {
@@ -102,7 +99,6 @@ if (isset($_POST['action'], $_POST['houseID'], $_POST['userID']))
         // Catch any unexpected errors
         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
-
 }
 
 function markHouseAsSoldOrRented($houseID, $isSale) {

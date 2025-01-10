@@ -49,6 +49,5 @@ if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'
 </html>
 
 <?php
-//closeConnection($conn);
 include '../Components/footer.php';
 ?>

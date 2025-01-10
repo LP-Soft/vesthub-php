@@ -39,16 +39,14 @@ if (isset($_POST['logout'])) {
 
                             <select class="search-select" name="city" id="city" onchange="updateDistricts()">
                                 <option value="">City</option>
-                                <!--Burası javascript ile dolduruluyor-->
+                                
                             </select>
                             <select class="search-select" name="district" id="district" onchange="updateNeighborhoods()">
                                 <option value="">District</option>
-                                <!--Burası javascript ile dolduruluyor-->
                             </select>
                             <select class="search-select" name="neighborhood" id="neighborhood">
                                 <label for="neighborhood">Neighborhood</label>
                                 <option value="">Neighborhood</option>
-                                <!--Burası javascript ile dolduruluyor-->
                             </select>
                         </div>
                         <button class="search-button" type="submit">Search</button>
@@ -60,7 +58,7 @@ if (isset($_POST['logout'])) {
             <p class="last-houses-text">Last 10 Added Houses</p>
             <div class="house-cards">
                 <?php
-                // Fetch all homes
+                // Fetch last 10 homes
                 $houses = getLastTenHouses();
                 // Loop through the result set and include homecard.php
                 foreach ($houses as $house) {

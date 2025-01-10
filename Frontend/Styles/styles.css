@@ -1,4 +1,3 @@
-/* Genel body stilleri */
 html, body {
     margin: 0;
     padding: 0;
@@ -9,8 +8,6 @@ html, body {
     min-height: 100vh;
 }
 
-
-/* Footer Styles */
 .footer {
     display: flex;
     justify-content: center;
@@ -33,7 +30,6 @@ html, body {
     color: #666;
 }
 
-/* Header Styles */
 .header {
     display: flex;
     justify-content: space-between;

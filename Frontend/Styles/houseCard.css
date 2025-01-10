@@ -1,83 +1,82 @@
 .home-card {
     border: 1px solid #ccc;
     border-radius: 20px;
-    min-width: 300px; /* Adjust width as needed */
+    min-width: 300px;
     min-height: 350px;
     max-width: 300px;
     max-height: 350px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s; /* For hover effect */
-    background-color: #fff; /* White background for contrast */
-    position: relative; /* Ensure proper stacking context */
-    z-index: 1; /* Ensure this is above other elements */
+    transition: transform 0.3s; 
+    background-color: #fff; 
+    position: relative; 
+    z-index: 1; 
     cursor: pointer;
     flex-direction: column;
 
 }
 
 .home-card:hover {
-    transform: scale(1.02); /* Slightly enlarge on hover */
+    transform: scale(1.02); 
 }
 
 .home-card img {
-    display: block; /* Make the image a block element */
-    margin: 6px; /* Add uniform margin */
-    width: calc(100% - 12px); /* Subtract left and right margins from total width */
-    height: 100%; /* Allow the image to take full height of the container */
-    max-height: 150px; /* Maximum height of 150px */
-    object-fit: cover; /* Ensure the image maintains its aspect ratio without stretching */
+    display: block; 
+    margin: 6px; 
+    width: calc(100% - 12px); 
+    height: 100%; 
+    max-height: 150px; 
+    object-fit: cover; 
     border-radius: 14px;
-    box-sizing: border-box; /* Make sure padding and border are included in the element's width and height */
+    box-sizing: border-box;
 }
 
 
 .home-details {
-    padding: 15px; /* Padding for text container */
-    position: relative; /* Ensure this is above background */
-    z-index: 2; /* Ensure text is above any background layers */
-    height: 100%; /* Allow the image to take full height of the container */
-    max-height: 200px; /* Maximum height of 150px */
-    object-fit: cover; /* Ensure the image maintains its aspect ratio without stretching */
-    box-sizing: border-box; /* Make sure padding and border are included in the element's width and height */
+    padding: 15px;
+    position: relative;
+    z-index: 2; 
+    height: 100%; 
+    max-height: 200px; 
+    object-fit: cover;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
 }
 
 .home-details h3 {
-    margin: 0; /* Remove default margin */
+    margin: 0; 
     font-size: 18px;
-    color: #333; /* Darker color for better visibility */
+    color: #333; 
 }
 
 .home-details h5 {
-    margin: 5px 0; /* Add some space between h5 and surrounding elements */
-    font-size: 16px; /* Optional: Adjust font size if needed */
-    color: #777; /* Lighter color for price to differentiate */
+    margin: 5px 0; 
+    font-size: 16px; 
+    color: #777; 
 }
 
 .home-details p {
     margin: 0;
     font-size: 14px;
-    color: #555; /* Dark gray color for address */
+    color: #555; 
 }
 
-/* Additional styles for contrast */
 .home-details h3,
 .home-details p {
-    text-align: left; /* Align text to the left for better readability */
+    text-align: left; 
 }
 
 .home-details p {
-    line-height: 1.5; /* Increase line height for readability */
+    line-height: 1.5; 
 }
 
 .adminButton {
     display: flex;
-    flex-direction: row-reverse; /* Butonları yatayda yayar */
-    justify-content: space-between; /* Butonlar arasına boşluk ekler */
-    gap: 10px; /* Butonlar arasına boşluk ekler */
-    margin-top: auto; /* Butonları en alta iter */
-    margin-bottom: 10px; /* Butonların altına boşluk ekler */
+    flex-direction: row-reverse; 
+    justify-content: space-between; 
+    gap: 10px; 
+    margin-top: auto; 
+    margin-bottom: 10px; 
 }
 
 .adminButton button {
@@ -87,11 +86,11 @@
     padding: 10px 20px;
     display: flex;
     justify-content: center;
-    flex: 1; /* Butonların eşit genişlikte olmasını sağlar */
+    flex: 1; 
 }
 .adminButton button:hover {
-    transition: transform 0.3s; /* For hover effect */
-    transform: scale(1.1); /* Slightly enlarge on hover */
+    transition: transform 0.3s; 
+    transform: scale(1.1); 
     cursor: pointer;
 }
 

@@ -13,32 +13,22 @@ function deleteOldImages($houseID, $keptFiles){
     $numberOfFilesInFolder = 0;
     $directory = "../../house-images/".$houseID;
 
-    // Check if the directory exists
-    //if (is_dir($directory)) {
-        //echo "delete images if içinde";
-        // Delete all files inside the directory
-        $files = array_diff(scandir($directory), array('.', '..'));  // Get all files excluding '.' and '..'
+    $files = array_diff(scandir($directory), array('.', '..'));  // Get all files excluding '.' and '..'
 
-        foreach ($files as $file) {
-            $numberOfFilesInFolder++;
+    foreach ($files as $file) {
+        $numberOfFilesInFolder++;
 
-            $filePath = "{$directory}/{$file}";
-            if (is_file($filePath)) {
-                if(!in_array($filePath, $keptFiles)){
-                    unlink($filePath);  // Delete the file
-                    $numberOfFilesInFolder--;
-                }
-
+        $filePath = "{$directory}/{$file}";
+        if (is_file($filePath)) {
+            if(!in_array($filePath, $keptFiles)){
+                unlink($filePath);  // Delete the file
+                $numberOfFilesInFolder--;
             }
+
         }
-
-        $newFiles = array_diff(scandir($directory), array('.', '..'));
-        renameFiles($directory, $newFiles);
-
-    //}
-    //else{
-      //  echo "not a directory";
-    //}
+    }
+    $newFiles = array_diff(scandir($directory), array('.', '..'));
+    renameFiles($directory, $newFiles);
     return $numberOfFilesInFolder;
 }
 
@@ -64,7 +54,7 @@ function addNewImages($houseID, $numberOfFilesInFolder){
             $file_name = $_FILES['files']['name'][$key];
             $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
 
-            // Create a file name in the format "houseID-imageNumber.file_ext" (e.g., 1-1.jpg, 1-2.png)
+            // Create a file name in the format "image_number.png"
             $new_filename = $image_number . '.' . $file_ext;
             $filepath = $upload_dir . $new_filename;  // Full path for the new file
             $targetFilePath = $upload_dir . $new_filename;
@@ -75,7 +65,6 @@ function addNewImages($houseID, $numberOfFilesInFolder){
                     $image_number++;
                 }
             }
-
         }
     }
 }

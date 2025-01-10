@@ -10,7 +10,6 @@ function getUserInfo($userID) {
 
     // Check if the house was found
     if ($result && $row = $result->fetch_assoc()) {
-        // Map SQL data to houseInfo properties
         $user = new User([
             'name' => $row['name'],
             'surname' => $row['surname'],
@@ -23,10 +22,9 @@ function getUserInfo($userID) {
             'neighborhood' => $row['neighborhood'],
         ]);
 
-
         return $user;
     } else {
-        echo "House not found or invalid house ID.";
+        echo "User not found";
     }
 }
 

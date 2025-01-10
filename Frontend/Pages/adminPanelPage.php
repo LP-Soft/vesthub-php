@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 include '../Components/houseCard.php';
 include '../../Backend/Utilities/sendMail.php';
 include '../../Backend/adminPanelService.php';
@@ -17,11 +14,7 @@ if (isset($_GET['approve'])) {
     
     // Get house details
     $ownerEmailResult = getEmailChoosenHouse($houseID);
-    $titleResult = getTitleForEmail($houseID); // Changed variable name to match function
-    
-    // Debug logging
-    error_log("Email Result: " . print_r($ownerEmailResult, true));
-    error_log("Title Result: " . print_r($titleResult, true));
+    $titleResult = getTitleForEmail($houseID); 
 
     // Check both results and fetch data
     if ($ownerEmailResult && $titleResult) {
@@ -39,13 +32,11 @@ if (isset($_GET['approve'])) {
                     "House Listing Approved", 
                     "Your house listing '$houseTitle' has been approved."
                 );
-                error_log("Email sent successfully to: " . $ownerEmail);
             } catch (Exception $e) {
                 error_log("Failed to send email: " . $e->getMessage());
             }
         }
     }
-    
     header("Location: adminPanelPage.php");
     exit();
 }
@@ -69,7 +60,7 @@ if (isset($_GET['reject'])) {
             }
         }
     }
-    header("Location: adminPanelPage.php"); // Redirect to prevent resubmission
+    header("Location: adminPanelPage.php");
     exit();
 }
 ?>
@@ -102,4 +93,4 @@ if (isset($_GET['reject'])) {
 </div>
 </body>
 
-<?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->
+<?php include('../Components/footer.php'); ?>

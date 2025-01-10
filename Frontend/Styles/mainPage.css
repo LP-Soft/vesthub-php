@@ -1,12 +1,12 @@
 .content {
-    flex: 1;  /* İçerik esnek olur ve kalan boş alanı doldurur */
+    flex: 1;
     display: flex;
     flex-direction: column;
     background-color: #e9ebea;
     padding: 20px;
 }
 .content .last-houses {
-    flex: 1; /* İçerik esnek olur ve kalan boş alanı doldurur */
+    flex: 1;
 }
 
 .content .search-area {
@@ -111,25 +111,25 @@
     font-size: 24px;
     font-weight: bold;
     height: fit-content;
-    margin: 2px; /* Boşluğu azaltmak için */
+    margin: 2px;
 }
 
 .content .search-area .search-box .welcome .welcome-slogan {
     font-size: 16px;
     height: fit-content;
-    margin: 2px; /* Boşluğu azaltmak için */
+    margin: 2px; 
 }
 
 .content .house-cards {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start; /* Kartları sola hizalar */
+    justify-content: flex-start; 
     gap: 20px;
     padding: 6px;
-    overflow-x: auto; /* Sadece house-cards için kaydırma ekler */
-    width: 100%; /* Kartlar tam genişlikte görünür */
-    max-width: 100%; /* Ekran genişliğini aşmaz */
+    overflow-x: auto;
+    width: 100%; 
+    max-width: 100%;
 }
 
 .content .last-houses-text{

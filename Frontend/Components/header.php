@@ -1,5 +1,4 @@
 <?php
-//TODO:Kullanıcının giriş yapıp yapmadığını kontrol edelim
 session_start();
 ?>
 
@@ -15,16 +14,13 @@ session_start();
 <body>
 
     <div class="header">
-        <!-- Logo -->
         <div class="logo-and-title" onclick="window.location.href='mainPage.php'">
             <img src="../Assets/vesthub_logo.png" alt="Vesthub Logo">
             <p class="title">VESTHUB</p>
         </div>
 
-        <!-- Navigation Links -->
         <div class="nav-links">
             <a href="aboutPage.php">About</a>
-            <!-- Kullanıcı giriş yapmamışsa -->
             <?php
             if (isset($_SESSION['userID']) && isset($_SESSION['role']) && $_SESSION['role'] == 'user') {
             ?>
@@ -59,5 +55,4 @@ session_start();
     </div>
 
 </body>
-
 </html>

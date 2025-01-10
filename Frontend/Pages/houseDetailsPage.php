@@ -4,10 +4,6 @@ require_once '../../Backend/houseDetailsService.php';
 require_once '../../Backend/Utilities/getUserInfo.php';
 require_once '../../Backend/favoritesService.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $houseId = $_GET['id'];
 
 $dummyImageArray = array("../../house-images/dummy.png");
@@ -47,13 +43,6 @@ if ($result && $result->num_rows > 0) {
     }
 }
 
-
-
-//echo "favorites: " . $favorites[2];
-//echo "house: " . json_encode($house->houseID);
-//echo "house images: " . json_encode($houseImages);
-//echo "dummy image array: " . json_encode($dummyImageArray);
-
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +56,6 @@ if ($result && $result->num_rows > 0) {
 <body>
 <div class="content">
     <div class="house-details-container">
-        <!-- Image Column -->
         <div class="image-column">
             <div class="main-image">
                 <img id="mainHouseImage"
@@ -78,7 +66,6 @@ if ($result && $result->num_rows > 0) {
                     <button class="nav-button-next">❯</button>
                 </div>
             </div>
-            <!-- Thumbnail Container -->
             <div class="thumbnail-container">
                 <?php
                 if ($houseImages == null) {
@@ -92,7 +79,6 @@ if ($result && $result->num_rows > 0) {
             </div>
         </div>
 
-        <!-- Middle Column - House Details -->
         <div class="details-column">
             <h1 class="house-title"><?php echo htmlspecialchars($house->title); ?></h1>
             <div class="location">
@@ -338,11 +324,10 @@ if ($result && $result->num_rows > 0) {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.text();  // Parse as plain text, not JSON
+                return response.text();
             })
             .then(data => {
                 if (data.includes('success')) {
-                    // Assuming the backend returns some success message
                     favoriteIcon.classList.toggle('active');
                 } else {
                     // Handle error
@@ -376,9 +361,8 @@ if ($result && $result->num_rows > 0) {
             })
             .then(data => {
                 if (data.success) {
-                    // Update the UI to reflect the change
                     const badge = document.querySelector('.mark-action-badge');
-                    badge.style.display = 'none';  // Hide the button after successful marking
+                    badge.style.display = 'none';
 
                     // Update the sale/rent badge
                     const forSaleBadge = document.querySelector('.for-sale-badge');
@@ -388,7 +372,7 @@ if ($result && $result->num_rows > 0) {
                         forSaleBadge.classList.add('inactive');
                     }
 
-                    // Optional: Show success message
+                    // Show success message
                     alert(`Successfully marked as ${type}`);
                     if (type === 'Deleted') {
                         window.location.href = 'myListingsPage.php';
@@ -402,7 +386,6 @@ if ($result && $result->num_rows > 0) {
                 alert('Network error. Please try again.');
             });
     }
-
 
     // Initialize with the first image
     updateImage(0);

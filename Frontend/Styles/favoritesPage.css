@@ -11,7 +11,7 @@
 }
 
 .content .favorites-text {
-    font-size: 28px;  /* Increased from 24px to 32px */
+    font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -27,7 +27,6 @@
     max-width: 100%;
 }
 
-/* Responsive grid adjustments */
 @media (max-width: 1400px) {
     .content .house-cards {
         grid-template-columns: repeat(4, 1fr);

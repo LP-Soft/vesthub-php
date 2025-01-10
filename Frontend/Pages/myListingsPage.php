@@ -2,7 +2,6 @@
 require_once '../Components/header.php';
 require_once '../../Backend/myListingsService.php';
 require_once '../Components/houseCard.php';
-//Su anlik user giris yapmadigi icin ownderID static 2 olarak belirlendi.
 
 if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("Location: loginPage.php");
@@ -23,8 +22,6 @@ if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'
         <h1 class="my-listings-text">My Listings</h1>
         <div class="house-cards">
             <?php
-            // Fetch all homes
-
             if (isset($_SESSION['userID']))
             {
                 $ownerID = $_SESSION['userID'];
@@ -50,6 +47,5 @@ if (!isset($_SESSION['userID']) || (isset($_SESSION['role']) && $_SESSION['role'
 </html>
 
 <?php
-//closeConnection($conn);
 include '../Components/footer.php';
 ?>

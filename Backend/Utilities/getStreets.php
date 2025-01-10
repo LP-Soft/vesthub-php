@@ -25,6 +25,5 @@ function getStreetsJson($neighborhood, $district, $city) {
     foreach($streets as $street){
         $streetsArray[] = $street['sokak_adi'];
     }
-    //echo "final: ".json_encode($streetsArray);
     return json_encode($streetsArray);
 }

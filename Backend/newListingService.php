@@ -5,10 +5,7 @@
 
     function createListing($houseInfo)
     {
-
-        // https://geocode.maps.co/search?q=CITY,DISTRICT,NEIGHBORHOOD,STREET&api_key=672e64f5dee6e743749773dwy569183
-        //result[0].lat ve result[0].lon çekilecek
-        if($houseInfo->ownerID != 0){ //sessionda birisi varsa 0dan farklı bir değer olacak
+        if($houseInfo->ownerID != 0){ //if someone logged in
 
             if (createHouseListingInDb($houseInfo, $GLOBALS['conn'])) {  // Call the function
                 $houseInfo -> houseID = getLastHouseIDFromDb($GLOBALS['conn']);
@@ -31,7 +28,7 @@
                             $file_name = $_FILES['files']['name'][$key];
                             $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
 
-                            // Create a file name in the format "houseID-imageNumber.file_ext" (e.g., 1-1.jpg, 1-2.png)
+                            // Create a file name in the format "image_number.png"
                             $new_filename = $image_number . '.' . $file_ext;
                             $filepath = $upload_dir . $new_filename;  // Full path for the new file
                             $targetFilePath = $upload_dir . $new_filename;
@@ -43,7 +40,6 @@
                                     $image_number++;
                                 }
                             }
-
                         }
                     }
                 }

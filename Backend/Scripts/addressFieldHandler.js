@@ -10,13 +10,9 @@ const selectedHouseType = urlParams.get('house_type');
 function setSelectedAmenities() {
     const checkboxes = document.getElementsByName('amenities[]');
     if (selectedAmenities.length > 0) {
-        console.log("Setting amenities...");
-        console.log("Found checkboxes:", checkboxes.length);
         checkboxes.forEach(checkbox => {
-            console.log("Checking", checkbox.value, "against", selectedAmenities);
             if (selectedAmenities.includes(checkbox.value)) {
-                    checkbox.checked = true;
-                    console.log("Checked", checkbox.value);
+                checkbox.checked = true;
             }
         });
     }
@@ -31,19 +27,17 @@ function setSelectedHouseType() {
         }
     }
 }
-//document.addEventListener('DOMContentLoaded', setSelectedAmenities);
 document.addEventListener('DOMContentLoaded', () => {
     setSelectedHouseType();
     setSelectedAmenities();
     updateCities();
     handleImage();  // Call it directly here for page load
-    console.log("DOM fully loaded and parsed"); 
 });
+
 if (selectedSaleRent != null) {
     document.getElementById('isSale').value = selectedSaleRent;
 }
-console.log(editListingCity, ",", editListingDistrict , ",", editListingNeighborhood , ",", editListingStreet);
-console.log(selectedAmenities);
+
 if (selectedSort) {
     document.getElementById('sort').value = selectedSort;
 }
@@ -62,14 +56,12 @@ function updateCities() {
                 
             });
 
-            //editListingPage için
             if(editListingCity!= null){
                 citySelect.value = editListingCity;  // Directly set the selected value
                 updateDistricts();
             }
         })
         .catch(error => console.error('Error fetching cities:', error));
-
 }
 
 function updateDistricts() {
@@ -98,7 +90,6 @@ function updateDistricts() {
     } else {
         districtSelect.innerHTML = '<option value="">District</option>';
     }
-    // delete all neighborhoods
     document.getElementById("neighborhood").innerHTML = '<option value="" selected hidden>Neighborhood</option>';
     document.getElementById("street").innerHTML = '<option value="" selected hidden>Street</option>';
 
@@ -168,8 +159,6 @@ function updateStreets(){
 
 function checkFields() {
     const city = document.getElementById("city").value;
-    const district = document.getElementById("district").value;
-    const neighborhood = document.getElementById("neighborhood").value;
 
     if (city === "") {
         alert("Please select city.");
@@ -226,10 +215,8 @@ function removeImage(button, file) {
         // Handle the removal of the existing file
         selectedFiles = selectedFiles.filter(f => f.url !== file);
     }
-
 }
 
-// Function to load existing files from the server when the page is loaded
 // Function to load existing files from the server when the page is loaded
 function handleImage() {
     const filePreview = document.getElementById('filePreview');
@@ -260,8 +247,7 @@ function handleImage() {
                 filePreview.appendChild(imageCard);
 
                 // Add existing file to selectedFiles array (use file URL as a reference or use another identifier)
-                selectedFiles.push({ url: fileUrl, isNew: false });  // Mark this as an existing image
-
+                selectedFiles.push({ url: fileUrl, isNew: false }); 
             });
         })
         .catch(error => console.error('Error fetching existing files:', error));

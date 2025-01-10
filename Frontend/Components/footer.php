@@ -13,13 +13,10 @@
 </script>
 
 <body>
-
-    <!-- Footer -->
     <div class="footer">
         <img src="../Assets/lpsoft_logo.png" alt="LPSOFT Logo" class="footer-logo" onclick="goToGithubPage()">
         <p class="copyright-text">2024 © Vesthub</p>
     </div>
-
 </body>
 
 </html>

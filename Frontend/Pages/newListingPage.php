@@ -122,7 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const totalFloor = document.getElementById('totalFloor').value;
             const bedroom = document.getElementById('numOfBedroom').value;
             const rooms = document.getElementById('numOfRooms').value;
-            console.log(bedroom, rooms)
 
             if (parseInt(floor) > parseInt(totalFloor)) {
                 alert('The floor cannot be bigger than the total floor');
@@ -142,16 +141,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 formData.append('files[]', file);
             });
 
-            // Submit the form data using fetch or XMLHttpRequest
+            // Submit the form data using fetch
             fetch('newListingPage.php', {
                 method: 'POST',
                 body: formData
             }).then(response => {
-                // Handle the response
                 if (response.ok) {
                     // Success
                     alert("House added successfully!");
-                    window.location.href = 'myListingsPage.php'; //this is going to be adjusted on the server
+                    window.location.href = 'myListingsPage.php';
                 } else {
                     // Error
                     alert("House addition is failed!");
@@ -171,18 +169,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ownerID = $_SESSION['userID'];
     }
 ?>
-<div class="container"> <!-- Open: .container -->
-        <form id="createListingForm" method="POST" action="newListingPage.php" class="form-section" enctype="multipart/form-data" onsubmit="submitForm(event)"> <!-- Open: form -->
+<div class="container"> 
+        <form id="createListingForm" method="POST" action="newListingPage.php" class="form-section" enctype="multipart/form-data" onsubmit="submitForm(event)"> 
             <input type="hidden" name="ownerID" value="<?= $ownerID ?>">
-            <div class="left"> <!-- Open: .left -->
-                <div class="upload-container"> <!-- Open: .upload-container -->
+            <div class="left"> 
+                <div class="upload-container"> 
                     <label for="files">Select files to upload</label><br>
                     <input type="file" accept="image/*" name="files[]" multiple onchange="previewFiles(event)"><br>
 
-                    <div id="filePreview"></div> <!-- Close: #filePreview -->
-                </div> <!-- Close: .upload-container -->
-            </div> <!-- Close: .left -->
-            <div class="middle"> <!-- Open: .middle -->
+                    <div id="filePreview"></div> 
+                </div>
+            </div> 
+            <div class="middle"> 
                 <div class="input">
                     <p> Title </p>
                     <input id="title" name="title" type="text" placeholder="Title" style="width: 505px; height: 40px; border-radius: 10px" required>
@@ -246,14 +244,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
-            </div> <!-- Close: .middle -->
+            </div> 
 
-            <div class="right"> <!-- Open: .right -->
+            <div class="right"> 
                 <?php displaySaleRentSwitch();?>
                 <div class="input">
                     <p> House Type</p>
                     <select id="houseType" name="houseType" style="width: 280px; height: 40px; border-radius: 10px">
-                        <option value="" selected hidden>House type</option>
                         <?php foreach ($houseType as $type) { ?>
                             <option value="<?= $type ?>"> <?= $type ?> </option>
                         <?php } ?>
@@ -276,20 +273,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input id="area" name="area" type="number" placeholder="Area" style="width: 280px; height: 40px; border-radius: 10px; margin-bottom: 20px" required min="1">
                 </div>
 
-                <div class="input"> <!-- Open: .key-features -->
+                <div class="input">
                  <label for="keyFeatures" style="display: block; margin-bottom: 8px">Features</label>
                     <div class="features-grid">
                         <?php foreach ($keyFeatures as $feature) { ?>
                                 <label><input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>"><?= $feature ?> </label>
                         <?php } ?>
-                    </div> <!-- Close: .features-grid -->
-                </div> <!-- Close: .key-features -->
+                    </div> 
+                </div> 
 
                 <button class="createListing" type="submit" id="submitBtn">Create Listing </button>
-            </div> <!-- Close: .right -->
-        </form> <!-- Close: form -->
-</div> <!-- Close: .container -->
+            </div> 
+        </form> 
+</div> 
 <script src="../../Backend/Scripts/addressFieldHandler.js"></script>
 </body>
 </html>
-<?php include('../Components/footer.php'); ?> <!-- Footer kısmı dahil ediliyor -->
+<?php include('../Components/footer.php'); ?> 

@@ -3,10 +3,6 @@ include '../Components/header.php';
 include '../../Backend/verificationService.php';
 include '../../Backend/Utilities/sendMail.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if (!isset($_SESSION['email'])) {
     header("Location: mainPage.php");
 }
@@ -18,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Send the verification code to the user's email
     sendEmail($_SESSION['email'], "Verification Code", "Your verification code is: $verification_code", "Please enter this code: $verification_code to verify your account.");
 
-    // Set expiration time (e.g., 30 seconds from now)
+    // Set expiration time (e.g., 180 seconds from now)
     $_SESSION['verification_code_expiration'] = time() + 180;
     $_SESSION['verification_code'] = $verification_code;
 }
@@ -54,107 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Styles/verificationPage.css">
     <title>Verification Page</title>
     <style>
-        #verification-container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
-        }
-
-        #verification-box {
-            background-color: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        #logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-        }
-
-        .countdown-timer {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        #verification-title {
-            font-size: 24px;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        #verification-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        #button-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        #sign-in-btn {
-            background-color: #b8c5a6;
-            color: #333;
-            padding: 12px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 120px;
-            transition: background-color 0.3s;
-        }
-
-        #sign-in-btn:hover {
-            background-color: #a5b191;
-        }
-
-        #resend-btn {
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100px;
-            transition: background-color 0.3s;
-        }
-
-        #resend-btn:hover {
-            background-color: #e0e0e0;
-        }
-
         #error-message {
             color: red;
             font-size: 14px;
             margin-top: 10px;
             display: <?= !empty($error_message) ? 'block' : 'none' ?>;
-        }
-
-        .input-error {
-            border-color: red;
         }
     </style>
 </head>
@@ -174,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form id="verification-form" action="verificationPage.php" method="POST">
                 <input type="text" class="input-field" name="verification-code" placeholder="Verification Code">
 
-                <!-- Button container for Sign in and Resend Code -->
                 <div id="button-container">
                     <button type="submit" id="sign-in-btn">Sign in</button>
                     <button type="submit" id="resend-btn" formmethod="GET" disabled>Resend Code</button>

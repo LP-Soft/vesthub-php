@@ -95,12 +95,5 @@ class houseInfo {
                 }
             }
         }
-
-        /*
-        if (isset($_SESSION['userID']))
-        {
-            $this->ownerID = $_SESSION['userID'];
-        }
-        */
     }
 }

@@ -1,13 +1,11 @@
 <?php
 include '../../Database/databaseController.php';
 function displayHouseCard($house, $service) {
-    // Create full address by concatenating fields
     $fullAddress = htmlspecialchars($house['street']) . ', ' .
         htmlspecialchars($house['neighborhood']) . ', ' .
         htmlspecialchars($house['district']) . ' / ' .
         htmlspecialchars($house['city']);
 
-    // Output the HTML for the house card directly
     ?>
     <div class="home-card" onclick="window.location.href='houseDetailsPage.php?id=<?php echo $house['houseID']; ?>'">
         <link rel="stylesheet" href="../Styles/houseCard.css">
@@ -42,7 +40,7 @@ function displayHouseCard($house, $service) {
         <div class="home-details">
             <h3><?php echo htmlspecialchars($house['title']); ?></h3>
             <h5><?php echo htmlspecialchars($house['price']); ?> ₺ </h5>
-            <?php if($service == 0) { ?> <!-- user servisinden geliyorsa -->
+            <?php if($service == 0) { ?> 
                 <p><?php echo $fullAddress; ?></p>
             <?php } elseif ($service == 1) { ?>
                 <div class="adminButton">
