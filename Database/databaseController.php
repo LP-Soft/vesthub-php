@@ -428,24 +428,23 @@ if (!defined('DB_LOADED')) {
         return $conn->query($sql);
     }
 
-<<<<<<< Updated upstream
-    function markHouseAsSold($houseID) {
-        $sql = "UPDATE houses SET status = 'Sold' WHERE houseID = ?";
-        $stmt = $GLOBALS['conn']->prepare($sql);
-        $stmt->bind_param("i", $houseID);
-        return $stmt->execute();
-    }
+function markHouseAsSold($houseID) {
+    $sql = "UPDATE houses SET status = 'Sold' WHERE houseID = ?";
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->bind_param("i", $houseID);
+    return $stmt->execute();
+}
 
-    function markHouseAsRented($houseID) {
-        $sql = "UPDATE houses SET status = 'Rented' WHERE houseID = ?";
-        $stmt = $GLOBALS['conn']->prepare($sql);
-        $stmt->bind_param("i", $houseID);
-        return $stmt->execute();
-=======
-    function getTitle($conn, $house_id){
-        $sql = "SELECT title FROM houses WHERE houseID = " . $house_id;
-        return $conn->query($sql);
->>>>>>> Stashed changes
-    }
+function markHouseAsRented($houseID) {
+    $sql = "UPDATE houses SET status = 'Rented' WHERE houseID = ?";
+    $stmt = $GLOBALS['conn']->prepare($sql);
+    $stmt->bind_param("i", $houseID);
+    return $stmt->execute();
+}
+
+function getTitle($conn, $house_id){
+    $sql = "SELECT title FROM houses WHERE houseID = " . $house_id;
+    return $conn->query($sql);
+}
 }
 ?>
