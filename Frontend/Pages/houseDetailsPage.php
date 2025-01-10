@@ -193,7 +193,7 @@ if ($result && $result->num_rows > 0) {
                     <?php endif; ?>
 
                     <!-- Favorite Icon: Only visible if the user is logged in and is not the owner -->
-                    <?php if ($userLogged != -1 && $house->ownerID != $userLogged): ?>
+                    <?php if ($userLogged != -1 && $house->ownerID != $userLogged && $_SESSION['role'] == 'user'): ?>
                         <div class="favorite-icon">
                             <!-- If the house is in favorites, add the 'active' class -->
                             <span
