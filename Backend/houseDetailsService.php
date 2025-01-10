@@ -60,9 +60,10 @@ function getHouseDetails($houseID) {
         $house->insulation = $row['insulation'];
 
         // Debugging: Echo house details
+        
         return $house;
     } else {
-        echo "House not found or invalid house ID.";
+        return null;
     }
 }
 
@@ -112,15 +113,30 @@ function markHouseAsSoldOrRented($houseID, $isSale) {
     }
 }
 
+function deleteHouse($houseID) {
+    return deleteHouseFromDb($GLOBALS['conn'], $houseID);
+}
+
 // Add this to the existing POST handler section
 if (isset($_POST['action'], $_POST['houseID'], $_POST['isSale'])) {
     $action = $_POST['action'];
     $houseID = $_POST['houseID'];
     $isSale = $_POST['isSale'];
+    $type =$_POST['type'];
 
     // Handle mark as sold/rented
     if ($action === 'markInactive') {
         try {
+            if ($type === 'Deleted')
+            {
+                $result = deleteHouse($houseID);
+                if ($result) {
+                    echo json_encode(['success' => true]);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Failed to delete house']);
+                }
+                return;
+            }
             $result = markHouseAsSoldOrRented($houseID, $isSale);
             if ($result) {
                 echo json_encode(['success' => true]);

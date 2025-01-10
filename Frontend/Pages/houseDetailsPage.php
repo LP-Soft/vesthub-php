@@ -28,6 +28,14 @@ function getHouseImages($houseId)
 $houseImages = getHouseImages($houseId);
 
 $house = getHouseDetails($houseId);
+if ($house === null || $house->status === 'Deleted') {
+    echo "
+    <div style='text-align: center; margin-top: 20%; font-family: Arial, sans-serif;'>
+        <h1 style='color: #ff4d4d;'>Oops! The house you are looking for is no longer available.</h1>
+        <p style='color: #666;'>It seems the property has been removed or is no longer listed. Please check other listings or contact support if you need assistance.</p>
+    </div>";
+    exit();
+}
 $owner = getUserInfo($house->ownerID);
 
 $result = getFavoriteHousesByOwner($userLogged);
@@ -38,6 +46,8 @@ if ($result && $result->num_rows > 0) {
         $favorites[] = $favHouse['houseID'];
     }
 }
+
+
 
 //echo "favorites: " . $favorites[2];
 //echo "house: " . json_encode($house->houseID);
@@ -192,6 +202,8 @@ if ($result && $result->num_rows > 0) {
                                 class="favorite-icon <?php echo in_array($house->houseID, $favorites) ? 'active' : ''; ?>"
                             ></span>
                         </div>
+
+                        
                     <?php endif; ?>
 
                     <!-- Edit Button: Visible only if the user is logged in and is the owner -->
@@ -202,6 +214,15 @@ if ($result && $result->num_rows > 0) {
                             </a>
                         <?php endif; ?>
                     </div>
+                    <?php if ($userLogged != -1 && $house->ownerID == $userLogged): ?>
+                        <div class="delete-icon">
+                            <span
+                                id="deleteIcon"
+                                onclick="markAsAction('Deleted', <?php echo $house->houseID; ?>, <?php echo $house->isSale; ?>)"
+                                class="delete-icon <?php echo in_array($house->houseID, $favorites) ? 'active' : ''; ?>"
+                            ></span>
+                        </div>
+                    <?php endif; ?>
 
                     <!-- For Sale / For Rent / Sold / Rented Badge -->
                     <div class="isSale">
@@ -345,7 +366,7 @@ if ($result && $result->num_rows > 0) {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: `action=markInactive&houseID=${houseID} &isSale=${isSale}`
+            body: `action=markInactive&houseID=${houseID} &isSale=${isSale} &type=${type}`
         })
             .then(response => {
                 if (!response.ok) {
@@ -362,7 +383,7 @@ if ($result && $result->num_rows > 0) {
                     // Update the sale/rent badge
                     const forSaleBadge = document.querySelector('.for-sale-badge');
                     if (forSaleBadge) {
-                        forSaleBadge.textContent = type === 'sold' ? 'Sold' : 'Rented';
+                        forSaleBadge.textContent = type === 'sold' ? 'Sold' : type === 'rent' ? 'Rented' : 'Deleted';
                         forSaleBadge.classList.remove('sale', 'rent');
                         forSaleBadge.classList.add('inactive');
                     }

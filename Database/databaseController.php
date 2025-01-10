@@ -29,7 +29,7 @@ if (!defined('DB_LOADED')) {
 
     function getLastTenHousesFromDb($conn, $userID){
         //$sql = "SELECT * FROM houses WHERE status = 'Available' AND ownerID != " .$userID. " ORDER BY houseID DESC LIMIT 10";
-        $sql = "SELECT * FROM houses WHERE status = 'Available' ORDER BY houseID DESC LIMIT 10";
+        $sql = "SELECT * FROM houses WHERE status = 'Available' AND status != 'Deleted' ORDER BY houseID DESC LIMIT 10";
         return $conn->query($sql);
     }
 
@@ -186,6 +186,11 @@ if (!defined('DB_LOADED')) {
         }
     }
 
+    function deleteHouseFromDb($conn, $houseID) {
+        $sql = "UPDATE houses SET status = 'Deleted' WHERE houseID = " . $houseID;
+        return $conn->query($sql);
+    }
+
 
     function getLastHouseIDFromDb($conn) {
         // Correct SQL query
@@ -203,7 +208,7 @@ if (!defined('DB_LOADED')) {
     }
 
     function getHousesByOwnerFromDb($conn, $ownerID){
-        $sql = "SELECT * FROM houses WHERE ownerID = " . $ownerID;
+        $sql = "SELECT * FROM houses WHERE ownerID = " . $ownerID. " AND status != 'Deleted'";
         return $conn->query($sql);
     }
 
@@ -211,7 +216,7 @@ if (!defined('DB_LOADED')) {
     {
         $sql = "SELECT h.* FROM houses h 
             INNER JOIN favorites f ON h.houseID = f.houseID 
-            WHERE f.userID = " . $userID;
+            WHERE f.userID = " . $userID. " AND h.status != 'Deleted'";
         return $conn->query($sql);
     }
 
@@ -300,7 +305,7 @@ if (!defined('DB_LOADED')) {
 
     function getFavoritedHousesFromDb($conn, $userID)
     {
-        $sql = "SELECT * FROM favorites WHERE userID = " . $userID;
+        $sql = "SELECT * FROM favorites WHERE userID = " . $userID. " AND status != 'Deleted'";
         return $conn->query($sql);
     }
 

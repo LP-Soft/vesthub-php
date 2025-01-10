@@ -497,6 +497,29 @@ body {
     transform: scale(0.95); /* Slightly shrink on click for feedback */
 }
 
+
+.delete-icon {
+    display: inline-flex; /* Align similar to edit-icon */
+    align-items: center; /* Center content vertically */
+    width: 36px; /* Match size with edit-icon */
+    height: 36px; /* Match size with edit-icon */
+    border-radius: 50%; /* Circle shape */
+    background-color: transparent; /* Initially transparent */
+    background-image: url('../Assets/bin.png'); /* Default icon */
+    background-size: 100%; /* Icon size inside the circle */
+    background-repeat: no-repeat; /* Prevent repeating */
+    background-position: center; /* Center the icon */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+}
+
+.delete-icon:hover {
+    background-color: #888888; /* Same hover background as edit-icon */
+    transform: scale(1.1); /* Slight enlargement on hover */
+}
+
+
 /* General Styling for Mark as Sold / Mark as Rent Badge */
 .mark-action {
     border-radius: 20px;
