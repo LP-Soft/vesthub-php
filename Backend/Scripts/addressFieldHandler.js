@@ -24,15 +24,13 @@ function setSelectedAmenities() {
 function setSelectedHouseType() {
     const selectedHouse = document.getElementById('house_type');
     if (selectedHouse) {
-        if(selectedHouseType = ""){
-            selectedHouseType = "";
-        }
-        else{
+        if (!selectedHouseType || selectedHouseType === '') {
+            selectedHouse.value = "";
+        } else {
             selectedHouse.value = selectedHouseType;
         }
-        
     }
-} 
+}
 //document.addEventListener('DOMContentLoaded', setSelectedAmenities);
 document.addEventListener('DOMContentLoaded', () => {
     setSelectedHouseType();
