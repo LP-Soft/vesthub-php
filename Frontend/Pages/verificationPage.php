@@ -171,63 +171,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div id="error-message"><?= $error_message ?></div>
             <?php endif; ?>
             
-            <form id="verification-form" action="verificationPage.php" method="POST" onsubmit="return validateForm()">
+            <form id="verification-form" action="verificationPage.php" method="POST">
                 <input type="text" class="input-field" name="verification-code" placeholder="Verification Code">
 
                 <!-- Button container for Sign in and Resend Code -->
                 <div id="button-container">
                     <button type="submit" id="sign-in-btn">Sign in</button>
-                    <button type="submit" id="resend-btn" formmethod="GET">Resend Code</button>
+                    <button type="submit" id="resend-btn" formmethod="GET" disabled>Resend Code</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        
-        const countdownTimer = document.getElementById('countdown-timer');
-        let countdownSeconds = <?= $remaining_time ?>;
-        
-        function startTimer(duration) {
-            let timer = duration;
-            const display = document.getElementById('countdown-timer');
-            
-            const countdown = setInterval(() => {
-                const minutes = Math.floor(timer / 60);
-                const seconds = timer % 60;
+        const countdownElement = document.getElementById('countdown-timer');
+        let remainingTime = <?= $remaining_time ?>;
 
-                // Format time as MM:SS
-                const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                display.textContent = `Code expires in ${timeString}`;
-
-                if (--timer < 0) {
-                    clearInterval(countdown);
-                    display.textContent = 'Code expired';
-                }
-            }, 1000);
-        }
-
-        // Start 3-minute countdown when page loads
-        window.onload = () => {
-            startTimer(180); // 3 minutes in seconds
-        };
-        function updateCountdown() {
-            if (countdownSeconds > 0) {
-                countdownSeconds--;
-                countdownTimer.textContent = `Code expires in 00:${countdownSeconds.toString().padStart(2, '0')}`;
+        const updateTimer = () => {
+            if (remainingTime > 0) {
+                const minutes = Math.floor(remainingTime / 60);
+                const seconds = remainingTime % 60;
+                countdownElement.textContent = `Code expires in: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                remainingTime--;
             } else {
-                countdownTimer.textContent = "Code expired. Please click 'Resend Code'";
-                clearInterval(intervalId);
+                countdownElement.textContent = "Code expired.";
+                clearInterval(timerInterval);
             }
-        }
+        };
 
-        // Start the countdown if there's remaining time
-        if (countdownSeconds > 0) {
-            const intervalId = setInterval(updateCountdown, 1000);
-        } else {
-            countdownTimer.textContent = "Code expired. Please click 'Resend Code'";
-        }
-    </script>
+        const timerInterval = setInterval(updateTimer, 1000);
+
+        let cooldownTime = 30; // Cooldown time in seconds
+        const resendButton = document.getElementById('resend-btn');
+
+        const resendTimer = setInterval(() => {
+            if (cooldownTime > 0) {
+                resendButton.textContent = `Resend Code (${cooldownTime--})`;
+            } else {
+                resendButton.textContent = 'Resend Code';
+                resendButton.disabled = false;
+                clearInterval(resendTimer);
+            }
+        }, 1000);
+</script>
 
 <?php
 include '../Components/footer.php';
