@@ -308,8 +308,9 @@ if(isset($_SESSION['userID'])){
             <div class="input"> <!-- Open: .key-features -->
                 <label for="keyFeatures" style="display: block; margin-bottom: 8px">Features</label>
                 <div class="features-grid">
-                    <?php foreach ($keyFeatures as $feature) { ?>
-                        <label><input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>"><?= $feature ?> </label>
+                    <?php foreach ($keyFeatures as $feature) {
+                        $dbKey = lcfirst(str_replace(' ', '', ucwords($feature)));?>
+                        <label><input type="checkbox" name="keyFeatures[]" id="<?= $feature ?>" value="<?= $feature ?>"<?= (isset($house[$dbKey]) && $house[$dbKey]) ? 'checked' : '' ?>><?= $feature ?></label>
                     <?php } ?>
                 </div> <!-- Close: .features-grid -->
             </div> <!-- Close: .key-features -->
