@@ -168,7 +168,7 @@ if (isset($_POST['delete-account'])) {
                     <div class="input-rows">
                         <div>
                             <p>Phone</p>
-                            <input type="tel" maxlength="10" minlength="10" class="phone input-field" placeholder="Phone" name="phone" required>
+                            <input type="tel" maxlength="10" minlength="10" class="phone input-field" placeholder="Phone" name="phone" required oninput="this.value=this.value.replace(/[^0-9]/g,'');" pattern="[0-9]{10}">
                         </div>
                         <div>
                             <p>E-mail</p>

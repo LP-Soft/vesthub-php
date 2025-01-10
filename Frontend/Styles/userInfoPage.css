@@ -52,10 +52,10 @@ p{
 }
 
 .content .user-info .user-info-body .user-update-inputs .input-rows > div {
-    width: 50%; /* Each div takes equal space */
+    width: 50%; 
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Space between label and input */
+    gap: 5px; 
 }
 
 .content .user-info .user-info-body .user-update-inputs .input-rows{
