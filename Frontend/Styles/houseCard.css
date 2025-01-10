@@ -12,6 +12,7 @@
     z-index: 1; /* Ensure this is above other elements */
     cursor: pointer;
     flex-direction: column;
+
 }
 
 .home-card:hover {
@@ -38,6 +39,8 @@
     max-height: 200px; /* Maximum height of 150px */
     object-fit: cover; /* Ensure the image maintains its aspect ratio without stretching */
     box-sizing: border-box; /* Make sure padding and border are included in the element's width and height */
+    display: flex;
+    flex-direction: column;
 }
 
 .home-details h3 {
@@ -68,14 +71,28 @@
     line-height: 1.5; /* Increase line height for readability */
 }
 
-.adminButton{
+.adminButton {
+    display: flex;
+    flex-direction: row-reverse; /* Butonları yatayda yayar */
+    justify-content: space-between; /* Butonlar arasına boşluk ekler */
+    gap: 10px; /* Butonlar arasına boşluk ekler */
+    margin-top: auto; /* Butonları en alta iter */
+    margin-bottom: 10px; /* Butonların altına boşluk ekler */
+}
+
+.adminButton button {
     color: white;
     border: none;
     border-radius: 20px;
     padding: 10px 20px;
-    margin-right: 20px;
-    margin-top: 50px;
-    align-self: center; /* Align the button to the center */
+    display: flex;
+    justify-content: center;
+    flex: 1; /* Butonların eşit genişlikte olmasını sağlar */
+}
+.adminButton button:hover {
+    transition: transform 0.3s; /* For hover effect */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    cursor: pointer;
 }
 
 .home-type-label {
