@@ -61,15 +61,13 @@ $searchResults = getFilteredHouses($filters);
             <option value="">Sort</option>
             <option value="price_asc">Price - Low to High</option>
             <option value="price_desc">Price - High to Low</option>
-            <option value="size_asc">Size - Small to Large</option>
-            <option value="size_desc">Size - Large to Small</option>
          </select>
          <label for="house_type">House Type:</label>
          <select name="house_type" id="house_type">
             <option value="">Select Type</option>
             <option value="apartment">Apartment</option>
             <option value="villa">Villa</option>
-            <option value="detached">Detached House</option>
+            <option value="studio">Studio</option>
          </select>
          <label for="amenities">Amenities:</label>
          <div class="Amenities">
