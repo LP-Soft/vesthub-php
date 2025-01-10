@@ -390,6 +390,9 @@ if ($result && $result->num_rows > 0) {
 
                     // Optional: Show success message
                     alert(`Successfully marked as ${type}`);
+                    if (type === 'Deleted') {
+                        window.location.href = 'myListingsPage.php';
+                    }
                 } else {
                     alert(data.message || 'Failed to update status');
                 }

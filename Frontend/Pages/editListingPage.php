@@ -27,8 +27,17 @@ if (isset($_GET['id']) && isset($_GET['city']) && isset($_GET['district']) && is
     $street = $_GET['street'];
     // Fetch house info from database using the house ID
     $house = getHouseInfoByIDFromDb($GLOBALS['conn'],$houseID, $city, $district, $neighborhood, $street); // Assuming this function exists to fetch the house info
+    if ($house === null) {
+        
+    }
     if($house == null){
-        return;
+        echo "
+        <div style='text-align: center; margin-top: 20%; font-family: Arial, sans-serif;'>
+            <h1 style='color: #ff4d4d;'>Oops! The house you are looking for is no longer available.</h1>
+            <p style='color: #666;'>It seems the property has been removed or is no longer listed. Please check other listings or contact support if you need assistance.</p>
+        </div>";
+        exit();
+        //return;
     }
     else if($house['ownerID'] != $_SESSION['userID']){
         header("Location: mainPage.php");

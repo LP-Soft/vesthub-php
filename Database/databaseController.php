@@ -291,7 +291,7 @@ if (!defined('DB_LOADED')) {
     }
 
     function getHouseInfoByIDFromDb($conn, $houseID, $city, $district, $neighborhood, $street){
-        $sql = "SELECT * FROM houses WHERE houseID = " . $houseID. " AND city = '" . $city ."' AND district = '" . $district ."' AND neighborhood = '" . $neighborhood ."' AND street = '" . $street ."'";
+        $sql = "SELECT * FROM houses WHERE houseID = " . $houseID. " AND city = '" . $city ."' AND district = '" . $district ."' AND neighborhood = '" . $neighborhood ."' AND street = '" . $street ."' AND status != 'Deleted'";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
         return $row;
