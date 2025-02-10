@@ -1,8 +1,10 @@
 # Vesthub - E-Estate Agency Website
 
-Vesthub is a comprehensive real estate listing platform that connects property owners/agents with potential buyers and renters. Built with PHP and MySQL, it provides an intuitive interface for property listing, searching, and management.
+<p align="center">
+<img src="https://github.com/user-attachments/assets/251c95d0-0ada-4e00-a809-a0bae540a566" alt="Wallet" width="200" height="200">
+</p>
 
-<img src="https://github.com/user-attachments/assets/66023693-6fcc-480a-8b17-e97935c7aca7" alt="Wallet">
+Vesthub is a comprehensive real estate listing platform that connects property owners/agents with potential buyers and renters. Built with PHP and MySQL, it provides an intuitive interface for property listing, searching, and management.
 
 ## Detailed User Roles and Capabilities
 
@@ -14,11 +16,11 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * Two-factor authentication for enhanced security
 * Password reset functionality
 
-<img src="https://github.com/user-attachments/assets/aac6888a-8d1b-4b2d-a97c-aa902de87de7" alt="Wallet">
-
 <img src="https://github.com/user-attachments/assets/f377691a-280a-48ed-abd4-361795f14e8d" alt="Wallet">
 
 <img src="https://github.com/user-attachments/assets/48bf9865-27e3-4e8d-85e6-d98157d92146" alt="Wallet">
+
+<img src="https://github.com/user-attachments/assets/aac6888a-8d1b-4b2d-a97c-aa902de87de7" alt="Wallet">
 
 #### Property Search Features
 * Advanced filtering system by:
@@ -30,6 +32,8 @@ Vesthub is a comprehensive real estate listing platform that connects property o
   * Specific amenities
 * Sort results by price (ascending/descending)
 * View property locations on interactive maps
+
+<img src="https://github.com/user-attachments/assets/db28c018-9292-4ee9-8060-32cad7311465" alt="Wallet">
 
 <img src="https://github.com/user-attachments/assets/afb20a4c-6ee4-44d0-9018-7251743573eb" alt="Wallet">
 
@@ -94,6 +98,10 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 
 <img src="https://github.com/user-attachments/assets/38ffe851-61e9-473d-863e-d07426c07e06" alt="Wallet">
 
+## Project Demo Video
+
+<a href="https://drive.google.com/file/d/1TpWZK6NAbH_qz8BNtGnzFrFeu14WZTn0/view?usp=drive_link" target="_blank">Click Here to Reach the Project Demo Video</a>
+
 ## Technical Features and Properties
 
 ### Security Implementation
@@ -143,12 +151,6 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * JavaScript enabled
 * Cookies enabled
 * Minimum screen resolution: **1024x768**
-
-<video controls width="600">
-  <source src="https://github.com/your-repo/releases/download/version/vesthub.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 
 ## Notes:
 ### To Run The Project on Phpstorm:
