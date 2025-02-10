@@ -2,6 +2,8 @@
 
 Vesthub is a comprehensive real estate listing platform that connects property owners/agents with potential buyers and renters. Built with PHP and MySQL, it provides an intuitive interface for property listing, searching, and management.
 
+<img src="https://github.com/user-attachments/assets/66023693-6fcc-480a-8b17-e97935c7aca7" alt="Wallet">
+
 ## Detailed User Roles and Capabilities
 
 ### Regular Users (Property Seekers)
@@ -11,6 +13,12 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * Update contact information and preferences
 * Two-factor authentication for enhanced security
 * Password reset functionality
+
+<img src="https://github.com/user-attachments/assets/aac6888a-8d1b-4b2d-a97c-aa902de87de7" alt="Wallet">
+
+<img src="https://github.com/user-attachments/assets/f377691a-280a-48ed-abd4-361795f14e8d" alt="Wallet">
+
+<img src="https://github.com/user-attachments/assets/48bf9865-27e3-4e8d-85e6-d98157d92146" alt="Wallet">
 
 #### Property Search Features
 * Advanced filtering system by:
@@ -23,6 +31,8 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * Sort results by price (ascending/descending)
 * View property locations on interactive maps
 
+<img src="https://github.com/user-attachments/assets/afb20a4c-6ee4-44d0-9018-7251743573eb" alt="Wallet">
+
 #### Property Interaction
 * Save favorite properties for later viewing
 * Access detailed property information including:
@@ -33,6 +43,11 @@ Vesthub is a comprehensive real estate listing platform that connects property o
   * Contact information for owners/agents
 * View property status (Available, Sold, Rented)
 * Direct contact with property owners/agents via provided contact information
+
+<img src="https://github.com/user-attachments/assets/059d7aac-7bc0-4e2a-b370-b6d6b9edf6bd" alt="Wallet">
+
+<img src="https://github.com/user-attachments/assets/a577d523-d445-4263-9c30-04e3e7892ceb" alt="Wallet">
+
 
 ## Property Owners/Agents
 
@@ -49,6 +64,13 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * Remove listings when necessary
 * Track listing status (Pending, Approved, Rejected)
 
+<img src="https://github.com/user-attachments/assets/9e224455-0be6-49d9-85eb-b7f421368be8" alt="Wallet">
+
+<img src="https://github.com/user-attachments/assets/74a2d020-c8cb-48c8-ad6e-2ad814ceaaf8" alt="Wallet">
+
+<img src="https://github.com/user-attachments/assets/97beeb26-d96e-4758-bd40-c5b2f0f699b5" alt="Wallet">
+
+
 ### Account Features
 * Professional profile management
 * Contact information visibility control
@@ -61,22 +83,16 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 ## Administrators
 
 ### Content Management
-* Review and approve new property listings
+* Review, approve or reject new property listings
 * Monitor content quality and accuracy
 * Remove inappropriate content
 * Manage featured listings
 
-### User Management
-* Review user accounts
-* Handle user reports and complaints
-* Moderate user activities
-* Manage user access levels
+<img src="https://github.com/user-attachments/assets/9b2ec086-2ce5-4941-a049-7fd384ae64ca" alt="Wallet">
 
-### System Oversight
-* Monitor system performance
-* Track user activities
-* Generate usage reports
-* Maintain system integrity
+## Project Contributors
+
+<img src="https://github.com/user-attachments/assets/38ffe851-61e9-473d-863e-d07426c07e06" alt="Wallet">
 
 ## Technical Features and Properties
 
@@ -86,11 +102,9 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * Secure password hashing using modern algorithms
 * Two-factor authentication via email
 * Session management and timeout
-* CSRF protection
 
 #### Data Protection
 * Input validation and sanitization
-* XSS prevention
 * SQL injection protection
 * Encrypted data storage
 
@@ -101,14 +115,6 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * Indexed fields for faster searches
 * Proper foreign key relationships
 * Structured data organization
-
-## Performance Features
-
-### Optimization Techniques
-* Caching system for frequent queries
-* Optimized image storage and delivery
-* Efficient search algorithms
-* Pagination for large result sets
 
 ## Integration Features
 
@@ -138,9 +144,14 @@ Vesthub is a comprehensive real estate listing platform that connects property o
 * Cookies enabled
 * Minimum screen resolution: **1024x768**
 
+<video controls width="600">
+  <source src="https://github.com/your-repo/releases/download/version/vesthub.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
-# vesthub-php
-### To run the project on phpstorm:
+
+## Notes:
+### To Run The Project on Phpstorm:
 * Be ensure that you have downloaded PHP and add it as CLI interpreter
 * Follow the steps to download PHP: https://www.geeksforgeeks.org/how-to-install-php-in-windows-10/
 * Click Edit Configurations at the right-top 
